@@ -1,0 +1,52 @@
+.featuredBrand
+{
+    background-color: var(--white-color);
+    display: flex;
+    justify-content: center;
+}
+
+.featuredBrandContainer
+{
+    width: 100%;
+    max-width: calc(100vw - 120px);
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+}
+
+.featuredBrandTitle
+{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.featuredBrandTitle span
+{
+    text-transform: uppercase;
+    font-weight: 200;
+    font-size: 12px;
+}
+
+.featuredBrandTitle h3
+{
+    font-size: 32px;
+    font-weight: 900;
+    color: var(--theme-color2);
+}
+
+.featuredBrandBody
+{
+    margin-top: 30px;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.featuredBrandItems
+{
+    display: flex;
+    flex-direction: row;
+    gap: 20px;
+}

@@ -1,0 +1,130 @@
+.header
+{
+    background-color: var(--theme-color1);
+    display: flex;
+    justify-content: center;
+}
+
+.headerContainer
+{
+    width: 100%;
+    margin-top: 0;
+    padding-top: 0;
+    min-width: calc(100vw - 120px);
+    max-width: calc(100vw - 120px);
+    position: relative;
+}
+
+.headerContainer.p-b-full
+{
+    height: calc(100vh - 70px);
+}
+
+.headerContainer.p-b-50
+{
+    padding-bottom: 50px;
+}
+
+.headerSearch
+{
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    margin: auto 0;
+    width: 450px;
+}
+
+.headerSearch .headerSearchContainer
+{
+    border-radius: 10px;
+    background-color: var(--white-color);
+    padding: 40px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.headerSearch .headerSearchContainer .headerTitle
+{
+    color: var(--black-color2);
+    text-transform: uppercase;
+}
+
+.headerSearchContainer .headerDesc
+{
+    color: var(--black-color3);
+    font-size: 13px;
+    font-weight: 300;
+    letter-spacing: normal;
+}
+
+.headerSearchContainer .headerPickUpLocation,
+.headerSearchContainer .headerCarBrand,
+.headerSearchContainer .headerPickUpDate,
+.headerSearchContainer .headerDropDate
+{
+    position: relative;
+}
+
+.headerPickUpLocation i,
+.headerCarBrand i,
+.headerPickUpDate i,
+.headerDropDate i
+{
+    position: absolute;
+    left: 10px;
+    top: 15px;
+    height: 30px;
+    width: 30px;
+}
+
+.headerPickUpLocation input,
+.headerPickUpDate input,
+.headerDropDate input,
+.headerCarBrand select
+{
+    border: none;
+    box-shadow: none;
+    padding: 15px;
+    background-color: var(--lighter-color);
+    padding-left: 30px;
+    width: 100%;
+    font-weight: 400;
+    font-size: 16px;
+}
+
+.headerPickUpLocation input:focus,
+.headerCarBrand select:focus,
+.headerPickUpDate input:focus,
+.headerDropDate input:focus
+{
+    border: none;
+    outline: none;
+    box-shadow: none;
+}
+
+.headerDates
+{
+    display: flex;
+    align-items: center;
+    justify-content: space-evenly;
+    gap: 10px;
+}
+
+.headerButton
+{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: var(--theme-color);
+    color: var(--white-color);
+    cursor: pointer;
+    padding: 10px;
+}
+
+.headerButton span
+{
+    font-size: 16px;
+    font-weight: 500;
+}
+

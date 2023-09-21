@@ -1,9 +1,9 @@
-import Customer from "../models/Customer";
+import Customer from "../models/Customer.js";
 
 export const updateCustomer = async (req, res, next) => {
     try {
         const updatedCustomer = await Customer.findByIdAndUpdate(req.params.id, { $set: req.body }, {new:true});
-        res.status(200).json(updateCustomer)
+        res.status(200).json(updatedCustomer)
     } catch (err) {
         next(err)
     }

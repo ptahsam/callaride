@@ -1,14 +1,14 @@
 import express from "express"
 import { 
-    updateCustomer,
-    deleteCustomer,
-    getCustomer,
-    getCustomers
-} from "../controllers/customers.js";
-import { 
     verifyAdmin, 
     verifyUser
  } from "../utils/verifyToken.js";
+import { 
+    deleteVendor, 
+    getVendor, 
+    getVendors, 
+    updateVendor 
+} from "../controllers/vendor.js";
 
 const router = express.Router();
 
@@ -25,15 +25,15 @@ const router = express.Router();
 // })
 
 //UPDATE
-router.put("/:id", /*verifyUser,*/ updateCustomer);
+router.put("/:id", /*verifyUser,*/ updateVendor);
 
 //DELETE
-router.delete("/:id", /*verifyUser,*/ deleteCustomer);
+router.delete("/:id", /*verifyUser,*/ deleteVendor);
 
 //GET
-router.get("/:id", /*verifyUser,*/ getCustomer);
+router.get("/:id", /*verifyUser,*/ getVendor);
 
 //GET ALL
-router.get("/", /*verifyAdmin,*/ getCustomers);
+router.get("/", /*verifyAdmin,*/ getVendors);
 
 export default router;

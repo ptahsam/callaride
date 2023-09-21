@@ -1,5 +1,5 @@
 import mongoose from "mongoose";
-const CustomerSchema = new mongoose.Schema(
+const VendorSchema = new mongoose.Schema(
     {
         firstname: {
             type: String,
@@ -39,16 +39,16 @@ const CustomerSchema = new mongoose.Schema(
         photo: {
             type: String,
         },
-        driving_details: [
+        listing_requirements: [
             {
-                insurance_no: {
+                id_copy: {
                     type: String,
                 },
-                license_no: {
+                kra_pin: {
                     type: String,
                 },
-                age: {
-                    type: Number,
+                c_o_reg: {
+                    type: String,
                 },
             },
         ],
@@ -56,4 +56,4 @@ const CustomerSchema = new mongoose.Schema(
     { timestamps: true }
 );
 
-export default mongoose.model("Customer", CustomerSchema);
+export default mongoose.model("Vendor", VendorSchema);
