@@ -2,6 +2,20 @@ import FeaturedBrandCard from "../cards/Brand/FeaturedBrandCard/FeaturedBrandCar
 import "./featuredBrand.css"
 
 const FeaturedBrand = () => {
+  const brands = [
+    {
+        "name": "Renault",
+        "img": "renault.png"
+    },
+    {
+        "name": "Hyundai",
+        "img": "hyundai.png"
+    },
+    {
+        "name": "Maruti",
+        "img": "maruti.png"
+    }
+  ];  
   return (
     <div className="featuredBrand">
         <div className="featuredBrandContainer">
@@ -11,7 +25,9 @@ const FeaturedBrand = () => {
             </div>
             <div className="featuredBrandBody">
                 <div className="featuredBrandItems">
-                    <FeaturedBrandCard />
+                    {brands.map((brand, index)=>(
+                        <FeaturedBrandCard key={index} brand={brand} />
+                    ))}
                 </div>
             </div>
         </div>
