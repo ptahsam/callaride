@@ -1,0 +1,94 @@
+.recommendedCar
+{
+    display: flex;
+    border: 0.015em solid var(--light-color);
+    justify-content: space-evenly;
+    border-radius: 10px;
+    flex: 1;
+    cursor: pointer;
+}
+
+.recommendedCarImg
+{
+    width: 250px;
+    height: 200px;
+}
+
+.recommendedCarImg img
+{
+    width: 100%;
+    object-fit: cover;
+    height: 100%;
+    border-top-left-radius: 10px;
+    border-bottom-left-radius: 10px;
+}
+
+.recommendedCarDetails
+{
+    display: flex;
+    gap: 15px;
+    padding: 15px;
+    justify-content: center;
+    flex-direction: column;
+}
+
+.recommendedCarTitle
+{
+    font-size: 18px;
+    font-weight: 600;
+    color: var(--black-color5);
+}
+
+.recommendedCarRating 
+{
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+    gap: 10px;
+}
+
+.recommendedCarRating .recommendedRatedStars
+{
+    display: flex;
+    align-items: center;
+    gap: 7px;
+}
+
+.recommendedCarRating .recommendedRatedStars i
+{
+    font-size: larger;
+    color: var(--light-color);
+}
+
+.recommendedRatedStarsCount
+{
+    font-weight: 300;
+    font-size: 18px;
+    color: var(--black-color1);
+}
+
+.recommendedCarPricing
+{
+    display: flex;
+    align-items: flex-end;
+    gap: 5px;
+}
+
+.recommendedCarPricing span
+{
+    font-size: 16px;
+    font-weight: 300;
+}
+
+.recommendedCarPricing h2
+{
+    font-size: 18px;
+    font-weight: 600;
+}
+
+.recommendedCarPricing em
+{
+ font-style: normal;
+ font-size: 12px;
+ font-weight: 300;
+}

@@ -52,3 +52,24 @@
     flex-direction: row;
     gap: 20px;
 }
+
+.featuredBrandItemsNavs
+{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 20px;
+}
+
+.featuredBrandItemsNavs .NavItem
+{
+    height: 35px;
+    width: 35px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: var(--theme-color);
+    cursor: pointer;
+    color: var(--white-color);
+}

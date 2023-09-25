@@ -8,7 +8,12 @@ const Header = () => {
                     "Hybrid","Family Car"];
 
   return (
-    <div className="header">
+    <div className="header" style={{  
+      backgroundImage: "url(" + "/images/header/background.jpeg" + ")",
+      backgroundPosition: 'center',
+      backgroundSize: 'cover',
+      backgroundRepeat: 'no-repeat'
+    }} >
         <div className="headerContainer p-b-full">
           <div className="headerSearch">
             <div className="headerSearchContainer">

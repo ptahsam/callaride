@@ -1,0 +1,123 @@
+.popularCars
+{
+    background-color: var(--white-color);
+    display: flex;
+    justify-content: center;
+    margin-top: 70px;
+    margin-bottom: 70px;
+}
+
+.popularCarsContainer
+{
+    width: 100%;
+    min-width: calc(100vw - 120px);
+    max-width: calc(100vw - 120px);
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.popularCarsHeader
+{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 40px;
+}
+
+.popularCarsTitle
+{
+    font-size: 40px;
+    font-weight: bolder;
+}
+
+.popularCarsFilters
+{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 15px;
+}
+
+.input-filter
+{
+    padding: 10px 20px;
+    border: 0.015em solid var(--light-color);
+}
+
+.input-filter input,
+.input-filter select
+{
+    border: none;
+    box-shadow: none;
+    padding: 7px;
+    font-size: 17px;
+    font-weight: 300;
+}
+
+.input-filter input:hover,
+.input-filter select:hover,
+.input-filter input:focus,
+.input-filter select:focus
+{
+    outline: none;
+    border: none;
+    box-shadow: none;
+}
+
+.input-filter.location
+{
+    display: flex;
+    align-items: center;
+}
+
+.input-filter.location i
+{
+    font-size: 26px;
+}
+
+.popularCarsFilterItem.rental-frequency
+{
+    display: flex;
+    align-items: center;
+    gap: 0;
+    padding: 0;
+}
+
+.popularCarsFilterItem.rental-frequency span
+{
+    font-size: 20px;
+    font-weight: 500;
+    text-transform: uppercase;
+    padding: 15px;
+    background-color: var(--lighter-color);
+}
+
+.popularCarsFilterItem.rental-frequency span.active
+{
+    background-color: var(--theme-color1);
+    color: var(--white-color);
+}
+
+.searchBtn
+{
+    padding: 15px;
+    background-color: var(--theme-color2);
+    color: var(--white-color);
+    font-size: 20px;
+    font-weight: 500;
+    text-transform: uppercase;
+}
+
+.popularCarsBody
+{
+    margin-top: 30px;
+    display: grid;
+    grid-template-columns: auto auto auto auto;
+    grid-column-gap: 30px;
+    grid-row-gap: 30px;
+}

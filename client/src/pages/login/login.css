@@ -1,0 +1,375 @@
+.login
+{
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+    align-items: center;
+}
+
+.loginContainer
+{
+    width: 100%;
+    height: 100vh;
+    max-width: calc(100vw - 120px);
+    background-color: #fff;
+    position: relative;
+    color: #071e22;
+    display: flex;
+    flex-direction: column;
+}
+
+.loginContainerHeader
+{
+    margin-top: 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.accountLogin
+{
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    cursor: pointer;
+}
+
+.accountSpan
+{
+    cursor: pointer;
+}
+
+.accountSpan:after,
+.loginTextIssue>span:after 
+{
+    content: '';
+    display: block;
+    margin: auto;
+    height: 2px;
+    width: 0px;
+    background: transparent;
+    transition: width .5s ease, background-color .5s ease;
+}
+
+.accountSpan:hover:after,
+.loginTextIssue>span:hover:after 
+{
+    width: 100%;
+    background: #071e22;
+}
+
+.appIcon
+{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.appIcon>img
+{
+    width: 50px;
+    height: 50px;
+    object-fit: cover;
+}
+
+.loginBody
+{
+    display: flex;
+    flex: 1;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.loginBody .app-title
+{
+    text-transform: uppercase;
+    color: var(--theme-color4);
+    text-align: center;
+}
+
+.loginBodyContainer
+{
+    display: flex;
+    justify-content: space-between;
+    gap: 15px;
+}
+
+.loginBodyDivider
+{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.loginBodyDivider .vDivider
+{
+    flex: auto;
+    background-color: #eee;
+    width: 1px;
+}
+
+.loginBodyDivider>span
+{
+    color: #777;
+    font-weight: 700;
+    font-size: 14px;
+}
+
+.loginBodyForm,
+.loginBodySocials
+{
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    margin-top: 30px;
+    margin-bottom: 30px;
+    min-width: 300px;
+}
+
+.loginBodySocials
+{
+    justify-content: center;
+    gap: 15px;
+}
+
+.loginBodyForm .loginFormItem
+{
+    display: flex;
+    flex-direction: column;
+    gap: 7px;
+}
+
+.loginFormError
+{
+    color: #f33e5b;
+    font-size: 12px;
+    font-weight: 500;
+    text-align: center;
+}
+
+.loginFormItem>label
+{
+    text-transform: uppercase;
+    font-size: 13px;
+    color: #777;
+    font-weight: 500;
+}
+
+.loginFormItem>input,
+.loginFormItem .passwordField>input
+{
+    width: 100%;
+    border: none;
+    border-radius: 0;
+    border-bottom: 1px solid #eee;
+    color: #071e22;
+    font-weight: 500;
+    color: #071e22;
+    padding-bottom: 10px;
+}
+
+.loginFormItem>input:hover,
+.loginFormItem>input:focus,
+.loginFormItem .passwordField>input:hover,
+.loginFormItem .passwordField>input:focus
+{
+    outline: none;
+    box-shadow: none !important;
+    border-radius: 0 !important;
+    border-color: #777;
+}
+
+.loginFormItem .passwordField
+{
+    position: relative;
+}
+
+.loginFormItem .passwordField>span
+{
+    top: 0;
+    position: absolute;
+    right: 10px;
+    cursor: pointer;
+    padding: 5px;
+    cursor: pointer;
+    border-radius: 50%;
+    bottom: 5px;
+    height: 20px;
+    width: 20px;
+}
+
+.loginFormItem .passwordField>span .icon
+{
+    color: #777;
+    height: 1.2em;
+    width: 1.2em;
+}
+
+.loginFormItem .passwordField>span:hover
+{
+    background-color: #eee;
+    color: #071e22;
+}
+
+.loginFormItemBtn
+{
+    padding: 10px;
+    background-color: var(--theme-color4);
+    color: #fff;
+    text-transform: uppercase;
+    margin-top: 30px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    text-decoration: none;
+    -webkit-transition: background 1s; 
+    transition: background 1s;
+}
+
+.loginFormItemBtn:disabled
+{
+    background-color: #eee;
+    color: #071e22;
+}
+
+.loginFormItemBtn:hover
+{
+    background-color: #071e22;
+}
+
+.loginSocialItem
+{
+    padding: 13px;
+    display: flex;
+    align-items: center;
+    gap: 30px;
+    border: 1px solid #071e22;
+    cursor: pointer;
+}
+
+.loginSocialItem>img
+{
+    height: 20px;
+    width: 20px;
+    object-fit: cover;
+}
+
+.button-hover-effect
+{
+    position: relative;
+    overflow: hidden;
+    transition: color .4s cubic-bezier(.4,0,.2,1);
+    -webkit-transition: color .4s cubic-bezier(.4,0,.2,1);
+    -moz-transition: color .4s cubic-bezier(.4,0,.2,1);
+    -o-transition: color .4s cubic-bezier(.4,0,.2,1);
+    -ms-transition: color .4s cubic-bezier(.4,0,.2,1);
+}
+
+.button-hover-effect::before 
+{
+    position: absolute;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    right: 0;
+    content: "";
+    z-index: 1;
+    transition: transform .4s cubic-bezier(.4,0,.2,1);
+    -webkit-transition: -webkit-transform .4s cubic-bezier(.4,0,.2,1);
+    -moz-transition: -moz-transform .4s cubic-bezier(.4,0,.2,1);
+    -o-transition: -o-transform .4s cubic-bezier(.4,0,.2,1);
+    -ms-transition: -ms-transform .4s cubic-bezier(.4,0,.2,1);
+    transform: scale(0,1);
+    -webkit-transform: scale(0,1);
+    -moz-transform: scale(0,1);
+    -o-transform: scale(0,1);
+    -ms-transform: scale(0,1);
+    transform-origin: right center;
+    -webkit-transform-origin: right center;
+    -moz-transform-origin: right center;
+    -o-transform-origin: right center;
+    -ms-transform-origin: right center;
+}
+
+.button-hover-effect:hover::before 
+{
+    transform: scale(1,1);
+    -webkit-transform: scale(1,1);
+    -moz-transform: scale(1,1);
+    -o-transform: scale(1,1);
+    -ms-transform: scale(1,1);
+    transform-origin: left center;
+    -webkit-transform-origin: left center;
+    -moz-transform-origin: left center;
+    -o-transform-origin: left center;
+    -ms-transform-origin: left center;
+}
+
+.button-hover-effect.bg-grey::before 
+{
+    background-color: #eee; 
+}
+
+.button-hover-effect>img,
+.button-hover-effect>h5 
+{
+    position: relative;
+    z-index: 2;
+}
+
+.loginTextIssue>span
+{
+    text-transform: uppercase;
+    font-size: 12px;
+    font-weight: 700;
+    cursor: pointer;
+}
+
+.loginAppDesc>p
+{
+    text-align: center;
+    font-size: 13px;
+    color: #777;
+    font-weight: 500;
+}
+
+@media (max-width: 800px) 
+{
+    .login
+    {
+        overflow-y: scroll;
+    }
+
+    .loginBody
+    {
+        margin-top: 40px;
+    }
+
+    .loginContainerHeader
+    {
+        flex: 1;
+    }
+
+    .loginBodyContainer 
+    {
+      flex-direction: column;
+    }
+
+    .loginBodyDivider
+    {
+        flex-direction: row;
+    }
+
+    .loginBodyDivider .vDivider
+    {
+        height: 1px;
+    }
+
+    .loginBodyDivider>span
+    {
+        margin: 10px;
+    }
+}

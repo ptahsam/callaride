@@ -1,0 +1,140 @@
+.featuredTestimony
+{
+    width: 100%;
+    background-color: var(--white-color);
+}
+
+.featuredTestimonyContainer
+{
+    background-color: var(--theme-color3);
+    opacity: 0.95;
+    padding-top: 80px;
+    padding-bottom: 80px;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    position: relative;
+}
+
+.featuredTestimonyDetails
+{
+    max-width: calc(100vw - 120px);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    gap: 40px;
+}
+
+.featuredTestimonyHeader
+{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.featuredTestimonyHeader span
+{
+    color: var(--white-color);
+    font-size: 18px;
+    text-transform: uppercase;
+}
+
+.featuredTestimonyHeader h1
+{
+    font-size: 40px;
+    font-weight: 900;
+    color: var(--white-color);
+}
+
+.featuredTestimonyCustomerDetails
+{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    background-color: var(--white-color);
+    padding: 70px 200px;
+    margin-top: 70px;
+    border-radius: 10px;
+}
+
+.featuredTestimonyCustomerImage
+{
+    height: 120px;
+    width: 120px;
+    border-radius: 50%;
+    border: 8px solid var(--white-color);
+    margin-top: -130px;
+}
+
+.featuredTestimonyCustomerImage img
+{
+    height: 100%;
+    width: 100%;
+    border-radius: 50%;
+    object-fit: cover;
+}
+
+.featuredTestimonyCustomerName
+{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 5px;
+}
+
+.featuredTestimonyCustomerName h3
+{
+    font-size: 18px;
+    font-weight: 500;
+}
+
+.featuredTestimonyCustomerName span
+{
+    font-size: 16px;
+    font-weight: 300;
+}
+
+.featuredTestimonyCustomerDesc
+{
+    margin-top: 20px;
+}
+
+.featuredTestimonyCustomerDesc p
+{
+    font-size: 18px;
+    font-weight: 300;
+    line-height: 32px;
+    font-family: 'Source Sans Pro', sans-serif;
+    text-align: center;
+}
+
+.featuredTestimonyItemsNavs
+{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 20px;
+}
+
+.featuredTestimonyItemsNavs .NavItem
+{
+    height: 50px;
+    width: 50px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: var(--theme-color4);
+    cursor: pointer;
+}
+
+.featuredTestimonyItemsNavs .NavItem i
+{
+    font-size: x-large;
+    color: var(--white-color);
+}

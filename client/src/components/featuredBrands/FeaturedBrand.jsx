@@ -27,7 +27,15 @@ const FeaturedBrand = () => {
                 <div className="featuredBrandItems">
                     {brands.map((brand, index)=>(
                         <FeaturedBrandCard key={index} brand={brand} />
-                    ))}
+                    ))} 
+                </div>
+                <div className="featuredBrandItemsNavs">
+                    <span className="NavItem">
+                        <i class='bx bx-chevron-left'></i>
+                    </span>
+                    <span className="NavItem">
+                        <i class='bx bx-chevron-right'></i>
+                    </span>
                 </div>
             </div>
         </div>

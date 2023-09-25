@@ -1,8 +1,9 @@
 .header
 {
-    background-color: var(--theme-color1);
+    /*background-color: var(--theme-color1);*/
     display: flex;
     justify-content: center;
+    /*background-image: url("images/header/background.jpeg");*/
 }
 
 .headerContainer
@@ -17,7 +18,7 @@
 
 .headerContainer.p-b-full
 {
-    height: calc(100vh - 70px);
+    height: calc(100vh - 200px);
 }
 
 .headerContainer.p-b-50

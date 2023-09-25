@@ -1,0 +1,72 @@
+.featuredNearbyCar
+{
+    background-color: var(--white-color);
+    display: flex;
+    justify-content: center;
+}
+
+.featuredNearbyCarContainer
+{
+    width: 100%;
+    max-width: calc(100vw - 120px);
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+}
+
+.featuredNearbyCarTitle
+{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 15px;
+}
+
+.featuredNearbyCarTitle span
+{
+    text-transform: uppercase;
+    font-weight: 300;
+    font-size: 14px;
+    letter-spacing: 0.01em;
+}
+
+.featuredNearbyCarTitle h1
+{
+    font-size: 32px;
+    font-weight: 900;
+    color: var(--theme-color2);
+}
+
+.featuredNearbyCarFilters
+{
+    margin-top: 50px;
+    margin-bottom: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+}
+
+.featuredNearbyCarFilters span
+{
+    padding: 10px 20px;
+    border: 0.015em solid var(--light-color);
+    font-size: 20px;
+    font-weight: 300;
+    text-transform: capitalize;
+    cursor: pointer;
+}
+
+.featuredNearbyCarFilters span.active,
+.featuredNearbyCarFilters span:hover
+{
+    color: var(--white-color);
+    background-color: var(--theme-color);
+}
+
+.featuredNearbyCarModels
+{
+    display: flex;
+    gap: 40px;
+}

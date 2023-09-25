@@ -1,0 +1,197 @@
+.footer
+{
+    width: 100%;
+    background-color: var(--lighter-color2);
+    position: relative;
+    padding: 40px 0;
+    border-top: 1px solid var(--white-color);
+    display: flex;
+    justify-content: center;
+}
+
+.footerContainer
+{
+    width: 100%;
+    max-width: calc(100vw - 120px);
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.footerDetails
+{
+    display: flex;
+    justify-content: space-between;
+    padding-top: 30px;
+    padding-bottom: 30px;
+}
+
+.footerCompanyDetails
+{
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.footerLocalization
+{
+    display: flex;
+    gap: 10px;
+}
+
+.footerLocalization select
+{
+    padding: 5px 10px;
+    min-width: 150px;
+    border: none;
+    box-shadow: none;
+    font-size: 17px;
+    font-weight: 500;
+    color: var(--theme-color);
+}
+
+.footerLocalization select:focus,
+.footerLocalization select:hover
+{
+    border: none;
+    outline: none;
+    box-shadow: none;
+}
+
+.footerCompanyDesc span
+{
+    font-size: 17px;
+    font-weight: 300;
+    color: var(--black-color);
+}
+
+.footerCompanySocials
+{
+    display: flex;
+    align-items: center;
+    gap: 15px;
+}
+
+.footerCompanySocials span
+{
+    height: 45px;
+    width: 45px;
+    border-radius: 50%;
+    background-color: var(--lighter-color);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.footerCompanySocials span i
+{
+    font-size: 24px;
+}
+
+.footerCompanyApp
+{
+    display: flex;
+    gap: 5px;
+    align-items: center;
+}
+
+.footerCompanyApp a
+{
+    height: 40px;
+    width: 150px;
+}
+
+.footerCompanyApp a img
+{
+    height: 100%;
+    width: 100%;
+    object-fit: fill;
+}
+
+.footerCompanyService,
+.footerCompanyPolicies,
+.footerCompanyContacts
+{
+    display: flex;
+    flex-direction: column;
+    gap: 30px;
+}
+
+.footerCompanyServiceHeader h3,
+.footerCompanyPoliciesHeader h3,
+.footerCompanyContactsHeader h3
+{
+    font-size: 26px;
+    text-transform: uppercase;
+    font-weight: 900;
+}
+
+.footerCompanyServiceBody,
+.footerCompanyPoliciesBody,
+.footerCompanyContactsBody
+{
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.footerCompanyServiceItem span,
+.footerCompanyPoliciesItem span
+{
+    display: flex;
+    font-size: 18px;
+    font-weight: 300px;
+    letter-spacing: 0.095em;
+}
+
+.footerCompanyServiceItem span i,
+.footerCompanyPoliciesItem span i
+{
+    font-size: larger;
+}
+
+.footerCompanyContactsItem
+{
+    display: flex;
+    align-items: center;
+    gap: 15px;
+}
+
+.footerCompanyContactsItem i
+{
+    font-size: 32px;
+}
+
+.footerCompanyContactsItemDetails
+{
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+}
+
+.footerCompanyContactsItemDetails h4
+{
+    font-size: 18px;
+    font-weight: 700;
+}
+
+.footerCompanyContactsItemDetails span
+{
+    font-weight: 300;
+}
+
+.footerBottom
+{
+    padding-top: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-top: 0.01em solid var(--light-color);
+}
+
+.footerBottom span
+{
+    font-size: 15px;
+    font-weight: 300;
+}

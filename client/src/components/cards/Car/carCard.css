@@ -1,0 +1,108 @@
+.carCard
+{
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    border: 0.035em solid var(--lighter-color);
+    justify-content: center;
+}
+
+.carCard:hover
+{
+    cursor: pointer;
+    transition: 0.3s;
+    border-color: var(--lighter-color);
+    margin-top: -5px;
+    margin-bottom: 5px;
+    box-shadow: rgba(0, 0, 0, 0.1) 0px 10px 50px;
+}
+
+.carCardHeader
+{
+    width: 320px;
+    height: 200px;
+    position: relative;
+}
+
+.carCardHeader img
+{
+    object-fit: fill;
+    width: 100%;
+    height: 100%;
+}
+
+.carCardHeader span
+{
+    position: absolute;
+    top: 20px;
+    left: 20px;
+    height: 35px;
+    width: 35px;
+    border-radius: 50%;
+    background-color: var(--theme-color2);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--white-color);
+}
+
+.carCardHeader span i
+{
+    font-size: larger;
+}
+
+.carCardBody
+{
+    padding: 25px;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.carRentalRates
+{
+    display: flex;
+    gap: 30px;
+}
+
+.carRentalRates span
+{
+    font-size: 18px;
+    color: var(--theme-color1);
+}
+
+.carRentalRates span em
+{
+    font-size: 13px;
+    color: var(--black-color2);
+    font-style: normal;
+}
+
+.carRating 
+{
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+}
+
+.carRating .ratedStars
+{
+    display: flex;
+    align-items: center;
+    gap: 7px;
+}
+
+.carRating .ratedStars i
+{
+    font-size: larger;
+    color: var(--light-color);
+}
+
+.rentCarBtn span
+{
+    padding: 8px 20px;
+    background-color: var(--theme-color2);
+    color: var(--white-color);
+    font-size: 16px;
+    font-weight: 600;
+}
