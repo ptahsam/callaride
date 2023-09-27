@@ -43,9 +43,10 @@
 .listCarFormIntro p
 {
     font-size: 15px;
-    font-weight: 300;
+    font-weight: 200;
     line-height: 24px;
     text-align: left;
+    color: var(--lighter-color6);
 }
 
 .listCarDetails
@@ -100,8 +101,9 @@
 .listCarHeaderItem h3
 {
     text-transform: uppercase;
-    font-weight: 900;
+    font-weight: 600;
     color: var(--black-color4);
+    font-size: 18px;
 }
 
 .listCarHeaderItem .desc
@@ -109,4 +111,449 @@
     font-size: 14px;
     font-weight: 500;
     color: var(--lighter-color4);
+}
+
+.listCarBasicInfo,
+.listCarDescription
+{
+    display: flex;
+    flex-direction: column;
+    margin-top: 20px;
+}
+
+.listCarBasicHeader,
+.listCarDescriptionHeader
+{
+    display: flex;
+    gap: 20px;
+    align-items: center;
+}
+
+.listCarBasicHeader .basics,
+.listCarBasicHeader .calendar,
+.listCarBasicHeader .pricing,
+.listCarDescriptionHeader .overview,
+.listCarDescriptionHeader .photos
+{
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.listCarBasicHeader .basics i,
+.listCarBasicHeader .calendar i,
+.listCarBasicHeader .pricing i,
+.listCarDescriptionHeader .overview i,
+.listCarDescriptionHeader .photos i
+{
+    font-size: 24px;
+    color: var(--lighter-color5);
+}
+
+.listCarBasicHeader .basics.active i,
+.listCarBasicHeader .calendar.active i,
+.listCarBasicHeader .pricing.active i,
+.listCarDescriptionHeader .overview.active i,
+.listCarDescriptionHeader .photos.active i
+{
+    color: var(--theme-color8);
+}
+
+.listCarBasicHeader .basics h3,
+.listCarBasicHeader .calendar h3,
+.listCarBasicHeader .pricing h3,
+.listCarDescriptionHeader .overview h3,
+.listCarDescriptionHeader .photos h3
+{
+    font-size: 16px;
+    font-weight: 600;
+    text-transform: uppercase;
+    color: var(--lighter-color5);
+}
+
+.listCarBasicInfoForm,
+.listCarDescriptionOverviewForm
+{
+    display: flex;
+    flex-direction: column;
+}
+
+.listCarBasicTitle
+{
+    margin-top: 15px;
+}
+
+.listCarBasicTitle h3
+{
+    font-size: 19px;
+    font-weight: 500;
+    text-transform: uppercase;
+    color: var(--black-color4);
+}
+
+.listCarBasicInfoFormDetails,
+.listCarDescriptionOverviewFormDetails
+{
+    display: grid;
+    grid-template-columns: auto auto auto;
+    grid-row-gap: 30px;
+    grid-column-gap: 10px;
+}
+
+.listCarDescriptionOverviewFormDetails
+{
+    grid-template-columns: auto;
+}
+
+.basicInfoFormItem
+{
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.basicInfoFormItem label
+{
+    font-size: 14px;
+    font-weight: 500;
+    color: var(--lighter-color6);
+}
+
+.basicInfoFormItem label sup
+{
+    margin-left: 5px;
+    color: var(--red-color1);
+    font-weight: 500;
+    font-size: 14px;
+}
+
+.basicInfoFormItem label span
+{
+    margin-left: 5px;
+    font-size: 11px;
+    font-weight: 400;
+}
+
+.basicInfoFormItem input,
+.basicInfoFormItem select,
+.basicInfoFormItem textarea
+{
+    padding: 10px 15px;
+    font-size: 14px;
+    font-weight: 400;
+    color: var(--black-color6);
+    border: 0.015em solid var(--lighter-color);
+    background-color: var(--lighter-color7);
+}
+
+.basicInfoFormItem textarea
+{
+    width: 100%;
+}
+
+.basicInfoFormItem input:focus,
+.basicInfoFormItem select:focus,
+.basicInfoFormItem input:hover,
+.basicInfoFormItem select:hover,
+.basicInfoFormItem textarea:hover,
+.basicInfoFormItem textarea:focus
+{
+    outline: none;
+    box-shadow: none;
+}
+
+.listCarCalendar
+{
+    margin-top: 20px;
+    position: relative;
+}
+
+.listCarCalendarPicker
+{
+    width: 100%;
+}
+
+.listCarCalendarStatus
+{
+    position: absolute;
+    bottom: 50px;
+    right: 10px;
+    display: flex;
+    flex-direction: column;
+}
+
+.listCarCalendarTitle
+{
+    font-size: 18px;
+    font-weight: 500;
+    margin-bottom: 20px;
+}
+
+.radioBtn
+{
+    display: block;
+    position: relative;
+    padding-left: 35px;
+    margin-bottom: 12px;
+    cursor: pointer;
+    font-size: 18px;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+}
+
+.radioBtn.available
+{
+    color: var(--theme-color6);
+}
+
+.radioBtn.booked
+{
+    color: var(--theme-color7);
+}
+
+.radioBtn.unavailable
+{
+    color: var(--theme-color5);
+}
+
+.radioBtn input 
+{
+    position: absolute;
+    opacity: 0;
+    cursor: pointer;
+    height: 0;
+    width: 0;
+}
+
+.radioBtn .checkmark 
+{
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 25px;
+    width: 25px;
+    background-color: var(--lighter-color);
+    border-radius: 50%;
+}
+
+.radioBtn:hover input ~ .checkmark 
+{
+    background-color: var(--lighter-color6);
+}
+  
+.available input:checked ~ .checkmark 
+{
+    background-color: var(--theme-color6);
+}
+
+.booked input:checked ~ .checkmark 
+{
+    background-color: var(--theme-color7);
+}
+
+.unavailable input:checked ~ .checkmark 
+{
+    background-color: var(--theme-color5);
+}
+  
+.radioBtn .checkmark:after 
+{
+    content: "";
+    position: absolute;
+    display: none;
+}
+  
+.radioBtn input:checked ~ .checkmark:after 
+{
+    display: block;
+}
+  
+.radioBtn .checkmark:after 
+{
+    top: 9px;
+    left: 9px;
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background: white;
+}
+
+.listCarBasicInfoPricingDetails
+{
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.basicInfoFormItemCustomCheckBox
+{
+    display: flex;
+    gap: 10px;
+}
+
+.basicInfoFormItemCustomCheckBox input
+{
+    margin-top: 7px;
+    height: 17px;
+    width: 17px;
+    cursor: pointer;
+    accent-color: var(--theme-color4);
+    outline: none;
+    box-shadow: none;
+    border: 2px solid var(--theme-color4);
+}
+
+.basicInfoFormItemCustomCheckBox label
+{
+    font-size: 14px;
+    font-weight: 500;
+    color: var(--lighter-color6);
+}
+
+.basicInfoFormItemCustomCheckBox label sup
+{
+    margin-left: 5px;
+    color: var(--red-color1);
+    font-weight: 500;
+    font-size: 14px;
+}
+
+.listCarBasicInfoFormBooking
+{
+    margin-top: 10px;
+    border: 0.015em solid var(--light-color);
+    padding: 20px 25px 40px 25px;
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+.listCarDescriptionOverviewFormDetailsItem
+{
+    display: flex;
+    align-items: center;
+    gap: 70px;
+}
+
+.listCarDescriptionOverviewFormDetailsItem .item
+{
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-size: 14px;
+    font-weight: 500;
+    color: var(--lighter-color6);
+}
+
+.listCarBasicInfoFormBooking h3
+{
+    text-transform: uppercase;
+    font-size: 16px;
+    font-weight: 500;
+}
+
+.listCarDescriptionOverviewFormDetailsItem .switch 
+{
+    position: relative;
+    display: inline-block;
+    width: 60px;
+    height: 24px;
+}
+
+.listCarDescriptionOverviewFormDetailsItem .switch input 
+{
+    opacity: 0;
+    width: 0;
+    height: 0;
+}
+
+.listCarDescriptionOverviewFormDetailsItem .slider 
+{
+    position: absolute;
+    cursor: pointer;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: var(--lighter-color);
+    -webkit-transition: .4s;
+    transition: .4s;
+}
+
+.listCarDescriptionOverviewFormDetailsItem .slider:before 
+{
+    position: absolute;
+    content: "";
+    height: 16px;
+    width: 16px;
+    left: 4px;
+    bottom: 4px;
+    background-color: var(--white-color);
+    -webkit-transition: .4s;
+    transition: .4s;
+}
+
+.listCarDescriptionOverviewFormDetailsItem input:checked + .slider 
+{
+    background-color: var(--theme-color4);
+}
+
+.listCarDescriptionOverviewFormDetailsItem input:focus + .slider 
+{
+    box-shadow: 0 0 1px var(--theme-color4);
+}
+
+.listCarDescriptionOverviewFormDetailsItem input:checked + .slider:before 
+{
+    -webkit-transform: translateX(36px);
+    -ms-transform: translateX(36px);
+    transform: translateX(36px);
+}
+
+.listCarDescriptionOverviewFormDetailsItem .slider.round 
+{
+    border-radius: 24px;
+}
+  
+.listCarDescriptionOverviewFormDetailsItem .slider.round:before 
+{
+    border-radius: 50%;
+}
+
+.listCarDescriptionOverviewFormNote span
+{
+    font-size: 12px;
+    font-weight: 400;
+    color: var(--lighter-color6);
+}
+
+.listCarDescriptionOverviewFormNote span b
+{
+    margin-right: 5px;
+    font-weight: 700;
+}
+
+.listCarDetailsBtn
+{
+    display: flex;
+    justify-content: flex-start;
+    gap: 10px;
+}
+
+.listCarDetailsBtn .basicInfoBtn
+{
+    margin-top: 20px;
+    padding: 10px 30px;
+    font-weight: 600;
+    text-transform: uppercase;
+    color: var(--white-color);
+    background-color: var(--theme-color4);
+    cursor: pointer;
+}
+
+.no-show
+{
+    display: none;
 }
