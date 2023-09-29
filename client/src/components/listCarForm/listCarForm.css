@@ -114,7 +114,8 @@
 }
 
 .listCarBasicInfo,
-.listCarDescription
+.listCarDescription,
+.listCarSettings
 {
     display: flex;
     flex-direction: column;
@@ -122,7 +123,8 @@
 }
 
 .listCarBasicHeader,
-.listCarDescriptionHeader
+.listCarDescriptionHeader,
+.listCarSettingsHeader
 {
     display: flex;
     gap: 20px;
@@ -133,7 +135,10 @@
 .listCarBasicHeader .calendar,
 .listCarBasicHeader .pricing,
 .listCarDescriptionHeader .overview,
-.listCarDescriptionHeader .photos
+.listCarDescriptionHeader .photos,
+.listCarSettingsHeader .specifications,
+.listCarSettingsHeader .pickupaddress,
+.listCarSettingsHeader .settings
 {
     display: flex;
     align-items: center;
@@ -144,7 +149,10 @@
 .listCarBasicHeader .calendar i,
 .listCarBasicHeader .pricing i,
 .listCarDescriptionHeader .overview i,
-.listCarDescriptionHeader .photos i
+.listCarDescriptionHeader .photos i,
+.listCarSettingsHeader .specifications i,
+.listCarSettingsHeader .pickupaddress i,
+.listCarSettingsHeader .settings i
 {
     font-size: 24px;
     color: var(--lighter-color5);
@@ -154,7 +162,10 @@
 .listCarBasicHeader .calendar.active i,
 .listCarBasicHeader .pricing.active i,
 .listCarDescriptionHeader .overview.active i,
-.listCarDescriptionHeader .photos.active i
+.listCarDescriptionHeader .photos.active i,
+.listCarSettingsHeader .specifications.active i,
+.listCarSettingsHeader .pickupaddress.active i,
+.listCarSettingsHeader .settings.active i
 {
     color: var(--theme-color8);
 }
@@ -163,7 +174,10 @@
 .listCarBasicHeader .calendar h3,
 .listCarBasicHeader .pricing h3,
 .listCarDescriptionHeader .overview h3,
-.listCarDescriptionHeader .photos h3
+.listCarDescriptionHeader .photos h3,
+.listCarSettingsHeader .specifications h3,
+.listCarSettingsHeader .pickupaddress h3,
+.listCarSettingsHeader .settings h3
 {
     font-size: 16px;
     font-weight: 600;
@@ -189,6 +203,13 @@
     font-weight: 500;
     text-transform: uppercase;
     color: var(--black-color4);
+}
+
+.listCarBasicTitle span
+{
+    font-size: 16px;
+    font-weight: 200;
+    color: var(--lighter-color6);
 }
 
 .listCarBasicInfoFormDetails,
@@ -533,6 +554,248 @@
 {
     margin-right: 5px;
     font-weight: 700;
+}
+
+.listCarDescriptionPhotosContainer
+{
+    margin-top: 20px;
+    border-radius: 10px;
+    min-height: 300px;
+    background-color: var(--lighter-color7);
+    box-sizing: border-box;
+}
+
+.no-photos
+{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.has-photos
+{
+    border: 2px solid var(--theme-color8);
+    padding: 10px;
+    display: grid;
+    grid-template-columns: auto auto auto;
+    grid-row-gap: 15px;
+    grid-column-gap: 15px;
+    height: auto;
+}
+
+.photoContainerLabel
+{
+    height: 300px;
+    width: 100%;
+    border: 3px dashed var(--light-color2);
+    border-style: dashed;
+    border-radius: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.photoContainerLabel.drag-active
+{
+    border-color: var(--theme-color4);
+}
+
+.photoContainerLabel:hover
+{
+    cursor: pointer;
+}
+
+.photoContainerLabel i
+{
+    font-size: 32px;
+    color: var(--lighter-color6);
+}
+
+.photoContainerLabel.drag-active i
+{
+    color: var(--theme-color4);
+}
+
+.photoContainerLabel span
+{
+    font-size: 18px;
+    font-weight: 600;
+    color: var(--lighter-color6);
+}
+
+.photoContainerLabel.drag-active span
+{
+    color: var(--theme-color4);
+}
+
+.listCarDescriptionPhotosContainer input
+{
+    display: none;
+}
+
+.fileContainer
+{
+    border-radius: 10px;
+    width: 170px;
+    height: 150px;
+    position: relative;
+    cursor: pointer;
+}
+
+.fileContainer img
+{
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    border-radius: 10px;
+    border: 1px solid var(--light-color1);
+}
+
+.fileContainer .rmImage
+{
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    color: var(--red-color1);
+    font-size: 30px;
+}
+
+.fileContainer .rmImage:hover
+{
+    box-shadow: rgba(0, 0, 0, 0.1) 0px 0px 5px 0px, rgba(0, 0, 0, 0.1) 0px 0px 1px 0px;
+    border-radius: 50%;
+}
+
+.fileContainer.addPhotosLabel
+{
+    border: 2px solid var(--theme-color8);
+    background-color: var(--white-color);
+}
+
+.fileContainer.addPhotosLabel label
+{
+    width: 170px;
+    height: 150px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    gap: 10px;
+    cursor: pointer;
+}
+
+.fileContainer.addPhotosLabel label i
+{
+    font-size: 32px;
+    color: var(--theme-color8);
+}
+
+.fileContainer.addPhotosLabel label span
+{
+    font-size: 18px;
+    font-weight: 600;
+    color: var(--lighter-color6);
+}
+
+.listCarSpecificationsForm
+{
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    margin-top: 20px;
+}
+
+.listCarSpecificationsForm .listCarSpecificationsFormItem
+{
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+}
+
+.listCarSpecificationsForm .listCarSpecificationsFormItem h3
+{
+    font-size: 16px;
+    font-weight: 700;
+}
+
+.listCarSpecificationsForm .listCarSpecificationsFormItem span
+{
+    font-size: 15px;
+    font-weight: 100;
+    color: var(--lighter-color6);
+}
+
+.listCarSpecificationsItemOptions
+{
+    display: grid;
+    grid-template-columns: auto auto auto auto auto;
+    grid-column-gap: 15px
+}
+
+.specsItemOption
+{
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.specsItemOption input
+{
+    height: 18px;
+    width: 18px;
+    accent-color: var(--theme-color4);
+}
+
+.specsItemOption h5
+{
+    font-size: 15px;
+    font-weight: 700;
+    color: var(--lighter-color6);
+}
+
+.listCarSpecificationsItemInputs
+{
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    gap: 20px;
+}
+
+.specsItemInput
+{
+    padding: 10px;
+    background-color: var(--lighter-color7);
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding-right: 30px;
+}
+
+.specsItemInput input
+{
+    border: none;
+    width: 50px;
+    height: 30px;
+    padding-left: 20px;
+}
+
+.specsItemInput select
+{
+    border: none;
+    padding: 0 20px;
+    background-color: transparent;
+    font-size: 16px;
+    font-weight: 300;
+}
+
+.specsItemInput input:focus,
+.specsItemInput input:hover,
+.specsItemInput select:focus,
+.specsItemInput select:hover
+{
+    outline: none;
 }
 
 .listCarDetailsBtn

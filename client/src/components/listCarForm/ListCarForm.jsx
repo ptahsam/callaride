@@ -3,8 +3,9 @@ import { DateRange } from 'react-date-range';
 import 'react-date-range/dist/styles.css'
 import 'react-date-range/dist/theme/default.css'
 import { format } from "date-fns"
-import { useState, useEffect } from "react";
-import { activeTabsObj } from "../utils/listing";
+import { useState, useEffect, useRef } from "react";
+import { activeTabsObj, carSpecs } from "../utils/listing";
+import { fileToDataURL } from "../utils/helper";
 
 const ListCarForm = () => {
 
@@ -12,7 +13,12 @@ const ListCarForm = () => {
   const [carAvailability, setCarAvailability] = useState("");
   const [dailyBooking, setDailyBooking] = useState(false);
   const [hourlyBooking, setHourlyBooking] = useState(false);
+  const [files, setFiles] = useState([]);
+  const [dragActive, setDragActive] = useState(false);
+  const [carSpecifications, setCarSpecifications] = useState(carSpecs);
   const [activeTabs, setActiveTabs] = useState(JSON.parse(localStorage.getItem("activeTabs")) || {'mainTab': 1, 'subTab': 1});
+
+  const hiddenFileInput = useRef(null);
 
   const handleDailyBooking = (e) => {
     if(e.target.checked){
@@ -38,6 +44,10 @@ const ListCarForm = () => {
     }
   }
 
+  const handleCarSpecifications = (spec,e) => {
+    setCarSpecifications((prev) => ({ ...prev, [spec]: e.target.value }));
+  }
+
   const handleNext = () => {
     if(activeTabs.mainTab == 1 && activeTabs.subTab == 1){
         setActiveTabs({
@@ -61,6 +71,30 @@ const ListCarForm = () => {
             'subTab': 1
         });
         saveActiveTabs({'mainTab': 2,'subTab': 1});
+    }
+
+    if(activeTabs.mainTab == 2 && activeTabs.subTab == 1){
+        setActiveTabs({
+            'mainTab': 2,
+            'subTab': 2
+        });
+        saveActiveTabs({'mainTab': 2,'subTab': 2});
+    }
+
+    if(activeTabs.mainTab == 2 && activeTabs.subTab == 2){
+        setActiveTabs({
+            'mainTab': 3,
+            'subTab': 1
+        });
+        saveActiveTabs({'mainTab': 3,'subTab': 1});
+    }
+
+    if(activeTabs.mainTab == 3 && activeTabs.subTab == 1){
+        setActiveTabs({
+            'mainTab': 3,
+            'subTab': 2
+        });
+        saveActiveTabs({'mainTab': 3,'subTab': 2});
     }
   }
 
@@ -88,11 +122,86 @@ const ListCarForm = () => {
         });
         saveActiveTabs({'mainTab': 1,'subTab': 3});
     }
+
+    if(activeTabs.mainTab == 2 && activeTabs.subTab == 2){
+        setActiveTabs({
+            'mainTab': 2,
+            'subTab': 1
+        });
+        saveActiveTabs({'mainTab': 2,'subTab': 1});
+    }
+
+    if(activeTabs.mainTab == 3 && activeTabs.subTab == 1){
+        setActiveTabs({
+            'mainTab': 2,
+            'subTab': 2
+        });
+        saveActiveTabs({'mainTab': 2,'subTab': 2});
+    }
+
+    if(activeTabs.mainTab == 3 && activeTabs.subTab == 2){
+        setActiveTabs({
+            'mainTab': 3,
+            'subTab': 1
+        });
+        saveActiveTabs({'mainTab': 3,'subTab': 1});
+    }
   }
 
   const saveActiveTabs = (tabs) => {
     localStorage.setItem("activeTabs", JSON.stringify(tabs));
   }
+
+  // handle drag events
+  const handleDrag = (e) => {
+    e.preventDefault();
+    e.stopPropagation();
+    if (e.type === "dragenter" || e.type === "dragover") {
+      setDragActive(true);
+    } else if (e.type === "dragleave") {
+      setDragActive(false);
+    }
+  };
+
+  const handleDrop = async (e) => {
+    e.preventDefault();
+    e.stopPropagation();
+    setDragActive(false);
+    if (e.dataTransfer.files) {
+      // handleFiles(e.dataTransfer.files);
+      if(files.length > 0){
+        const uploadedFiles =  await Promise.all(Array.from(e.dataTransfer.files).map(fileToDataURL));
+        const newFiles = [...files, ...uploadedFiles];
+        setFiles([...new Set(newFiles)])
+      }else{
+        const uploadedFiles =  await Promise.all(Array.from(e.dataTransfer.files).map(fileToDataURL));
+        setFiles(uploadedFiles)
+      }
+      
+    }
+  }
+
+  const handleClick = () => {
+    hiddenFileInput.current.click();
+  };
+
+  const handleSelectFiles = async (e) => {
+    if(files.length > 0){
+        const uploadedFiles =  await Promise.all(Array.from(e.target.files).map(fileToDataURL));
+        const newFiles = [...files, ...uploadedFiles];
+        setFiles([...new Set(newFiles)])
+    }else{
+        if(e.target.files){
+            const uploadedFiles =  await Promise.all(Array.from(e.target.files).map(fileToDataURL));
+            setFiles(uploadedFiles)
+        }
+    }
+  }
+
+  const handleRemoveImg = (file) => {
+    const newFiles = files.filter((item) => item.file !== file);
+    setFiles(newFiles);
+  };
 
   return (
     <div className="listCarForm">
@@ -319,7 +428,7 @@ const ListCarForm = () => {
                             <h3>Photos</h3>
                         </span>
                     </div>
-                    <div className="listCarDescriptionOverviewForm">
+                    <div className={activeTabs.mainTab == 2 && activeTabs.subTab == 1?"listCarDescriptionOverviewForm":"listCarDescriptionOverviewForm no-show"}>
                         <div className="listCarBasicTitle">
                             <h3>Overview</h3>
                         </div>
@@ -350,6 +459,328 @@ const ListCarForm = () => {
                                     Current Status Enabled
                                 </span>
                             </div>
+                        </div>
+                    </div>
+                    <div className={activeTabs.mainTab == 2 && activeTabs.subTab == 2?"listCarDescriptionPhotosForm":"listCarDescriptionPhotosForm no-show"}>
+                        <div className="listCarBasicTitle">
+                            <h3>Add Photos</h3>
+                            <span>Customers love photos that highlight the features of your car.</span>
+                        </div>
+                        <div className={files.length > 0?"listCarDescriptionPhotosContainer has-photos":"listCarDescriptionPhotosContainer no-photos"}>
+                            {files.length > 0? 
+                                <>
+                                </>
+                                :
+                                <>
+                                <label 
+                                        htmlFor="selectPhotos" 
+                                        className={dragActive?"photoContainerLabel drag-active":"photoContainerLabel"}
+                                        onClick={()=>handleClick()} 
+                                        onDragLeave={(e) => handleDrag(e)} 
+                                        onDragEnter={(e) => handleDrag(e)} 
+                                        onDragOver={(e) => handleDrag(e)} 
+                                        onDrop={handleDrop} 
+                                    >
+                                    <i class='bx bx-upload' ></i>
+                                    <span>Upload/Drop Photos Here</span>
+                                </label>
+                            </>}
+                            {files.length > 0? <>
+                                {files.map((item, index) => (
+                                <div className="fileContainer" key={index+Date.now()}>
+                                    <img src={item.imgPreview} />
+                                    <i className='bx bxs-x-circle rmImage' onClick={(e) => handleRemoveImg(item.file)}></i>
+                                </div>))}
+                                <div className="fileContainer addPhotosLabel">
+                                    <label htmlFor="selectPhotos" onClick={()=>handleClick()}>
+                                        <i class='bx bxs-plus-circle' ></i>
+                                        <span>Add More Photos</span>
+                                    </label>
+                                </div>
+                                </>:<></>
+                            }
+                            <input type="file" name="selectPhotos" accept="images/*" ref={hiddenFileInput} multiple={true} onChange={(e) => handleSelectFiles(e)} />
+                        </div>
+                    </div>
+                </div>
+                <div className={activeTabs.mainTab == 3?"listCarSettings":"listCarSettings no-show"}>
+                    <div className={activeTabs.mainTab == 3?"listCarSettingsHeader":"listCarSettingsHeader no-show"}>
+                        <span className={activeTabs.mainTab >= 3 && activeTabs.subTab >= 1?"specifications active":"specifications"}>
+                            <i class='bx bxs-check-circle' ></i>
+                            <h3>Specifications</h3>
+                        </span>
+                        <span className={activeTabs.mainTab >= 3 && activeTabs.subTab >= 2?"pickupaddress active":"pickupaddress"}>
+                            <i class='bx bxs-check-circle' ></i>
+                            <h3>Car Pickup address</h3>
+                        </span>
+                        <span className={activeTabs.mainTab >= 3 && activeTabs.subTab >= 3?"settings active":"settings"}>
+                            <i class='bx bxs-check-circle' ></i>
+                            <h3>Settings</h3>
+                        </span>
+                    </div>
+                    <div className={activeTabs.mainTab == 3 && activeTabs.subTab == 1?"listCarSpecifications":"listCarSpecifications no-show"}>
+                        <div className="listCarBasicTitle">
+                            <h3>Specifications</h3>
+                        </div>
+                        <div className="listCarSpecificationsForm">
+                            <div className="listCarSpecificationsFormItem">
+                                <h3>Transmission</h3>
+                                <span>Car transmission</span>
+                                <div className="listCarSpecificationsItemInputs">
+                                    <div className="specsItemInput">
+                                        <select>
+                                            <option>-Select type-</option>
+                                            <option>Manual</option>
+                                            <option>Semi-Automatic</option>
+                                            <option>Automatic</option>
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+                            <div className="listCarSpecificationsFormItem">
+                                <h3>Fuel Type</h3>
+                                <span>Petrol, diesel, gasoline</span>
+                                <div className="listCarSpecificationsItemOptions">
+                                    <div className="specsItemOption">
+                                        <input type="checkbox" 
+                                            checked={carSpecifications.fuelType === 'Diesel'?true:false} 
+                                            onChange={(e)=> handleCarSpecifications('fuelType',e)}
+                                            value="Diesel"
+                                        />
+                                        <h5>Diesel</h5>
+                                    </div>
+                                    <div className="specsItemOption">
+                                        <input type="checkbox" 
+                                            checked={carSpecifications.fuelType === 'Petrol'?true:false} 
+                                            onChange={(e)=> handleCarSpecifications('fuelType',e)}
+                                            value="Petrol"
+                                        />
+                                        <h5>Petrol</h5>
+                                    </div>
+                                    <div className="specsItemOption">
+                                        <input type="checkbox" 
+                                            checked={carSpecifications.fuelType === 'Electric'?true:false}
+                                            onChange={(e) => handleCarSpecifications('fuelType',e)}
+                                            value="Electric" 
+                                        />
+                                        <h5>Electric</h5>
+                                    </div>
+                                </div>
+                            </div>
+                            <div className="listCarSpecificationsFormItem">
+                                <h3>Doors</h3>
+                                <span>Doors available</span>
+                                <div className="listCarSpecificationsItemOptions">
+                                    <div className="specsItemOption">
+                                        <input type="checkbox" 
+                                            checked={carSpecifications.doors == 4?true:false}
+                                            onChange={(e) => handleCarSpecifications('doors', e)}
+                                            value={4}
+                                        />
+                                        <h5>4</h5>
+                                    </div>
+                                    <div className="specsItemOption">
+                                        <input type="checkbox" 
+                                            checked={carSpecifications.doors == 5?true:false}
+                                            onChange={(e) => handleCarSpecifications('doors', e)}
+                                            value={5}
+                                        />
+                                        <h5>5</h5>
+                                    </div>
+                                    <div className="specsItemOption">
+                                        <input type="checkbox" 
+                                            checked={carSpecifications.doors == 6?true:false}
+                                            onChange={(e) => handleCarSpecifications('doors', e)}
+                                            value={6}
+                                        />
+                                        <h5>6</h5>
+                                    </div>
+                                    <div className="specsItemOption">
+                                        <input type="checkbox" 
+                                            checked={carSpecifications.doors == 7?true:false}
+                                            onChange={(e) => handleCarSpecifications('doors', e)}
+                                            value={7}
+                                        />
+                                        <h5>7</h5>
+                                    </div>
+                                    <div className="specsItemOption">
+                                        <input type="checkbox" 
+                                            checked={carSpecifications.doors == 8?true:false}
+                                            onChange={(e) => handleCarSpecifications('doors', e)}
+                                            value={8}
+                                        />
+                                        <h5>8</h5>
+                                    </div>
+                                </div>
+                            </div>
+                            <div className="listCarSpecificationsFormItem">
+                                <h3>Safety</h3>
+                                <span>Does your car have safety amenities</span>
+                                <div className="listCarSpecificationsItemOptions">
+                                    <div className="specsItemOption">
+                                        <input type="checkbox" 
+                                            checked={carSpecifications.safetyAmenity === 'yes'?true:false} 
+                                            onChange={(e)=> handleCarSpecifications('safetyAmenity',e)}
+                                            value='yes'
+                                        />
+                                        <h5>Yes</h5>
+                                    </div>
+                                    <div className="specsItemOption">
+                                        <input type="checkbox" 
+                                            checked={carSpecifications.safetyAmenity === 'no'?true:false} 
+                                            onChange={(e)=> handleCarSpecifications('safetyAmenity',e)}
+                                            value='no'
+                                        />
+                                        <h5>No</h5>
+                                    </div>
+                                </div>
+                            </div>
+                            <div className="listCarSpecificationsFormItem">
+                                <h3>Entertainment</h3>
+                                <span>Does your car have entertainment amenities</span>
+                                <div className="listCarSpecificationsItemOptions">
+                                    <div className="specsItemOption">
+                                        <input type="checkbox" 
+                                            checked={carSpecifications.entertainmentAmenity === 'yes'?true:false} 
+                                            onChange={(e)=> handleCarSpecifications('entertainmentAmenity',e)}
+                                            value='yes'
+                                        />
+                                        <h5>Yes</h5>
+                                    </div>
+                                    <div className="specsItemOption">
+                                        <input type="checkbox" 
+                                            checked={carSpecifications.entertainmentAmenity === 'no'?true:false} 
+                                            onChange={(e)=> handleCarSpecifications('entertainmentAmenity',e)}
+                                            value='no'
+                                        />
+                                        <h5>No</h5>
+                                    </div>
+                                </div>
+                            </div>
+                            <div className="listCarSpecificationsFormItem">
+                                <h3>Powerlock</h3>
+                                <span>Does your car have powerlock system</span>
+                                <div className="listCarSpecificationsItemOptions">
+                                    <div className="specsItemOption">
+                                        <input type="checkbox" 
+                                            checked={carSpecifications.powerLock === 'yes'?true:false} 
+                                            onChange={(e)=> handleCarSpecifications('powerLock',e)}
+                                            value='yes'
+                                        />
+                                        <h5>Yes</h5>
+                                    </div>
+                                    <div className="specsItemOption">
+                                        <input type="checkbox" 
+                                            checked={carSpecifications.powerLock === 'no'?true:false} 
+                                            onChange={(e)=> handleCarSpecifications('powerLock',e)}
+                                            value='no'
+                                        />
+                                        <h5>No</h5>
+                                    </div>
+                                </div>
+                            </div>
+                            <div className="listCarSpecificationsFormItem">
+                                <h3>Seats</h3>
+                                <span>Seating capacity</span>
+                                <div className="listCarSpecificationsItemOptions">
+                                    <div className="specsItemOption">
+                                        <input type="checkbox" 
+                                            checked={carSpecifications.seatingCapacity == 4?true:false} 
+                                            onChange={(e)=> handleCarSpecifications('seatingCapacity',e)}
+                                            value={4}
+                                        />
+                                        <h5>4</h5>
+                                    </div>
+                                    <div className="specsItemOption">
+                                        <input type="checkbox" 
+                                            checked={carSpecifications.seatingCapacity == 6?true:false} 
+                                            onChange={(e)=> handleCarSpecifications('seatingCapacity',e)}
+                                            value={6}
+                                        />
+                                        <h5>6</h5>
+                                    </div>
+                                    <div className="specsItemOption">
+                                        <input type="checkbox" 
+                                            checked={carSpecifications.seatingCapacity == 8?true:false} 
+                                            onChange={(e)=> handleCarSpecifications('seatingCapacity',e)}
+                                            value={8}
+                                        />
+                                        <h5>8</h5>
+                                    </div>
+                                </div>
+                            </div>
+                            <div className="listCarSpecificationsFormItem">
+                                <h3>Air Bags</h3>
+                                <span>Does your car have air bags</span>
+                                <div className="listCarSpecificationsItemOptions">
+                                    <div className="specsItemOption">
+                                        <input type="checkbox" 
+                                            checked={carSpecifications.airBags === "yes"?true:false} 
+                                            onChange={(e)=> handleCarSpecifications('airBags',e)}
+                                            value="yes"
+                                        />
+                                        <h5>Yes</h5>
+                                    </div>
+                                    <div className="specsItemOption">
+                                        <input type="checkbox" 
+                                            checked={carSpecifications.airBags === "no"?true:false} 
+                                            onChange={(e)=> handleCarSpecifications('airBags',e)}
+                                            value="no"
+                                        />
+                                        <h5>No</h5>
+                                    </div>
+                                </div>
+                            </div>
+                            <div className="listCarSpecificationsFormItem">
+                                <h3>Mileage</h3>
+                                <span>Mileage</span>
+                                <div className="listCarSpecificationsItemInputs">
+                                    <div className="specsItemInput">
+                                        <input type="text" pattern="[0-9]*"/>
+                                        <span>per Litre</span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div className="listCarSpecificationsFormItem">
+                                <h3>Fuel Capacity</h3>
+                                <span>Fuel tank capacity</span>
+                                <div className="listCarSpecificationsItemInputs">
+                                    <div className="specsItemInput">
+                                        <input type="text" pattern="[0-9]*"/>
+                                        <span>Litres</span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div className="listCarSpecificationsFormItem">
+                                <h3>Child seats</h3>
+                                <span>Does your car have child seats</span>
+                                <div className="listCarSpecificationsItemOptions">
+                                    <div className="specsItemOption">
+                                        <input type="checkbox" 
+                                            checked={carSpecifications.childSeats === "yes"?true:false} 
+                                            onChange={(e)=> handleCarSpecifications('childSeats',e)}
+                                            value="yes"
+                                        />
+                                        <h5>Yes</h5>
+                                    </div>
+                                    <div className="specsItemOption">
+                                        <input type="checkbox" 
+                                            checked={carSpecifications.childSeats === "no"?true:false} 
+                                            onChange={(e)=> handleCarSpecifications('childSeats',e)}
+                                            value="no"
+                                        />
+                                        <h5>No</h5>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div className={activeTabs.mainTab == 3 && activeTabs.subTab == 2?"listCarPickUpAddress":"listCarPickUpAddress no-show"}>
+                        <div className="listCarBasicTitle">
+                            <h3>Car Pickup Address</h3>
+                        </div>
+                        <div className="listCarPickUpAddressForm">
+                            
                         </div>
                     </div>
                 </div>
