@@ -780,7 +780,23 @@ const ListCarForm = () => {
                             <h3>Car Pickup Address</h3>
                         </div>
                         <div className="listCarPickUpAddressForm">
-                            
+                            <div className="basicInfoFormItem">
+                                <label>City<sup>*</sup></label>
+                                <input type="text" placeholder="Nairobi"/>
+                            </div>
+                            <div className="basicInfoFormItem">
+                                <label>Street Address<sup>*</sup></label>
+                                <input type="text" placeholder="Car yard, Upperhill"/>
+                            </div>
+                            <div className="basicInfoFormItem">
+                                <label>Zip Code<sup>*</sup></label>
+                                <input type="text" placeholder="0.00"/>
+                            </div>
+                        </div>
+                        <div className="listCarPickUpAddressFormDesc">
+                            <label>Description<sup>*</sup></label>
+                            <textarea rows={5} placeholder="Describe how to get there in great details">
+                            </textarea>
                         </div>
                     </div>
                 </div>

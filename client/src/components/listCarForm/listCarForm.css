@@ -213,7 +213,8 @@
 }
 
 .listCarBasicInfoFormDetails,
-.listCarDescriptionOverviewFormDetails
+.listCarDescriptionOverviewFormDetails,
+.listCarPickUpAddressForm
 {
     display: grid;
     grid-template-columns: auto auto auto;
@@ -226,21 +227,29 @@
     grid-template-columns: auto;
 }
 
-.basicInfoFormItem
+.basicInfoFormItem,
+.listCarPickUpAddressFormDesc
 {
     display: flex;
     flex-direction: column;
     gap: 10px;
 }
 
-.basicInfoFormItem label
+.listCarPickUpAddressFormDesc
+{
+    margin-top: 20px;
+}
+
+.basicInfoFormItem label,
+.listCarPickUpAddressFormDesc label
 {
     font-size: 14px;
     font-weight: 500;
     color: var(--lighter-color6);
 }
 
-.basicInfoFormItem label sup
+.basicInfoFormItem label sup,
+.listCarPickUpAddressFormDesc label sup
 {
     margin-left: 5px;
     color: var(--red-color1);
@@ -248,7 +257,8 @@
     font-size: 14px;
 }
 
-.basicInfoFormItem label span
+.basicInfoFormItem label span,
+.listCarPickUpAddressFormDesc label span
 {
     margin-left: 5px;
     font-size: 11px;
@@ -257,7 +267,8 @@
 
 .basicInfoFormItem input,
 .basicInfoFormItem select,
-.basicInfoFormItem textarea
+.basicInfoFormItem textarea,
+.listCarPickUpAddressFormDesc textarea
 {
     padding: 10px 15px;
     font-size: 14px;
@@ -267,7 +278,8 @@
     background-color: var(--lighter-color7);
 }
 
-.basicInfoFormItem textarea
+.basicInfoFormItem textarea,
+.listCarPickUpAddressFormDesc textarea
 {
     width: 100%;
 }
@@ -277,7 +289,8 @@
 .basicInfoFormItem input:hover,
 .basicInfoFormItem select:hover,
 .basicInfoFormItem textarea:hover,
-.basicInfoFormItem textarea:focus
+.basicInfoFormItem textarea:focus,
+.listCarPickUpAddressFormDesc textarea:focus
 {
     outline: none;
     box-shadow: none;
