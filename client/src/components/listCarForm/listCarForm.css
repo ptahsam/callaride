@@ -214,7 +214,8 @@
 
 .listCarBasicInfoFormDetails,
 .listCarDescriptionOverviewFormDetails,
-.listCarPickUpAddressForm
+.listCarPickUpAddressForm,
+.listCarCancellationPolicyForm
 {
     display: grid;
     grid-template-columns: auto auto auto;
@@ -222,26 +223,39 @@
     grid-column-gap: 10px;
 }
 
+.listCarBasicInfoFormDetails
+{
+    /*grid-template-columns: auto auto auto auto;*/
+}
+
 .listCarDescriptionOverviewFormDetails
 {
     grid-template-columns: auto;
 }
 
+.listCarCancellationPolicyForm
+{
+    grid-template-columns: auto auto;
+}
+
 .basicInfoFormItem,
-.listCarPickUpAddressFormDesc
+.listCarPickUpAddressFormDesc,
+.listCarCancellationPolicyFormDesc
 {
     display: flex;
     flex-direction: column;
     gap: 10px;
 }
 
-.listCarPickUpAddressFormDesc
+.listCarPickUpAddressFormDesc,
+.listCarCancellationPolicyFormDesc
 {
     margin-top: 20px;
 }
 
 .basicInfoFormItem label,
-.listCarPickUpAddressFormDesc label
+.listCarPickUpAddressFormDesc label,
+.listCarCancellationPolicyFormDesc label
 {
     font-size: 14px;
     font-weight: 500;
@@ -249,7 +263,8 @@
 }
 
 .basicInfoFormItem label sup,
-.listCarPickUpAddressFormDesc label sup
+.listCarPickUpAddressFormDesc label sup,
+.listCarCancellationPolicyFormDesc label sup
 {
     margin-left: 5px;
     color: var(--red-color1);
@@ -258,7 +273,8 @@
 }
 
 .basicInfoFormItem label span,
-.listCarPickUpAddressFormDesc label span
+.listCarPickUpAddressFormDesc label span,
+.listCarCancellationPolicyFormDesc label span
 {
     margin-left: 5px;
     font-size: 11px;
@@ -268,7 +284,8 @@
 .basicInfoFormItem input,
 .basicInfoFormItem select,
 .basicInfoFormItem textarea,
-.listCarPickUpAddressFormDesc textarea
+.listCarPickUpAddressFormDesc textarea,
+.listCarCancellationPolicyFormDesc textarea
 {
     padding: 10px 15px;
     font-size: 14px;
@@ -279,7 +296,8 @@
 }
 
 .basicInfoFormItem textarea,
-.listCarPickUpAddressFormDesc textarea
+.listCarPickUpAddressFormDesc textarea,
+.listCarCancellationPolicyFormDesc textarea
 {
     width: 100%;
 }
@@ -290,7 +308,8 @@
 .basicInfoFormItem select:hover,
 .basicInfoFormItem textarea:hover,
 .basicInfoFormItem textarea:focus,
-.listCarPickUpAddressFormDesc textarea:focus
+.listCarPickUpAddressFormDesc textarea:focus,
+.listCarCancellationPolicyFormDesc textarea:focus
 {
     outline: none;
     box-shadow: none;

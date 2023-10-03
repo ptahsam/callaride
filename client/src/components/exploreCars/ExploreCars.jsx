@@ -1,8 +1,12 @@
+import { useState } from "react";
 import Car from "../cards/Car/CarCard";
 import RecommendedCar from "../cards/RecommendedCar/RecommendedCar";
 import "./exploreCars.css"
+import { carTypes } from "../utils/carTypes";
 
 const ExploreCars = () => {
+
+  const [filterFrequency, setFilterFrequency] = useState('day');
     const cars = [
         {
             "name": "Maruti Suzuki XL5 2023",
@@ -146,6 +150,9 @@ const ExploreCars = () => {
             <div className="exploreCarsFilterItem input-filter">
               <select>
                 <option>Select car type</option>
+                {carTypes.map((item, index) => (
+                  <option key={index}>{item}</option>
+                ))}
               </select>
             </div>
             <div className="exploreCarsFilterItem input-filter">
@@ -154,8 +161,18 @@ const ExploreCars = () => {
               </select>
             </div>
             <div className="exploreCarsFilterItem rental-frequency">
-              <span className="active">Day</span>
-              <span>Hour</span>
+              <span 
+                className={filterFrequency === 'day'?"active":""}
+                onClick={(e) => setFilterFrequency('day')}
+              >
+                Day
+              </span>
+              <span
+                className={filterFrequency === 'hour'?"active":""}
+                onClick={(e) => setFilterFrequency('hour')}
+              >
+                Hour
+              </span>
             </div>
             <div className="exploreCarsFilterItem">
               <span className="searchBtn">

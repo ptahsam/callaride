@@ -25,7 +25,7 @@ const FeaturedTestimony = () => {
                     </div>
                     <div className="featuredTestimonyCustomerDesc">
                         <p>
-                            Overall, my experience with Call A Ride was top-notch. 
+                            Overall, my experience with Rent Go was top-notch. 
                             Their customer service, quality vehicles, and transparent pricing made for a fantastic car rental experience. 
                             I will definitely be using them again for my future car rental needs and highly recommend them to anyone 
                             in need of a reliable and trustworthy car rental company. 

@@ -59,9 +59,16 @@
     box-shadow: none;
 }
 
+.footerTitle h1
+{
+    font-size: 32px;
+    font-weight: 900;
+    color: var(--theme-color4);
+}
+
 .footerCompanyDesc span
 {
-    font-size: 17px;
+    font-size: 14px;
     font-weight: 300;
     color: var(--black-color);
 }
@@ -140,9 +147,10 @@
 .footerCompanyPoliciesItem span
 {
     display: flex;
-    font-size: 18px;
-    font-weight: 300px;
+    font-size: 14px;
+    font-weight: 400;
     letter-spacing: 0.095em;
+    cursor: pointer;
 }
 
 .footerCompanyServiceItem span i,
@@ -179,6 +187,7 @@
 .footerCompanyContactsItemDetails span
 {
     font-weight: 300;
+    font-size: 14px;
 }
 
 .footerBottom
@@ -192,6 +201,7 @@
 
 .footerBottom span
 {
-    font-size: 15px;
-    font-weight: 300;
+    font-size: 12px;
+    font-weight: 200;
+    color: var(--black-color4);
 }

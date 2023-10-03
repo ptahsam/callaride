@@ -39,6 +39,12 @@
     gap: 40px;
 }
 
+.navTitle h1
+{
+    font-size: 30px;
+    font-weight: bolder;
+}
+
 .navLinks
 {
     display: flex;
@@ -71,4 +77,43 @@
 {
     color: var(--theme-color1);
     border-color: var(--theme-color1);
+}
+
+.navbarMenu
+{
+    position: relative;
+}
+
+.navbarMenu .loginBtn
+{
+    padding: 10px;
+    border-radius: 10px;
+    border: 0.09em solid var(--white-color);
+}
+
+.navbarMenu .loginBtn:hover
+{
+    border-color: var(--theme-color4);
+}
+
+.navbarMenu .navbarMenuItems
+{
+    position: absolute;
+    top: 40px;
+    right: 0;
+    box-shadow: rgba(0, 0, 0, 0.16) 0px 1px 4px;
+    border-radius: 10px;
+    padding: 10px;
+    background-color: var(--white-color);
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    min-width: 170px;
+}
+
+.navbarMenu .navbarMenuItems .navbarMenuItem span
+{
+    font-size: 14px;
+    font-weight: 400;
+    text-transform: capitalize;
 }

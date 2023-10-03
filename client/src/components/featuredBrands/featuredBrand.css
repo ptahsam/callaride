@@ -48,9 +48,9 @@
 
 .featuredBrandItems
 {
-    display: flex;
-    flex-direction: row;
-    gap: 20px;
+    display: grid;
+    grid-template-columns: auto auto auto;
+    grid-column-gap: 30px;
 }
 
 .featuredBrandItemsNavs

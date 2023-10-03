@@ -18,7 +18,7 @@
 
 .headerContainer.p-b-full
 {
-    height: calc(100vh - 200px);
+    height: calc(100vh - 100px);
 }
 
 .headerContainer.p-b-50
@@ -53,9 +53,9 @@
 
 .headerSearchContainer .headerDesc
 {
-    color: var(--black-color3);
-    font-size: 13px;
-    font-weight: 300;
+    color: var(--lighter-color6);
+    font-size: 14px;
+    font-weight: 400;
     letter-spacing: normal;
 }
 
@@ -64,7 +64,10 @@
 .headerSearchContainer .headerPickUpDate,
 .headerSearchContainer .headerDropDate
 {
-    position: relative;
+    display: flex;
+    align-items: center;
+    background-color: var(--lighter-color);
+    padding-left: 10px;
 }
 
 .headerPickUpLocation i,
@@ -72,11 +75,7 @@
 .headerPickUpDate i,
 .headerDropDate i
 {
-    position: absolute;
-    left: 10px;
-    top: 15px;
-    height: 30px;
-    width: 30px;
+    font-size: 26px;
 }
 
 .headerPickUpLocation input,
@@ -86,9 +85,9 @@
 {
     border: none;
     box-shadow: none;
-    padding: 15px;
+    padding: 10px;
     background-color: var(--lighter-color);
-    padding-left: 30px;
+    padding-left: 20px;
     width: 100%;
     font-weight: 400;
     font-size: 16px;
@@ -121,6 +120,13 @@
     color: var(--white-color);
     cursor: pointer;
     padding: 10px;
+    -webkit-transition: background 1s; 
+    transition: background 1s;
+}
+
+.headerButton:hover
+{
+    background-color: var(--theme-color4);
 }
 
 .headerButton span

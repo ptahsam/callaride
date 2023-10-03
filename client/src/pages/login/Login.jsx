@@ -1,7 +1,10 @@
+import { useNavigate } from "react-router-dom";
 import "./login.css"
 import { useState, useContext } from "react";
 
 const Login = () => {
+
+    const navigate = useNavigate()
 
     const [passwordType, setPasswordType] = useState("password");
     const [ credentials, setCredentials ] = useState({
@@ -12,6 +15,7 @@ const Login = () => {
     const handleChange = (e) => {
         setCredentials((prev) => ({ ...prev, [e.target.id]: e.target.value}));
     }
+
     const togglePassword = () => {
       if(passwordType==="password")
       {
@@ -26,9 +30,9 @@ const Login = () => {
     <div className="login">
         <div className="loginContainer">
             <div className="loginContainerHeader">
-                <span className="accountLogin">
+                <span className="accountLogin" onClick={(e) => navigate(-1)}>
                     <i class='bx bx-arrow-back'></i>
-                    LOGIN
+                    BACK
                 </span>
                 <span className="accountSpan">CREATE ACCOUNT</span>
             </div>

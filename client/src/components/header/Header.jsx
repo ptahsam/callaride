@@ -1,11 +1,7 @@
+import { carTypes } from "../utils/carTypes"
 import "./header.css"
 
 const Header = () => {
-
-  const carTypes = ["SUV","Sedan","Hatchback","Station Wagon",
-                    "Minivan","Coupe","Convertible","Crossover",
-                    "Sports Car","Pickup Truck","Compat","Van",
-                    "Hybrid","Family Car"];
 
   return (
     <div className="header" style={{  

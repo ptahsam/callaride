@@ -2,10 +2,19 @@ import "./listCarForm.css"
 import { DateRange } from 'react-date-range';
 import 'react-date-range/dist/styles.css'
 import 'react-date-range/dist/theme/default.css'
-import { format } from "date-fns"
-import { useState, useEffect, useRef } from "react";
-import { activeTabsObj, carSpecs } from "../utils/listing";
-import { fileToDataURL } from "../utils/helper";
+import { useState, useRef } from "react";
+import { 
+    carBasicInfo, 
+    carCalendarSchedule, 
+    carCancellationPolicy, 
+    carDesc, 
+    carPhotos, 
+    carPickUpAddress, 
+    carPricing, 
+    carSpecs 
+} from "../utils/listing";
+import { fileToDataURL, getDatesInRange, hasValues } from "../utils/helper";
+import { carTypes } from "../utils/carTypes";
 
 const ListCarForm = () => {
 
@@ -13,12 +22,43 @@ const ListCarForm = () => {
   const [carAvailability, setCarAvailability] = useState("");
   const [dailyBooking, setDailyBooking] = useState(false);
   const [hourlyBooking, setHourlyBooking] = useState(false);
+  const [weeklyBooking, setWeeklyBooking] = useState(false);
+  const [monthlyBooking, setMonthlyBooking] = useState(false);
   const [files, setFiles] = useState([]);
   const [dragActive, setDragActive] = useState(false);
+  const [basicInfo, setCarBasicInfo] = useState(carBasicInfo);
+  const [calendarSchedule, setCalendarSchedule] = useState(carCalendarSchedule);
+  const [pricing, setPricing] = useState(carPricing);
   const [carSpecifications, setCarSpecifications] = useState(carSpecs);
   const [activeTabs, setActiveTabs] = useState(JSON.parse(localStorage.getItem("activeTabs")) || {'mainTab': 1, 'subTab': 1});
+  const [listingInfo, setListingInfo] = useState({
+    'carBasicInfo': '',
+    'carCalendarSchedule': '',
+    'carPricing': '',
+    'carDesc': '',
+    'carPhotos': '',
+    'carSpecs': '',
+    'carPickUpAddress': '',
+    'carCancellationPolicy': ''
+  });
 
   const hiddenFileInput = useRef(null);
+
+  const handleMonthlyBooking = (e) => {
+    if(e.target.checked){
+        setMonthlyBooking(true)
+    }else{
+        setMonthlyBooking(false)
+    }
+  } 
+
+  const handleWeeklyBooking = (e) => {
+    if(e.target.checked){
+        setWeeklyBooking(true)
+    }else{
+        setWeeklyBooking(false)
+    }
+  }  
 
   const handleDailyBooking = (e) => {
     if(e.target.checked){
@@ -39,9 +79,19 @@ const ListCarForm = () => {
   const handleCarAvailability = (e) => {
     if(carAvailability === e.target.value){
         setCarAvailability('')
+        setCalendarSchedule((prev) => ({ ...prev, ['status']: carAvailability }));
     }else{
         setCarAvailability(e.target.value)
+        setCalendarSchedule((prev) => ({ ...prev, ['status']: carAvailability }));
     }
+  }
+
+  const handleCarBasicInfo = (spec,e) => {
+    setCarBasicInfo((prev) => ({ ...prev, [spec]: e.target.value }));
+  }
+
+  const handleCarCalendarSchedule = (spec,e) => {
+    
   }
 
   const handleCarSpecifications = (spec,e) => {
@@ -50,19 +100,23 @@ const ListCarForm = () => {
 
   const handleNext = () => {
     if(activeTabs.mainTab == 1 && activeTabs.subTab == 1){
-        setActiveTabs({
-            'mainTab': 1,
-            'subTab': 2
-        });
-        saveActiveTabs({'mainTab': 1,'subTab': 2})
+        if(hasValues(basicInfo)){
+            setActiveTabs({
+                'mainTab': 1,
+                'subTab': 2
+            });
+            saveActiveTabs({'mainTab': 1,'subTab': 2})
+        }
     }
 
     if(activeTabs.mainTab == 1 && activeTabs.subTab == 2){
-        setActiveTabs({
-            'mainTab': 1,
-            'subTab': 3
-        });
-        saveActiveTabs({'mainTab': 1,'subTab': 3})
+        if(hasValues(calendarSchedule)){
+            setActiveTabs({
+                'mainTab': 1,
+                'subTab': 3
+            });
+            saveActiveTabs({'mainTab': 1,'subTab': 3})
+        }
     }
 
     if(activeTabs.mainTab == 1 && activeTabs.subTab == 3){
@@ -95,6 +149,14 @@ const ListCarForm = () => {
             'subTab': 2
         });
         saveActiveTabs({'mainTab': 3,'subTab': 2});
+    }
+
+    if(activeTabs.mainTab == 3 && activeTabs.subTab == 2){
+        setActiveTabs({
+            'mainTab': 3,
+            'subTab': 3
+        });
+        saveActiveTabs({'mainTab': 3,'subTab': 3});
     }
   }
 
@@ -146,6 +208,14 @@ const ListCarForm = () => {
         });
         saveActiveTabs({'mainTab': 3,'subTab': 1});
     }
+
+    if(activeTabs.mainTab == 3 && activeTabs.subTab == 3){
+        setActiveTabs({
+            'mainTab': 3,
+            'subTab': 2
+        });
+        saveActiveTabs({'mainTab': 3,'subTab': 2});
+    }
   }
 
   const saveActiveTabs = (tabs) => {
@@ -163,7 +233,8 @@ const ListCarForm = () => {
     }
   };
 
-  const handleDrop = async (e) => {
+  const handleDrop = async (e) => 
+  {
     e.preventDefault();
     e.stopPropagation();
     setDragActive(false);
@@ -203,6 +274,12 @@ const ListCarForm = () => {
     setFiles(newFiles);
   };
 
+  const handleDatesChange = (item) => {
+    setDates([item.selection])
+    setCalendarSchedule((prev) => ({ ...prev, ['dates']: getDatesInRange(dates[0].startDate, dates[0].endDate) }));
+    console.log(calendarSchedule)
+  }
+
   return (
     <div className="listCarForm">
         <div className="listCarFormContainer">
@@ -215,7 +292,8 @@ const ListCarForm = () => {
                     of what it’s worth first. After all, trading in a <br />
                     vehicle is a lot less hassle than selling it <br />
                     yourself. And you can often lower your <br />
-                    payments by trading in a vehicle as well. Win-win!
+                    payments by trading in a vehicle as well. <br />
+                    Win-win!
                 </p>
             </div>
             <div className="listCarDetails">
@@ -270,33 +348,53 @@ const ListCarForm = () => {
                         <div className="listCarBasicInfoFormDetails">
                             <div className="basicInfoFormItem">
                                 <label>City<sup>*</sup></label>
-                                <input type="text" placeholder="Enter your city"/>
+                                <input 
+                                    type="text" 
+                                    placeholder="Enter your city" 
+                                    onChange={(e) => handleCarBasicInfo('city',e)}
+                                    value={basicInfo.city}
+                                />
                             </div>
                             <div className="basicInfoFormItem">
                                 <label>Brand<sup>*</sup></label>
-                                <select>
+                                <select onChange={(e) => handleCarBasicInfo('carBrand', e)}>
                                     <option>-Select Brand-</option>
+                                    <option value={'toyota'}>Toyota</option>
                                 </select>
                             </div>
                             <div className="basicInfoFormItem">
                                 <label>Model<sup>*</sup></label>
-                                <select>
+                                <select onChange={(e) => handleCarBasicInfo('carModel', e)}>
                                     <option>-Select Model-</option>
+                                    <option value={'toyota_raf_4'}>Toyota RAF 4</option>
                                 </select>
                             </div>
                             <div className="basicInfoFormItem">
                                 <label>Year<sup>*</sup></label>
-                                <input type="text" placeholder="Enter year"/>
+                                <input 
+                                    type="text" 
+                                    placeholder="Enter year"
+                                    onChange={(e) => handleCarBasicInfo('year', e)}
+                                    value={basicInfo.year}
+                                />
                             </div>
                             <div className="basicInfoFormItem">
                                 <label>Car Type<sup>*</sup></label>
-                                <select>
+                                <select onChange={(e) => handleCarBasicInfo('carType', e)}>
                                     <option>-Select Car Type-</option>
+                                    {carTypes.map((item, index) => (
+                                        <option key={index}>{item}</option>
+                                    ))}
                                 </select>
                             </div>
                             <div className="basicInfoFormItem">
                                 <label>Car Registration Number<sup>*</sup></label>
-                                <input type="text" placeholder="Car Registration Number" />
+                                <input 
+                                    type="text" 
+                                    placeholder="Car Registration Number"
+                                    onChange={(e) => handleCarBasicInfo('regNo', e)}
+                                    value={basicInfo.regNo}
+                                />
                             </div>
                         </div>
                     </div>
@@ -307,8 +405,8 @@ const ListCarForm = () => {
                         <div className="listCarCalendar">
                             <DateRange 
                                 editableDateInputs={true}
-                                onChange={item=>setDates([item.selection])}
-                                moveRangeOnFirstSelection={false}
+                                onChange={(item)=>handleDatesChange(item)}
+                                moveRangeOnFirstSelection={true}
                                 ranges={dates} 
                                 rangeColors={['#ae0c5c', '#33334f', '#f0f5fb']}
                                 className="listCarCalendarPicker"
@@ -371,6 +469,14 @@ const ListCarForm = () => {
                                     <input type="checkbox" onChange={(e) => handleDailyBooking(e)}/>
                                     <label>Daily Booking<sup>*</sup></label>
                                 </div>
+                                <div className="basicInfoFormItemCustomCheckBox">
+                                    <input type="checkbox" onChange={(e) => handleWeeklyBooking(e)}/>
+                                    <label>Weekly Booking<sup>*</sup></label>
+                                </div>
+                                <div className="basicInfoFormItemCustomCheckBox">
+                                    <input type="checkbox" onChange={(e) => handleMonthlyBooking(e)}/>
+                                    <label>Monthly Booking<sup>*</sup></label>
+                                </div>
                             </div>
                             <div className={hourlyBooking?"listCarBasicInfoFormBooking":"listCarBasicInfoFormBooking no-show"}>
                                 <h3>Hourly Booking</h3>
@@ -401,16 +507,51 @@ const ListCarForm = () => {
                                         </select>
                                     </div>
                                     <div className="basicInfoFormItem">
-                                        <label>Price Per Price<sup>*</sup></label>
-                                        <input type="number" placeholder="0.00"/>
+                                        <label>Minimum day Price<sup>*</sup></label>
+                                        <input type="number" placeholder="Minimum day price"/>
                                     </div>
                                     <div className="basicInfoFormItem">
-                                        <label>Weekly Price<sup>*</sup></label>
-                                        <input type="number" placeholder="Weekly price"/>
+                                        <label>Price per Hour<sup>*</sup></label>
+                                        <input type="number" placeholder="Price per day"/>
+                                    </div>
+        
+                                </div>
+                            </div>
+                            <div className={weeklyBooking?"listCarBasicInfoFormBooking":"listCarBasicInfoFormBooking no-show"}>
+                                <h3>Weekly Booking</h3>
+                                <div className="listCarBasicInfoFormDetails">
+                                    <div className="basicInfoFormItem">
+                                        <label>Minimum Weeks<sup>*</sup></label>
+                                        <select>
+                                            <option>-Select Min Weeks-</option>
+                                        </select>
                                     </div>
                                     <div className="basicInfoFormItem">
-                                        <label>Monthly Price<sup>*</sup></label>
-                                        <input type="number" placeholder="0.00"/>
+                                        <label>Minimum Week Price<sup>*</sup></label>
+                                        <input type="number" placeholder="Minimum week price"/>
+                                    </div>
+                                    <div className="basicInfoFormItem">
+                                        <label>Price per Week<sup>*</sup></label>
+                                        <input type="number" placeholder="Price per week"/>
+                                    </div>
+                                </div>
+                            </div>
+                            <div className={monthlyBooking?"listCarBasicInfoFormBooking":"listCarBasicInfoFormBooking no-show"}>
+                                <h3>Monthly Booking</h3>
+                                <div className="listCarBasicInfoFormDetails">
+                                    <div className="basicInfoFormItem">
+                                        <label>Minimum Months<sup>*</sup></label>
+                                        <select>
+                                            <option>-Select Min Months-</option>
+                                        </select>
+                                    </div>
+                                    <div className="basicInfoFormItem">
+                                        <label>Minimum Month Price<sup>*</sup></label>
+                                        <input type="number" placeholder="Minimum month price"/>
+                                    </div>
+                                    <div className="basicInfoFormItem">
+                                        <label>Price per Month<sup>*</sup></label>
+                                        <input type="number" placeholder="Price per month"/>
                                     </div>
                                 </div>
                             </div>
@@ -515,7 +656,7 @@ const ListCarForm = () => {
                         </span>
                         <span className={activeTabs.mainTab >= 3 && activeTabs.subTab >= 3?"settings active":"settings"}>
                             <i class='bx bxs-check-circle' ></i>
-                            <h3>Settings</h3>
+                            <h3>Cancellation Policy</h3>
                         </span>
                     </div>
                     <div className={activeTabs.mainTab == 3 && activeTabs.subTab == 1?"listCarSpecifications":"listCarSpecifications no-show"}>
@@ -800,6 +941,32 @@ const ListCarForm = () => {
                         </div>
                     </div>
                 </div>
+                <div className={activeTabs.mainTab == 3 && activeTabs.subTab == 3?"listCarCancellationPolicy":"listCarCancellationPolicy no-show"}>
+                    <div className="listCarBasicTitle">
+                        <h3>Cancellation Policy</h3>
+                        <span>Please select the your cancellation policy. You can read more about the cancellation policy. here</span>
+                    </div>
+                    <div className="listCarCancellationPolicyForm">
+                        <div className="basicInfoFormItem">
+                            <label>Cancellation Policy<sup>*</sup></label>
+                            <select>
+                                <option>Select the cancellation policy</option>
+                                <option>Flexible</option>
+                                <option>Moderate</option>
+                                <option>Strict</option>
+                            </select>
+                        </div>
+                        <div className="basicInfoFormItem">
+                            <label>Return Amount<sup>*</sup></label>
+                            <input type="number" placeholder="0.00"/>
+                        </div>
+                    </div>
+                    <div className="listCarCancellationPolicyFormDesc">
+                        <label>Description<sup>*</sup></label>
+                        <textarea rows={5} placeholder="Enter your description">
+                        </textarea>
+                    </div>
+                </div>
                 <div className="listCarDetailsBtn">
                     <span 
                         className={activeTabs.mainTab == 1 && activeTabs.subTab == 1?"basicInfoBtn no-show":"basicInfoBtn"}
@@ -807,8 +974,8 @@ const ListCarForm = () => {
                     >
                         Prev
                     </span>
-                    <span className="basicInfoBtn" onClick={handleNext}>
-                        Next
+                    <span className="basicInfoBtn "onClick={handleNext}>
+                        {activeTabs.mainTab == 3 && activeTabs.subTab == 3?"Submit":"Next"}
                     </span>
                 </div>
             </div>

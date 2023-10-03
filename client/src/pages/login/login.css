@@ -209,8 +209,10 @@
 
 .loginFormItem .passwordField>span:hover
 {
+    /*
     background-color: #eee;
     color: #071e22;
+    */
 }
 
 .loginFormItemBtn

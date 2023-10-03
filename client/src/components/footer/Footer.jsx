@@ -18,7 +18,7 @@ const Footer = () => {
             </div>
             <div className="footerTitle">
               <div className="footerImg"></div>
-              <h1>CALL A RIDE</h1>
+              <h1>Rent Go</h1>
             </div>
             <div className="footerCompanyDesc">
               <span>We are here to help you travel</span>
@@ -138,7 +138,7 @@ const Footer = () => {
           </div>
         </div>
         <div className="footerBottom">
-          <span>© Copyright 2022. CallRide. All Rights Reserved</span>
+          <span>© Copyright 2022. RentGo. All Rights Reserved</span>
         </div>
       </div>
     </div>
