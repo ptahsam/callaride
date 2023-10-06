@@ -4,6 +4,8 @@ import mongoose from "mongoose"
 import authRoute from "./routes/auth.js"
 import customerRoute from "./routes/customer.js"
 import vendorRoute from "./routes/vendor.js"
+import listingRoute from "./routes/listing.js"
+import brandRoute from "./routes/brand.js"
 import cookieParser from "cookie-parser"
 import cors from "cors"
 
@@ -27,6 +29,8 @@ app.use(express.json())
 app.use("/api/auth", authRoute);
 app.use("/api/customers", customerRoute);
 app.use("/api/vendors", vendorRoute);
+app.use("/api/brand", brandRoute);
+app.use("/api/listings", listingRoute);
 
 app.use((err, req, res, next) => {
     const errorStatus = err.status || 500

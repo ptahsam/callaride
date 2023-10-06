@@ -1,45 +1,13 @@
+import { useState } from "react"
+import useFetch from "../../hooks/useFetch"
 import Car from "../cards/Car/CarCard"
 import "./featuredNearbyCar.css"
+import { carTypes } from "../utils/carTypes"
 
 const FeaturedNearbyCar = () => {
-  const cars = [
-    {
-      "name": "Maruti Suzuki XL5 2023",
-      "avgRating": 4,
-      "img": "Maruti_2025",
-      "rentalRate": {
-        "hourly": 40,
-        "daily": 130
-      }
-    },
-    {
-      "name": "Maruti Suzuki XL9 2012",
-      "avgRating": 3,
-      "img": "Maruti_2012",
-      "rentalRate": {
-        "hourly": 45,
-        "daily": 140
-      }
-    },
-    {
-      "name": "Renault Triber MT 2013",
-      "avgRating": 5,
-      "img": "Renault_2013",
-      "rentalRate": {
-        "hourly": 20,
-        "daily": 180
-      }
-    },
-    {
-      "name": "Toyota RAF 4 2023",
-      "avgRating": 2,
-      "img": "Toyota_raf_4_2023",
-      "rentalRate": {
-        "hourly": 32,
-        "daily": 181
-      }
-    }
-  ];
+  const [activeCarType, setActiveCarType] = useState(carTypes[0])
+  const { data, loading, error } = useFetch(`/listings?type=${activeCarType.type}`);
+
   return (
     <div className="featuredNearbyCar">
         <div className="featuredNearbyCarContainer">
@@ -48,26 +16,22 @@ const FeaturedNearbyCar = () => {
                 <h1>Rent Cars Near You</h1>
             </div>
             <div className="featuredNearbyCarFilters">
-              <span className="carModelFilter active">
-                Suv
-              </span>
-              <span className="carModelFilter">
-                Muv
-              </span>
-              <span className="carModelFilter">
-                Sedan
-              </span>
-              <span className="carModelFilter">
-                Hatchback
-              </span>
-              <span className="carModelFilter">
-                Subash
-              </span>
+              {carTypes.slice(0, 7).map((carType, index) => (
+                <span 
+                  key={index}
+                  className={activeCarType == carType?"carModelFilter active":"carModelFilter"}
+                  onClick={(e) => setActiveCarType(carType)}
+                >
+                {carType.name}
+                </span>
+              ))}
             </div>
             <div className="featuredNearbyCarModels">
-                {cars.map((car, index) => (
-                  <Car car={car} key={index} />
-                ))}
+              {loading ? <>
+                <p>Loading</p>
+              </> : data.slice(0, 4).map((listing, index) => (
+                <Car car={listing} key={listing._id} />
+              ))}
             </div>
         </div>
     </div>

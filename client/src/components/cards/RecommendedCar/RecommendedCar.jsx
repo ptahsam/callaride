@@ -4,11 +4,11 @@ const RecommendedCar = ({ car }) => {
   return (
     <div className="recommendedCar">
         <div className="recommendedCarImg">
-            <img src="../../images/section/section2.jpg" />
+            <img src={car.carPhotos[0]} />
         </div>
         <div className="recommendedCarDetails">
             <span className="recommendedCarTitle">
-                {car.name}
+                {car.carBasicInfo.carName}
             </span>
             <div className="recommendedCarRating">
                 <span className="recommendedRatedStars">
@@ -19,12 +19,12 @@ const RecommendedCar = ({ car }) => {
                     <i class='bx bxs-star' ></i>
                 </span>
                 <h3 className="recommendedRatedStarsCount">
-                    {car.avgRating}
+                    
                 </h3>
             </div>
             <div className="recommendedCarPricing">
                 <span>from</span>
-                <h2>${car.rentalRate.daily}</h2>
+                <h2>${car.carPricing.daily_booking.price_per_day}</h2>
                 <em>/day</em>
             </div>
         </div>

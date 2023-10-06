@@ -1,7 +1,15 @@
 import { carTypes } from "../utils/carTypes"
+import { DateRange } from "react-date-range"
+import 'react-date-range/dist/styles.css'
+import 'react-date-range/dist/theme/default.css'
+import { format } from "date-fns" 
 import "./header.css"
+import { useState } from "react"
 
 const Header = () => {
+
+  const [openPickUpDate, setPickUpDate] = useState(false); 
+  const [dates, setDates] = useState([{startDate: new Date(), endDate: new Date(), key: "selection"}]);
 
   return (
     <div className="header" style={{  
@@ -26,14 +34,30 @@ const Header = () => {
                 <select>
                   <option value="">Car Type</option>
                   {carTypes.map((item, index) => (
-                    <option key={index}>{item}</option>
+                    <option value={item.type} key={index}>{item.name}</option>
                   ))}
                 </select>
               </div>
               <div className="headerDates">
                 <div className="headerPickUpDate">
                   <i class='bx bx-calendar-alt'></i>
-                  <input type="text" placeholder="Pickup Date" />
+                  <input 
+                    type="text" 
+                    placeholder="Pickup Date" 
+                    onFocus={(e) => setPickUpDate(true)} 
+                    onBlur = {(e) => setPickUpDate(false)}
+                  />
+                  <div className="headerPickUpDateCalendar">
+                    {openPickUpDate && <DateRange 
+                        editableDateInputs={false}
+                        onChange={item=>setDates([item.selection])}
+                        moveRangeOnFirstSelection={false}
+                        showDateDisplay={false}
+                        ranges={dates} 
+                        rangeColors={['#f33e5b', '#3ecf8e', '#fed14c']}
+                        className="startDate"
+                    />}
+                  </div>
                 </div>
                 <div className="headerDropDate">
                   <i class='bx bx-calendar-alt'></i>

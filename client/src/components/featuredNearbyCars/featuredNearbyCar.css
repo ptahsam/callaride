@@ -42,7 +42,8 @@
 {
     margin-top: 50px;
     margin-bottom: 40px;
-    display: flex;
+    display: grid;
+    grid-template-columns: auto auto auto auto auto auto auto;
     align-items: center;
     justify-content: center;
     gap: 10px;
@@ -67,6 +68,10 @@
 
 .featuredNearbyCarModels
 {
-    display: flex;
-    gap: 40px;
+    width: 100%;
+    display: grid;
+    grid-template-columns: auto auto auto auto;
+    justify-content: start;
+    grid-column-gap: 20px;
+    align-items: start;
 }

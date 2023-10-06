@@ -2,7 +2,8 @@ import "./listCarForm.css"
 import { DateRange } from 'react-date-range';
 import 'react-date-range/dist/styles.css'
 import 'react-date-range/dist/theme/default.css'
-import { useState, useRef } from "react";
+import axios from "axios"
+import { useState, useRef, useEffect } from "react";
 import { 
     carBasicInfo, 
     carCalendarSchedule, 
@@ -13,11 +14,15 @@ import {
     carPricing, 
     carSpecs 
 } from "../utils/listing";
-import { fileToDataURL, getDatesInRange, hasValues } from "../utils/helper";
+import { fileToDataURL, getDatesInRange, getModel, hasValues } from "../utils/helper";
 import { carTypes } from "../utils/carTypes";
+import { numbers } from "../utils/numbers";
+import useFetch from "../../hooks/useFetch";
 
 const ListCarForm = () => {
 
+  const [submitting, setSubmitting] = useState(false);
+  const [selectedCarBrand, setSelectedCarBrand] = useState(null); 
   const [dates, setDates] = useState([{startDate: new Date(), endDate: new Date(), key: "selection"}]);  
   const [carAvailability, setCarAvailability] = useState("");
   const [dailyBooking, setDailyBooking] = useState(false);
@@ -29,18 +34,29 @@ const ListCarForm = () => {
   const [basicInfo, setCarBasicInfo] = useState(carBasicInfo);
   const [calendarSchedule, setCalendarSchedule] = useState(carCalendarSchedule);
   const [pricing, setPricing] = useState(carPricing);
+  const [carDescription, setCarDescription] = useState(carDesc)
   const [carSpecifications, setCarSpecifications] = useState(carSpecs);
+  const [pickUpAddress, setCarPickUpAddress] = useState(carPickUpAddress);
+  const [cancellationPolicy, setCarCancellationPolicy] = useState(carCancellationPolicy);
   const [activeTabs, setActiveTabs] = useState(JSON.parse(localStorage.getItem("activeTabs")) || {'mainTab': 1, 'subTab': 1});
-  const [listingInfo, setListingInfo] = useState({
-    'carBasicInfo': '',
-    'carCalendarSchedule': '',
-    'carPricing': '',
-    'carDesc': '',
-    'carPhotos': '',
-    'carSpecs': '',
-    'carPickUpAddress': '',
-    'carCancellationPolicy': ''
+  const [listingInfo, setListingInfo] = useState(JSON.parse(localStorage.getItem("listingInfo")) || {
+    'listingOwner': '',
+    'carBasicInfo': {},
+    'carCalendarSchedule': {},
+    'carPricing': {},
+    'carDesc': {},
+    'carPhotos': [],
+    'carSpecs': {},
+    'carPickUpAddress': {},
+    'carCancellationPolicy': {},
+    'approvalStatus': ''
   });
+
+  const { data, loading, error } = useFetch(`/brand`) 
+
+  useEffect(() => {
+    setSelectedCarBrand(getModel(data, basicInfo.carBrand))
+  },[data,basicInfo]);
 
   const hiddenFileInput = useRef(null);
 
@@ -76,13 +92,29 @@ const ListCarForm = () => {
     }
   }
 
+  const handleCarPickUpAddress = (e, item) => {
+    setCarPickUpAddress((prev) => ({ ...prev, [item]: e.target.value }));
+  }
+
+  const handleCarCancellationPolicy = (e, item) => {
+    setCarCancellationPolicy((prev) => ({ ...prev, [item]: e.target.value }));
+  }
+
+  const handleCarDesc = (e, item) => {
+    if(item === "desc"){
+        setCarDescription((prev) => ({ ...prev, ['desc']: e.target.value }));
+    }else{
+        setCarDescription((prev) => ({ ...prev, [item]: e.target.checked }));
+    }
+  }
+
   const handleCarAvailability = (e) => {
     if(carAvailability === e.target.value){
         setCarAvailability('')
-        setCalendarSchedule((prev) => ({ ...prev, ['status']: carAvailability }));
+        setCalendarSchedule((prev) => ({ ...prev, ['status']: e.target.value }));
     }else{
         setCarAvailability(e.target.value)
-        setCalendarSchedule((prev) => ({ ...prev, ['status']: carAvailability }));
+        setCalendarSchedule((prev) => ({ ...prev, ['status']: e.target.value }));
     }
   }
 
@@ -98,19 +130,22 @@ const ListCarForm = () => {
     setCarSpecifications((prev) => ({ ...prev, [spec]: e.target.value }));
   }
 
-  const handleNext = () => {
+  const handleNext = async () => {
     if(activeTabs.mainTab == 1 && activeTabs.subTab == 1){
         if(hasValues(basicInfo)){
+            setListingInfo((prev) => ({...prev, ['carBasicInfo']: basicInfo }));
             setActiveTabs({
                 'mainTab': 1,
                 'subTab': 2
             });
+            
             saveActiveTabs({'mainTab': 1,'subTab': 2})
         }
     }
 
     if(activeTabs.mainTab == 1 && activeTabs.subTab == 2){
-        if(hasValues(calendarSchedule)){
+        if(carAvailability !== "" && getDatesInRange(dates[0].startDate, dates[0].endDate).length > 1){
+            setListingInfo((prev) => ({...prev, ['carCalendarSchedule']: calendarSchedule }))
             setActiveTabs({
                 'mainTab': 1,
                 'subTab': 3
@@ -120,19 +155,25 @@ const ListCarForm = () => {
     }
 
     if(activeTabs.mainTab == 1 && activeTabs.subTab == 3){
-        setActiveTabs({
-            'mainTab': 2,
-            'subTab': 1
-        });
-        saveActiveTabs({'mainTab': 2,'subTab': 1});
+        if(hasValues(basicInfo)){
+            setListingInfo((prev) => ({...prev, ['carPricing']: pricing }))
+            setActiveTabs({
+                'mainTab': 2,
+                'subTab': 1
+            });
+            saveActiveTabs({'mainTab': 2,'subTab': 1});
+        }
     }
 
     if(activeTabs.mainTab == 2 && activeTabs.subTab == 1){
-        setActiveTabs({
-            'mainTab': 2,
-            'subTab': 2
-        });
-        saveActiveTabs({'mainTab': 2,'subTab': 2});
+        if(hasValues(carDescription)){
+            setListingInfo((prev) => ({...prev, ['carDesc']: carDescription }))
+            setActiveTabs({
+                'mainTab': 2,
+                'subTab': 2
+            });
+            saveActiveTabs({'mainTab': 2,'subTab': 2});
+        }
     }
 
     if(activeTabs.mainTab == 2 && activeTabs.subTab == 2){
@@ -144,21 +185,94 @@ const ListCarForm = () => {
     }
 
     if(activeTabs.mainTab == 3 && activeTabs.subTab == 1){
-        setActiveTabs({
-            'mainTab': 3,
-            'subTab': 2
-        });
-        saveActiveTabs({'mainTab': 3,'subTab': 2});
+        if(hasValues(carSpecifications)){
+            setListingInfo((prev) => ({...prev, ['carSpecs']: carSpecifications }))
+            setActiveTabs({
+                'mainTab': 3,
+                'subTab': 2
+            });
+            saveActiveTabs({'mainTab': 3,'subTab': 2});
+        }
     }
 
     if(activeTabs.mainTab == 3 && activeTabs.subTab == 2){
+        if(hasValues(pickUpAddress)){
+            setListingInfo((prev) => ({...prev, ['carPickUpAddress']: pickUpAddress }))
+            setActiveTabs({
+                'mainTab': 3,
+                'subTab': 3
+            });
+            saveActiveTabs({'mainTab': 3,'subTab': 3});
+        }
+    }
+
+    if(activeTabs.mainTab == 3 && activeTabs.subTab == 3){
+        console.log(listingInfo)
+        if(files.length > 0){
+            try {
+                setSubmitting(true)
+                const list = await Promise.all(
+                  Object.values(files).map(async (file) => {
+                    const data = new FormData();
+                    data.append("file", file.file);
+                    data.append("upload_preset", "upload");
+                    const uploadRes = await axios.post(
+                      "https://api.cloudinary.com/v1_1/rentgo/image/upload",
+                      data
+                    );
+          
+                    const { url } = uploadRes.data;
+                    return url;
+                  })
+                );
+          
+                const newListing = {
+                  ...listingInfo,
+                  carPhotos: list,
+                  carCancellationPolicy: cancellationPolicy,
+                  listingOwner: 'Peter',
+                  approvalStatus: 'submitted_for_review'
+                };
+          
+                const resp = await axios.post("/listings", newListing);
+                if(resp.data){
+                    localStorage.removeItem('listingInfo')
+                    setActiveTabs({
+                        'mainTab': 4,
+                        'subTab': 1
+                    });
+                    saveActiveTabs({'mainTab': 4,'subTab': 1});
+                }
+                setSubmitting(false)
+            } catch (err) {
+                setSubmitting(false)
+                console.log(err)
+            }
+        }
+    }
+
+    if(activeTabs.mainTab == 4){
         setActiveTabs({
-            'mainTab': 3,
-            'subTab': 3
+            'mainTab': 1,
+            'subTab': 1
         });
-        saveActiveTabs({'mainTab': 3,'subTab': 3});
+        saveActiveTabs({'mainTab': 1,'subTab': 1});
     }
   }
+
+  useEffect(() => {
+    localStorage.setItem("listingInfo", JSON.stringify(listingInfo))
+    setCarBasicInfo(listingInfo.carBasicInfo)
+    setCarAvailability(listingInfo.carCalendarSchedule.status)
+    /*setDates([{
+        startDate: new Date(listingInfo.carCalendarSchedule.dates[0]),
+        endDate: new Date(listingInfo.carCalendarSchedule.dates.slice(-1)),
+        key: "selection"
+    }])*/
+    setCarSpecifications(listingInfo.carSpecs)
+    setCarPickUpAddress(listingInfo.carPickUpAddress)
+    console.log(listingInfo)
+  }, [listingInfo]);
 
   const handlePrev = () => {
     if(activeTabs.mainTab == 1 && activeTabs.subTab == 2){
@@ -277,13 +391,20 @@ const ListCarForm = () => {
   const handleDatesChange = (item) => {
     setDates([item.selection])
     setCalendarSchedule((prev) => ({ ...prev, ['dates']: getDatesInRange(dates[0].startDate, dates[0].endDate) }));
-    console.log(calendarSchedule)
+  }
+
+  const handleCarPricing = (e, item, itemType) => {
+    if(itemType === ''){
+        setPricing((prev) => ({ ...prev, [item]: e.target.value }));
+    }else{
+        setPricing((prev) => ({ ...prev, [item]: (details) => ({ ...details, [itemType]: e.target.value})}))
+    }
   }
 
   return (
     <div className="listCarForm">
         <div className="listCarFormContainer">
-            <div className="listCarFormIntro">
+            <div className={activeTabs.mainTab == 4?"listCarFormIntro no-show":"listCarFormIntro"}>
                 <span>Trade your car</span>
                 <h1>List your <br />vehycle</h1>
                 <p>
@@ -297,7 +418,7 @@ const ListCarForm = () => {
                 </p>
             </div>
             <div className="listCarDetails">
-                <div className="listCarHeader">
+                <div className={activeTabs.mainTab == 4?"listCarHeader no-show":"listCarHeader"}>
                     <div className={activeTabs.mainTab == 1?"listCarHeaderItem active":"listCarHeaderItem"}>
                         <span className="step">
                             01
@@ -357,16 +478,26 @@ const ListCarForm = () => {
                             </div>
                             <div className="basicInfoFormItem">
                                 <label>Brand<sup>*</sup></label>
-                                <select onChange={(e) => handleCarBasicInfo('carBrand', e)}>
+                                <select 
+                                    onChange={(e) => handleCarBasicInfo('carBrand', e)}
+                                    value={basicInfo.carBrand}
+                                >
                                     <option>-Select Brand-</option>
-                                    <option value={'toyota'}>Toyota</option>
+                                    {!loading && data.map((brand) => (
+                                        <option value={brand._id}>{brand.name}</option>
+                                    ))}
                                 </select>
                             </div>
                             <div className="basicInfoFormItem">
                                 <label>Model<sup>*</sup></label>
-                                <select onChange={(e) => handleCarBasicInfo('carModel', e)}>
+                                <select 
+                                    onChange={(e) => handleCarBasicInfo('carModel', e)}
+                                    value={basicInfo.carModel}
+                                >
                                     <option>-Select Model-</option>
-                                    <option value={'toyota_raf_4'}>Toyota RAF 4</option>
+                                    {selectedCarBrand != null && selectedCarBrand.length > 0 && selectedCarBrand[0].models.map((model) => (
+                                        <option value={model._id}>{model.model_name}</option>
+                                    ))}
                                 </select>
                             </div>
                             <div className="basicInfoFormItem">
@@ -380,10 +511,13 @@ const ListCarForm = () => {
                             </div>
                             <div className="basicInfoFormItem">
                                 <label>Car Type<sup>*</sup></label>
-                                <select onChange={(e) => handleCarBasicInfo('carType', e)}>
+                                <select 
+                                    onChange={(e) => handleCarBasicInfo('carType', e)}
+                                    value={basicInfo.carType}
+                                >
                                     <option>-Select Car Type-</option>
                                     {carTypes.map((item, index) => (
-                                        <option key={index}>{item}</option>
+                                        <option value={item.type} key={index}>{item.name}</option>
                                     ))}
                                 </select>
                             </div>
@@ -394,6 +528,15 @@ const ListCarForm = () => {
                                     placeholder="Car Registration Number"
                                     onChange={(e) => handleCarBasicInfo('regNo', e)}
                                     value={basicInfo.regNo}
+                                />
+                            </div>
+                            <div className="basicInfoFormItem">
+                                <label>Name<sup>*</sup></label>
+                                <input 
+                                    type="text" 
+                                    placeholder="Toyata Rav4 Black"
+                                    onChange={(e) => handleCarBasicInfo('carName', e)}
+                                    value={basicInfo.carName}
                                 />
                             </div>
                         </div>
@@ -416,7 +559,7 @@ const ListCarForm = () => {
                                 <label className="radioBtn available">
                                     Available
                                     <input type="checkbox" 
-                                        onChange={handleCarAvailability} 
+                                        onChange={(e)  => handleCarAvailability(e)} 
                                         checked={carAvailability === "available"?true:false} 
                                         value="available"
                                     />
@@ -425,7 +568,7 @@ const ListCarForm = () => {
                                 <label className="radioBtn booked">
                                     Booked
                                     <input type="checkbox" 
-                                        onChange={handleCarAvailability} 
+                                        onChange={(e) => handleCarAvailability(e)} 
                                         checked={carAvailability === "booked"?true:false}
                                         value="booked"
                                     />
@@ -434,7 +577,7 @@ const ListCarForm = () => {
                                 <label className="radioBtn unavailable">
                                     Unavailable
                                     <input type="checkbox" 
-                                        onChange={handleCarAvailability} 
+                                        onChange={(e) => handleCarAvailability(e)} 
                                         value="unavailable"
                                         checked={carAvailability === "unavailable"?true:false}
                                     />
@@ -451,18 +594,29 @@ const ListCarForm = () => {
                             <div className="listCarBasicInfoFormDetails">
                                 <div className="basicInfoFormItem">
                                     <label>Currency<sup>*</sup></label>
-                                    <select>
+                                    <select
+                                        onChange={(e) => handleCarPricing(e, 'currency', '')}
+                                        value={pricing.currency}
+                                    >
                                         <option>-Select Currency-</option>
+                                        <option value='usd'>USD</option>
+                                        <option value='kes'>KES</option>
                                     </select>
                                 </div>
                                 <div className="basicInfoFormItem">
                                     <label>Security Deposit<sup>*</sup></label>
-                                    <input type="number" placeholder="Enter price i.e 70"/>
+                                    <input 
+                                        type="number" 
+                                        placeholder="Enter price i.e 70"
+                                        onChange={(e) => handleCarPricing(e, 'securityDeposit', '')}
+                                        value={pricing.securityDeposit}
+                                    />
                                 </div>
                             </div>
                             <div className="listCarBasicInfoFormDetails">
                                 <div className="basicInfoFormItemCustomCheckBox">
-                                    <input type="checkbox" onChange={(e) => handleHourlyBooking(e)}/>
+                                    <input 
+                                    type="checkbox" onChange={(e) => handleHourlyBooking(e)}/>
                                     <label>Hourly Booking<sup>*</sup></label>
                                 </div>
                                 <div className="basicInfoFormItemCustomCheckBox">
@@ -483,17 +637,33 @@ const ListCarForm = () => {
                                 <div className="listCarBasicInfoFormDetails">
                                     <div className="basicInfoFormItem">
                                         <label>Minimum Hours<sup>*</sup></label>
-                                        <select>
+                                        <select
+                                            onChange={(e) => handleCarPricing(e, 'hourly_booking', 'min_hours')}
+                                            value={pricing.hourly_booking.min_hours}
+                                        >
                                             <option>-Select Min Hours-</option>
+                                            {numbers.map((number, i) => (
+                                                <option value={number} key={i}>{number}</option>
+                                            ))}
                                         </select>
                                     </div>
                                     <div className="basicInfoFormItem">
                                         <label>Minimum Hour Price<sup>*</sup></label>
-                                        <input type="number" placeholder="Minimum hour price"/>
+                                        <input 
+                                            type="number" 
+                                            placeholder="Minimum hour price"
+                                            onChange={(e) => handleCarPricing(e, 'hourly_booking', 'min_hourly_price')}
+                                            value={pricing.hourly_booking.min_hourly_price}
+                                        />
                                     </div>
                                     <div className="basicInfoFormItem">
                                         <label>Price per Hour<sup>*</sup></label>
-                                        <input type="number" placeholder="Price per hour"/>
+                                        <input 
+                                            type="number" 
+                                            placeholder="Price per hour"
+                                            onChange={(e) => handleCarPricing(e, 'hourly_booking', 'price_per_hour')}
+                                            value={pricing.hourly_booking.price_per_hour}
+                                        />
                                     </div>
                                 </div>
                             </div>
@@ -502,19 +672,34 @@ const ListCarForm = () => {
                                 <div className="listCarBasicInfoFormDetails">
                                     <div className="basicInfoFormItem">
                                         <label>Minimum Days<sup>*</sup></label>
-                                        <select>
+                                        <select
+                                            onChange={(e) => handleCarPricing(e, 'daily_booking', 'min_days')}
+                                            value={pricing.daily_booking.min_days}
+                                        >
                                             <option>-Select min days-</option>
+                                            {numbers.map((number, i) => (
+                                                <option value={number} key={i}>{number}</option>
+                                            ))}
                                         </select>
                                     </div>
                                     <div className="basicInfoFormItem">
                                         <label>Minimum day Price<sup>*</sup></label>
-                                        <input type="number" placeholder="Minimum day price"/>
+                                        <input 
+                                            type="number" 
+                                            placeholder="Minimum day price"
+                                            onChange={(e) => handleCarPricing(e, 'daily_booking', 'min_daily_price')}
+                                            value={pricing.daily_booking.min_daily_price}
+                                        />
                                     </div>
                                     <div className="basicInfoFormItem">
                                         <label>Price per Hour<sup>*</sup></label>
-                                        <input type="number" placeholder="Price per day"/>
+                                        <input 
+                                            type="number" 
+                                            placeholder="Price per day"
+                                            onChange={(e) => handleCarPricing(e, 'daily_booking', 'price_per_day')}
+                                            value={pricing.daily_booking.price_per_day}
+                                        />
                                     </div>
-        
                                 </div>
                             </div>
                             <div className={weeklyBooking?"listCarBasicInfoFormBooking":"listCarBasicInfoFormBooking no-show"}>
@@ -522,17 +707,33 @@ const ListCarForm = () => {
                                 <div className="listCarBasicInfoFormDetails">
                                     <div className="basicInfoFormItem">
                                         <label>Minimum Weeks<sup>*</sup></label>
-                                        <select>
+                                        <select
+                                            onChange={(e) => handleCarPricing(e, 'weekly_booking', 'min_weeks')}
+                                            value={pricing.weekly_booking.min_weeks}
+                                        >
                                             <option>-Select Min Weeks-</option>
+                                            {numbers.map((number, i) => (
+                                                <option value={number} key={i}>{number}</option>
+                                            ))}
                                         </select>
                                     </div>
                                     <div className="basicInfoFormItem">
                                         <label>Minimum Week Price<sup>*</sup></label>
-                                        <input type="number" placeholder="Minimum week price"/>
+                                        <input 
+                                            type="number" 
+                                            placeholder="Minimum week price"
+                                            onChange={(e) => handleCarPricing(e, 'weekly_booking', 'min_weekly_price')}
+                                            value={pricing.weekly_booking.min_weekly_price}
+                                        />
                                     </div>
                                     <div className="basicInfoFormItem">
                                         <label>Price per Week<sup>*</sup></label>
-                                        <input type="number" placeholder="Price per week"/>
+                                        <input 
+                                            type="number" 
+                                            placeholder="Price per week"
+                                            onChange={(e) => handleCarPricing(e, 'weekly_booking', 'price_per_week')}
+                                            value={pricing.weekly_booking.price_per_week}
+                                        />
                                     </div>
                                 </div>
                             </div>
@@ -541,17 +742,33 @@ const ListCarForm = () => {
                                 <div className="listCarBasicInfoFormDetails">
                                     <div className="basicInfoFormItem">
                                         <label>Minimum Months<sup>*</sup></label>
-                                        <select>
+                                        <select
+                                            onChange={(e) => handleCarPricing(e, 'monthly_booking', 'min_months')}
+                                            value={pricing.monthly_booking.min_months}
+                                        >
                                             <option>-Select Min Months-</option>
+                                            {numbers.map((number, i) => (
+                                                <option value={number} key={i}>{number}</option>
+                                            ))}
                                         </select>
                                     </div>
                                     <div className="basicInfoFormItem">
                                         <label>Minimum Month Price<sup>*</sup></label>
-                                        <input type="number" placeholder="Minimum month price"/>
+                                        <input 
+                                            type="number" 
+                                            placeholder="Minimum month price"
+                                            onChange={(e) => handleCarPricing(e, 'monthly_booking', 'min_monthly_price')}
+                                            value={pricing.monthly_booking.min_monthly_price}
+                                        />
                                     </div>
                                     <div className="basicInfoFormItem">
                                         <label>Price per Month<sup>*</sup></label>
-                                        <input type="number" placeholder="Price per month"/>
+                                        <input 
+                                            type="number" 
+                                            placeholder="Price per month"
+                                            onChange={(e) => handleCarPricing(e, 'monthly_booking', 'price_per_month')}
+                                            value={pricing.monthly_booking.price_per_month}
+                                        />
                                     </div>
                                 </div>
                             </div>
@@ -576,20 +793,33 @@ const ListCarForm = () => {
                         <div className="listCarDescriptionOverviewFormDetails">
                             <div className="basicInfoFormItem">
                                 <label>Summary<sup>*</sup><span>Maximum 150 words</span></label>
-                                <textarea rows={5} placeholder="Enter your description"/>
+                                <textarea 
+                                    rows={5} 
+                                    placeholder="Enter your description"
+                                    onChange={(e) => handleCarDesc(e, 'desc')}
+                                    value={carDescription.desc}
+                                />
                             </div>
                             <div className="listCarDescriptionOverviewFormDetailsItem">
                                 <span className="item requestBook">
                                     Request to Book 
                                     <label className="switch">
-                                        <input type="checkbox" />
+                                        <input 
+                                            type="checkbox" 
+                                            onChange={(e) => handleCarDesc(e, 'requestToBook')}
+                                            checked={carDescription.requestToBook}
+                                        />
                                         <span className="slider round"></span>
                                     </label>
                                 </span>
                                 <span className="item instantPay">
                                     Instant Pay 
                                     <label className="switch">
-                                        <input type="checkbox" />
+                                        <input 
+                                            type="checkbox" 
+                                            onChange={(e) => handleCarDesc(e, 'instantPay')}
+                                            checked={carDescription.instantPay}
+                                        />
                                         <span className="slider round"></span>
                                     </label>
                                 </span>
@@ -669,7 +899,10 @@ const ListCarForm = () => {
                                 <span>Car transmission</span>
                                 <div className="listCarSpecificationsItemInputs">
                                     <div className="specsItemInput">
-                                        <select>
+                                        <select
+                                            onChange={(e)=> handleCarSpecifications('transmissionType',e)}
+                                            value={carSpecifications.transmissionType}
+                                        >
                                             <option>-Select type-</option>
                                             <option>Manual</option>
                                             <option>Semi-Automatic</option>
@@ -877,7 +1110,12 @@ const ListCarForm = () => {
                                 <span>Mileage</span>
                                 <div className="listCarSpecificationsItemInputs">
                                     <div className="specsItemInput">
-                                        <input type="text" pattern="[0-9]*"/>
+                                        <input 
+                                            type="number" 
+                                            pattern="[0-9]*"
+                                            onChange={(e)=> handleCarSpecifications('mileage',e)}
+                                            value={carSpecifications.mileage}
+                                        />
                                         <span>per Litre</span>
                                     </div>
                                 </div>
@@ -887,7 +1125,12 @@ const ListCarForm = () => {
                                 <span>Fuel tank capacity</span>
                                 <div className="listCarSpecificationsItemInputs">
                                     <div className="specsItemInput">
-                                        <input type="text" pattern="[0-9]*"/>
+                                        <input 
+                                            type="number" 
+                                            pattern="[0-9]*"
+                                            onChange={(e)=> handleCarSpecifications('tankCapacity',e)}
+                                            value={carSpecifications.tankCapacity}
+                                        />
                                         <span>Litres</span>
                                     </div>
                                 </div>
@@ -923,20 +1166,40 @@ const ListCarForm = () => {
                         <div className="listCarPickUpAddressForm">
                             <div className="basicInfoFormItem">
                                 <label>City<sup>*</sup></label>
-                                <input type="text" placeholder="Nairobi"/>
+                                <input 
+                                    type="text" 
+                                    placeholder="Nairobi"
+                                    onChange={(e) => handleCarPickUpAddress(e, 'city')}
+                                    value={pickUpAddress.city}
+                                />
                             </div>
                             <div className="basicInfoFormItem">
                                 <label>Street Address<sup>*</sup></label>
-                                <input type="text" placeholder="Car yard, Upperhill"/>
+                                <input 
+                                    type="text" 
+                                    placeholder="Car yard, Upperhill"
+                                    onChange={(e) => handleCarPickUpAddress(e, 'street_address')}
+                                    value={pickUpAddress.street_address}
+                                />
                             </div>
                             <div className="basicInfoFormItem">
                                 <label>Zip Code<sup>*</sup></label>
-                                <input type="text" placeholder="0.00"/>
+                                <input 
+                                    type="text" 
+                                    placeholder="0.00"
+                                    onChange={(e) => handleCarPickUpAddress(e, 'zipcode')}
+                                    value={pickUpAddress.zipcode}
+                                />
                             </div>
                         </div>
                         <div className="listCarPickUpAddressFormDesc">
                             <label>Description<sup>*</sup></label>
-                            <textarea rows={5} placeholder="Describe how to get there in great details">
+                            <textarea 
+                                rows={5} 
+                                placeholder="Describe how to get there in great details"
+                                onChange={(e) => handleCarPickUpAddress(e, 'address_desc')}
+                                value={pickUpAddress.address_desc}
+                            >
                             </textarea>
                         </div>
                     </div>
@@ -949,33 +1212,57 @@ const ListCarForm = () => {
                     <div className="listCarCancellationPolicyForm">
                         <div className="basicInfoFormItem">
                             <label>Cancellation Policy<sup>*</sup></label>
-                            <select>
+                            <select
+                                onChange={(e) => handleCarCancellationPolicy(e, 'cancellation_policy')}
+                                value={cancellationPolicy.cancellation_policy}
+                            >
                                 <option>Select the cancellation policy</option>
-                                <option>Flexible</option>
-                                <option>Moderate</option>
-                                <option>Strict</option>
+                                <option value='flexible'>Flexible</option>
+                                <option value='moderate'>Moderate</option>
+                                <option value='strict'>Strict</option>
                             </select>
                         </div>
                         <div className="basicInfoFormItem">
                             <label>Return Amount<sup>*</sup></label>
-                            <input type="number" placeholder="0.00"/>
+                            <input 
+                                type="number" 
+                                placeholder="0.00"
+                                onChange={(e) => handleCarCancellationPolicy(e, 'return_amount')}
+                                value={cancellationPolicy.return_amount}
+                            />
                         </div>
                     </div>
                     <div className="listCarCancellationPolicyFormDesc">
                         <label>Description<sup>*</sup></label>
-                        <textarea rows={5} placeholder="Enter your description">
+                        <textarea 
+                            rows={5} 
+                            placeholder="Enter your description"
+                            onChange={(e) => handleCarCancellationPolicy(e, 'desc')}
+                            value={cancellationPolicy.desc}
+                        >
                         </textarea>
                     </div>
                 </div>
-                <div className="listCarDetailsBtn">
+                <div className={activeTabs.mainTab == 4 && activeTabs.subTab == 1?"listCarDone":"listCarDone no-show"}>
+                    <div className="listCarDoneHeader">
+                        <i class='bx bx-check-circle'></i>
+                    </div>
+                    <div className="listCarDoneBody">
+                        <h2>Listing Submitted Successfully!</h2>
+                        <p>Thank you for submitting your car to be listed on our platform.<br />
+                        We will review your submission and get back to you
+                        </p>
+                    </div>
+                </div>
+                <div className={activeTabs.mainTab == 4?"listCarDetailsBtn done":"listCarDetailsBtn"}>
                     <span 
-                        className={activeTabs.mainTab == 1 && activeTabs.subTab == 1?"basicInfoBtn no-show":"basicInfoBtn"}
+                        className={activeTabs.mainTab == 1 && activeTabs.subTab == 1 || activeTabs.mainTab == 4 && activeTabs.subTab == 1?"basicInfoBtn no-show":"basicInfoBtn"}
                         onClick={handlePrev}
                     >
                         Prev
                     </span>
                     <span className="basicInfoBtn "onClick={handleNext}>
-                        {activeTabs.mainTab == 3 && activeTabs.subTab == 3?"Submit":"Next"}
+                        {activeTabs.mainTab == 3 && activeTabs.subTab == 3?submitting?"Submitting ...":"Submit":activeTabs.mainTab == 4 && activeTabs.subTab == 1?"Done":"Next"}
                     </span>
                 </div>
             </div>

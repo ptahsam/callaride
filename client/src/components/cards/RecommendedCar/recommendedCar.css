@@ -10,7 +10,7 @@
 
 .recommendedCarImg
 {
-    width: 100%;
+    width: 200px;
     height: 200px;
 }
 
@@ -37,6 +37,7 @@
     font-size: 18px;
     font-weight: 600;
     color: var(--black-color5);
+    text-transform: capitalize;
 }
 
 .recommendedCarRating 

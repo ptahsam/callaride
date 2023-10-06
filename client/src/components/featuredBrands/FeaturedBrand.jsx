@@ -1,21 +1,27 @@
+import { useState } from "react"
+import useFetch from "../../hooks/useFetch"
 import FeaturedBrandCard from "../cards/Brand/FeaturedBrandCard/FeaturedBrandCard"
 import "./featuredBrand.css"
+import { max } from "date-fns"
 
 const FeaturedBrand = () => {
-  const brands = [
-    {
-        "name": "Renault",
-        "img": "renault.png"
-    },
-    {
-        "name": "Hyundai",
-        "img": "hyundai.png"
-    },
-    {
-        "name": "Maruti",
-        "img": "maruti.png"
+
+  const [featuredBrandIndex, setFeaturedBrandIndex] = useState({min: 0, max: 4});  
+
+  const { data, loading, error } = useFetch(`/brand`) 
+
+  const handlePrev = () => {
+    if(featuredBrandIndex.min > 0){
+        setFeaturedBrandIndex((prev) => ({min: (prev.min - 1), max: (prev.max - 1)}))
     }
-  ];  
+  }
+
+  const handleNext = () => {
+    if(featuredBrandIndex.max >= 4 && featuredBrandIndex.max < data.length){
+        setFeaturedBrandIndex((prev) => ({min: (prev.min + 1), max: (prev.max + 1)}))
+    }
+  }
+  
   return (
     <div className="featuredBrand">
         <div className="featuredBrandContainer">
@@ -25,15 +31,17 @@ const FeaturedBrand = () => {
             </div>
             <div className="featuredBrandBody">
                 <div className="featuredBrandItems">
-                    {brands.map((brand, index)=>(
-                        <FeaturedBrandCard key={index} brand={brand} />
+                    {loading?<>
+                        <>Loading</>
+                    </>:data.slice(featuredBrandIndex.min, featuredBrandIndex.max).map((brand, index)=>(
+                        <FeaturedBrandCard key={brand._id} brand={brand} />
                     ))} 
                 </div>
                 <div className="featuredBrandItemsNavs">
-                    <span className="NavItem">
+                    <span className="NavItem" onClick={(e) => handlePrev()}>
                         <i class='bx bx-chevron-left'></i>
                     </span>
-                    <span className="NavItem">
+                    <span className="NavItem" onClick={(e) => handleNext()}>
                         <i class='bx bx-chevron-right'></i>
                     </span>
                 </div>

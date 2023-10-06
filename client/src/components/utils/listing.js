@@ -6,6 +6,7 @@ export const carBasicInfo =
     'year': '',
     'carType': '',
     'regNo': '',
+    'carName': '',
 }
 
 export const carCalendarSchedule = 
@@ -19,22 +20,22 @@ export const carPricing =
     'currency': '',
     'securityDeposit': 0,
     'hourly_booking': {
-        'min_hours': '',
+        'min_hours': 0,
         'min_hourly_price': 0,
         'price_per_hour': 0,
     },
     'daily_booking': {
-        'min_days': '',
+        'min_days': 0,
         'min_daily_price': 0,
         'price_per_day': 0,
     },
     'weekly_booking': {
-        'min_weeks': '',
+        'min_weeks': 0,
         'min_weekly_price': 0,
         'price_per_week': 0,
     },
     'monthly_booking': {
-        'min_months': '',
+        'min_months': 0,
         'min_monthly_price': 0,
         'price_per_month': 0,
     },
@@ -43,7 +44,8 @@ export const carPricing =
 export const carDesc = 
 {
     'desc': '',
-    'bookingType': '',
+    'requestToBook': false,
+    'instantPay': false,
 }
 
 export const carPhotos = 
@@ -53,6 +55,7 @@ export const carPhotos =
 
 export const carSpecs = 
 {
+    'transmissionType': '',
     'fuelType': '',
     'doors': 0,
     'safetyAmenity': '',
@@ -60,6 +63,8 @@ export const carSpecs =
     'powerLock': '',
     'seatingCapacity': 0,
     'airBags': '',
+    'mileage': 0,
+    'tankCapacity': 0,
     'childSeats': '',
 }
 
@@ -74,6 +79,6 @@ export const carPickUpAddress =
 export const carCancellationPolicy = 
 {
     'cancellation_policy': '',
-    'return_amoun': 0,
+    'return_amount': 0,
     'desc': '',
 }

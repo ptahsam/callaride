@@ -35,16 +35,18 @@
 
 .exploreCarsFilters
 {
+    width: 100%;
     display: flex;
     align-items: center;
-    justify-content: center;
-    gap: 15px;
+    justify-content: space-between;
+    gap: 10px;
 }
 
 .input-filter
 {
     padding: 5px 10px;
     border: 0.015em solid var(--light-color);
+    flex: 1;
 }
 
 .input-filter input,
@@ -122,13 +124,174 @@
 
 .exploreCarsBody
 {
+    margin-top: 20px;
+    display: flex;
+    gap: 20px;
+}
+
+.exploreCarsBodyFilters
+{
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.carBodyFilterItem
+{
+    border: 0.015em solid var(--light-color);
+    display: flex;
+    flex-direction: column;
+    border-radius: 5px;
+    gap: 10px;
+}
+
+.carBodyFilterItem.carBrand,
+.carBodyFilterItem.carRating,
+.carBodyFilterItemCard
+{
+    padding: 20px;
+}
+
+.carBodyFilterItemCard.hasBorder
+{
+    border-bottom: 0.015em solid var(--light-color);
+}
+
+.carModelsTitle,
+.carPricingTitle,
+.carRatingTitle
+{
+    font-size: 16px;
+    font-weight: 700;
+}
+
+.carPricingTitle
+{
+    padding-top: 20px;
+    padding-left: 20px;
+}
+
+.carBodyFilterItem.carBrand select
+{
+    border: none;
+    padding-top: 10px;
+    padding-bottom: 10px;
+    font-size: 16px;
+    font-weight: 400;
+    border-radius: 5px;
+    color: var(--black-color6);
+    background-color: var(--lighter-color7);
+}
+
+.carBodyFilterItem.carBrand select:focus
+{
+    outline: none;
+    box-shadow: none;
+}
+
+.carBodyFilterItemCard.budget
+{
+    display: flex;
+    flex-direction: column;
+}
+
+.carBodyFilterItemCard.budget .filterItemTitle
+{
+    font-size: 14px;
+    font-weight: 700;
+}
+
+.carBodyFilterItemCard.budget .filterItemBudget
+{
+    margin-bottom: 20px;
+    font-size: 14px;
+    font-weight: 200;
+    text-transform: uppercase;
+}
+
+.carBodyFilterItemCard:last-child
+{
+    border-bottom: none;
+}
+
+.minValuesContainer
+{
+    height: 6px;
+    width: 100%;
+    background-color: var(--theme-color4);
+}
+
+.maxValuesContainer
+{
+    height: 20px;
+    width: 20px;
+    background-color: var(--white-color);
+    border-radius: 50%;
+    border: 0.025em solid var(--theme-color4);
+}
+
+.maxValuesContainer:focus
+{
+    background-color: var(--white-color);
+    border-color: var(--theme-color4);
+    outline: none;
+}
+
+.carRatingDesc
+{
+    font-size: 13px;
+    font-weight: 100;
+}
+
+.carRatingFilterContainer
+{
+    display: flex;
+    gap: 10px;
+    flex-direction: column;
+}
+
+.carRatingFilterItem
+{
+    display: flex;
+    align-items: center;
+    gap: 20px;
+}
+
+.carRatingFilterItem input
+{
+    height: 20px;
+    width: 20px;
+    cursor: pointer;
+    accent-color: var(--theme-color6);
+    outline: none;
+    box-shadow: none;
+    border: 2px solid var(--theme-color-6);
+}
+
+.carRatingFilterItem .stars i
+{
+    font-size: 20px;
+    color: var(--theme-color4);
+}
+
+.carRatingFilterItem span
+{
+    color: var(--theme-color6);
+    font-size: 15px;
+    font-weight: 600;
+}
+
+.exploreCarsBodyResults
+{
+    flex: 2;
     margin-top: 30px;
     display: grid;
-    grid-template-columns: auto auto auto auto;
+    grid-template-columns: auto auto auto;
     grid-column-gap: 30px;
     grid-row-gap: 30px;
-    align-items: center;
-    justify-content: center;
+    align-items: start;
+    justify-content: start;
     margin: 0;
     padding: 0;
 }

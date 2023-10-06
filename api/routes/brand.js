@@ -13,18 +13,20 @@ import {
 const router = express.Router();
 
 //CREATE
-router.post("/", verifyUser, createBrand);
+router.post("/", /*verifyUser,*/ createBrand);
 
 //UPDATE
-router.put("/:id", verifyUser, updateBrand);
-router.put("/updateModel/:id", verifyUser, updateBrandModels);
-router.put("/removeModel/:id", verifyUser, removeBrandModel);
+router.put("/:id", /*verifyUser,*/ updateBrand);
+router.put("/updateModel/:id", /*verifyUser,*/ updateBrandModels);
+router.put("/removeModel/:id", /*verifyUser,*/ removeBrandModel);
 
 //DELETE
-router.delete("/:id", verifyUser, deleteBrand);
+router.delete("/:id", /*verifyUser,*/ deleteBrand);
 
 //GET
 router.get("/find/:id", getBrand);
 
 //GET ALL
 router.get("/", getBrands);
+
+export default router;

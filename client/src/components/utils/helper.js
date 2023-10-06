@@ -27,4 +27,5 @@ export const getDatesInRange = (startDate, endDate) => {
   return dates;
 }
 
-export const hasValues = (obj) => Object.values(obj).every(v => v !== null && typeof v !== "undefined" && v !== '' && v != 0)
+export const hasValues = (obj) => Object.values(obj).every(v => v !== null && typeof v !== "undefined" && v !== '' && v != 0);
+export const getModel = (brands, val) => brands.filter((el) => el._id === val); 

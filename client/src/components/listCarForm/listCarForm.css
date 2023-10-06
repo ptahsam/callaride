@@ -808,7 +808,7 @@
 .specsItemInput input
 {
     border: none;
-    width: 50px;
+    width: 70px;
     height: 30px;
     padding-left: 20px;
 }
@@ -830,11 +830,51 @@
     outline: none;
 }
 
+.listCarDone
+{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    padding-top: 30px;
+    padding-bottom: 70px;
+}
+
+.listCarDone .listCarDoneHeader
+{
+    padding: 10px;
+}
+
+.listCarDone .listCarDoneHeader i
+{
+    font-size: 48px;
+    color: var(--theme-color8);
+}
+
+.listCarDone .listCarDoneBody
+{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.listCarDone .listCarDoneBody h2
+{
+    color: var(--theme-color6);
+}
+
 .listCarDetailsBtn
 {
     display: flex;
     justify-content: flex-start;
     gap: 10px;
+}
+
+.listCarDetailsBtn.done
+{
+    justify-content: center;
 }
 
 .listCarDetailsBtn .basicInfoBtn
@@ -846,6 +886,11 @@
     color: var(--white-color);
     background-color: var(--theme-color4);
     cursor: pointer;
+}
+
+.listCarDetailsBtn.done .basicInfoBtn
+{
+    background-color: var(--theme-color6);
 }
 
 .no-show

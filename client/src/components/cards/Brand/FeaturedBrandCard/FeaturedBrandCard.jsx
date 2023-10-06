@@ -4,7 +4,7 @@ const FeaturedBrandCard = ({ brand }) => {
   return (
     <div className="featuredBrandCard">
         <div className="featuredBrandLogo">
-          <img src={"../../images/brands/"+brand.img} alt={brand.name} />
+          <img src={brand.logo} alt={brand.name} />
         </div>
         <div className="featuredBrandTitle">
           <h3>{brand.name}</h3>
