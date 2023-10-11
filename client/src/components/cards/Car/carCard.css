@@ -7,6 +7,11 @@
     justify-content: center;
 }
 
+.carCard .carLink
+{
+    text-decoration: none;
+}
+
 .carCard:hover
 {
     cursor: pointer;

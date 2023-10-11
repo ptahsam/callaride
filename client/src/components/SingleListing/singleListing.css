@@ -1,0 +1,576 @@
+.singleListing
+{
+    background-color: var(--white-color);
+    display: flex;
+    flex-direction: column;
+    margin-top: 70px;
+    margin-bottom: 70px;
+}
+
+.singleListingContainer
+{
+    width: 100%;
+    min-width: calc(100vw - 120px);
+    max-width: calc(100vw - 120px);
+    position: relative;
+    display: flex;
+    flex-direction: column;
+}
+
+.singleListingTitle
+{
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+}
+
+.singleListingTitle .listingTitle
+{
+    font-size: 32px;
+    font-weight: 900;
+    color: var(--theme-color2);
+}
+
+.singleListingTitle .listingLocation
+{
+    font-size: 18px;
+    color: var(--lighter-color6);
+    font-weight: 200;
+}
+
+.singleListingTitle .listingRating
+{
+    display: flex;
+    align-items: center;
+}
+
+.singleListingTitle .listingRating i
+{
+    font-size: 22px;
+    color: var(--lighter-color4);
+}
+
+.singleListingBody
+{
+    display: flex;
+    margin-top: 20px;
+    gap: 20px;
+}
+
+.singleListingDetails
+{
+    flex: 2;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.listingPhotosContainer
+{
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.listingPhotosActive
+{
+    position: relative;
+    width: 100%;
+    height: 450px;
+}
+
+.listingPhotosActive img
+{
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.listingPhotosACtiveNavs
+{
+    padding-left: 10px;
+    padding-right: 10px;
+    width: 100%;
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    display: flex;
+    justify-content: space-between;
+}
+
+.listingPhotosACtiveNavs .NavItem
+{
+    height: 40px;
+    width: 40px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: var(--theme-color4);
+    cursor: pointer;
+}
+
+.listingPhotosACtiveNavs .NavItem i
+{
+    font-size: 28px;
+    color: var(--white-color);
+}
+
+.listingPhotosCourosel
+{
+    min-height: 130px;
+    max-height: 130px;
+    display: grid;
+    grid-template-columns: auto auto auto auto;
+    grid-column-gap: 10px;
+}
+
+.listingPhotosCourosel img
+{
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.listingSpecifications
+{
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    margin-top: 20px;
+}
+
+.specItem
+{
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.specItemDesc p
+{
+    font-size: 17px;
+    font-weight: 200;
+    color: var(--lighter-color6);
+}
+
+.specItemTitle
+{
+    font-weight: 600;
+    font-size: 17px;
+    color: var(--black-color4);
+}
+
+.specItemHeader
+{
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.specItemHeader span
+{
+    padding: 7px 15px;
+    background-color: var(--lighter-color1);
+    border-radius: 25px;
+    text-transform: uppercase;
+    font-size: 12px;
+    font-weight: 600;
+    color: var(--theme-color2);
+    cursor: pointer;
+}
+
+.specItemHeader span.active
+{
+    background-color: var(--theme-color2);
+    color: var(--white-color);
+}
+
+.specBody
+{
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: rgba(67, 71, 85, 0.27) 0px 0px 0.25em, rgba(90, 125, 188, 0.05) 0px 0.25em 1em;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.specBody.pickUp,
+.specBody.cancellation
+{
+    box-shadow: none;
+    border-top: 0.0125px solid var(--light-color);
+    border-radius: 0;
+}
+
+.specBody .specTitle
+{
+    font-size: 18px;
+    color: var(--theme-color2);
+    font-weight: 700;
+}
+
+.specBody .overview
+{
+    width: 100%;
+    display: grid;
+    grid-template-columns: auto auto auto;
+    grid-column-gap: 40px;
+    grid-row-gap: 20px;
+}
+
+.overviewItem
+{
+    display: flex;
+    align-items: center;
+    width: 100%;
+}
+
+.overviewItem .overviewItemSpec
+{
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    color: var(--black-color9);
+}
+
+.overviewItem .overviewItemSpec i
+{
+    font-size: 20px;
+}
+
+.overviewItem .overviewItemSpec span
+{
+    font-size: 13px;
+    font-weight: normal;
+}
+
+.overviewItem .title
+{
+    margin-left: auto;
+    font-weight: 500;
+    font-size: 13px;
+    text-transform: capitalize;
+}
+
+.pickupContainer
+{
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.pickupContainer .overviewItem
+{
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.pickupContainer .overviewItem i
+{
+    font-size: 28px;
+    color: var(--black-color9);
+}
+
+.pickupContainer .overviewItem .overviewItemSpec
+{
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0;
+}
+
+.pickupContainer .overviewItem .overviewItemSpec span
+{
+    color: var(--theme-color2);
+}
+
+.pickupContainer .desc .descTitle
+{
+    font-size: 13px;
+    color: var(--theme-color2);
+    text-decoration: underline;
+    cursor: pointer;
+}
+
+.pickupContainer .desc .descTitle:hover
+{
+    text-decoration-color: var(--lighter-color6);
+}
+
+.pickupContainer .desc p
+{
+    font-size: 14px;
+    font-weight: 100;
+    color: var(--lighter-color6);
+}
+
+.cancellationContainer
+{
+    display: flex;
+    flex-direction: column;
+}
+
+.cancellationContainer span
+{
+    font-size: 13px;
+    color: var(--theme-color2);
+}
+
+.cancellationContainer span b
+{
+    text-transform: capitalize;
+    text-decoration: underline;
+}
+
+.cancellationContainer p
+{
+    margin-top: 20px;
+    font-size: 14px;
+    font-weight: 100;
+    color: var(--lighter-color6);
+}
+
+.cancellationContainer p b
+{
+    margin-right: 5px;
+}
+
+.singleListingBooking
+{
+    flex: 1;
+}
+
+.singleListingPricing
+{
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+}
+
+.pricingRates
+{
+    display: flex;
+    align-items: center;
+    width: 100%;
+    justify-content: space-between;
+    background-color: var(--lighter-color2);
+}
+
+.pricingRates span
+{
+    padding: 10px 15px;
+    text-transform: uppercase;
+    font-weight: 500;
+    cursor: pointer;
+}
+
+.pricingRates span.active
+{
+    background-color: var(--theme-color2);
+    color: var(--white-color);
+}
+
+.pricingDetails
+{
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+}
+
+.pricingHeader
+{
+    padding: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 20px;
+    background-color: var(--theme-color2);
+}
+
+.pricingHeader .currency
+{
+    font-size: -webkit-xxx-large;
+    font-family: 900;
+    text-transform: uppercase;
+    text-shadow: 4px 0 currentColor;
+    color: var(--text-color1);
+    letter-spacing: 1px;
+}
+
+.priceContainer
+{
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+    padding: 0;
+    margin: 0;
+    color: var(--white-color);
+}
+
+.priceContainer .amount
+{
+    font-size: 24px;
+    font-weight: bolder;
+    margin: 0;
+    padding: 0 !important;
+    text-shadow: 2px 0 currentColor;
+    line-height: 25px;
+    letter-spacing: 2px;
+}
+
+.priceContainer .rate
+{
+    font-size: 16px;
+    font-weight: 900;
+    text-transform: uppercase;
+    margin: 0;
+    padding: 0;
+    line-height: 16px;
+}
+
+.pricingBody
+{
+    display: flex;
+    flex-direction: column;
+}
+
+.pricingBodyDetails
+{
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    border: 0.0125em solid var(--light-color);
+}
+
+.inputDateContainer
+{
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.inputDateContainer label
+{
+    font-size: 14px;
+    font-weight: 600;
+    color: var(--theme-color2);
+}
+
+.inputDateContainer .inputDate
+{
+    display: flex;
+    gap: 10px;
+    padding-bottom: 10px;
+    border-bottom: 0.015em solid var(--light-color);;
+}
+
+.inputDateContainer .inputDate i
+{
+    font-size: 28px;
+    color: var(--lighter-color6);
+}
+
+.inputDateContainer .inputDate input
+{
+    width: 100%;
+    font-size: 14px;
+    font-weight: 400;
+    color: var(--black-color6);
+    border: none;
+}
+
+.inputDateContainer .inputDate input:hover,
+.inputDateContainer .inputDate input:focus
+{
+    outline: none;
+}
+
+.inputDatePricing
+{
+    padding: 10px;
+    border-radius: 5px;
+    background-color: var(--lighter-color2);
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.inputDatePricing .priceItem
+{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding-bottom: 5px;
+}
+
+.inputDatePricing .priceItem.has-border
+{
+    border-bottom: 0.0125em solid var(--light-color);
+}
+
+.inputDatePricing .priceItem .securityDeposit,
+.inputDatePricing .priceItem .pricingRate
+{
+    font-size: 14px;
+    font-weight: 100;
+    color: var(--lighter-color6);
+}
+
+.inputDatePricing .priceItem .depositValue
+{
+    font-size: 14px;
+    font-weight: 600;
+    color: var(--theme-color2);
+}
+
+.inputDatePricing .priceItem .pricingRate
+{
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.inputDatePricing .priceItem .pricingRate i
+{
+    font-size: 24px;
+    font-weight: 100;
+}
+
+.inputPricingButtons
+{
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.inputPricingButtons span
+{
+    padding: 10px 15px;
+    color: var(--white-color);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+}
+
+.inputPricingButtons span.instantPay
+{
+    flex: 1;
+    background-color: var(--theme-color2);
+}
+
+.inputPricingButtons span.bookNow
+{
+    flex: 1;
+    background-color: var(--theme-color);
+}
+
+.no-show
+{
+    display: none;
+}

@@ -3,7 +3,7 @@ import { verifyUser } from "../utils/verifyToken.js";
 import { 
     createBrand, 
     deleteBrand, 
-    getBrand, 
+    getBrand,  
     getBrands, 
     removeBrandModel, 
     updateBrand, 

@@ -14,15 +14,17 @@ const ExploreCars = () => {
   const [carBrands, setCarBrands] = useState('');
   const [selectedCarBrand, setSelectedCarBrand] = useState(null); 
   const [rating, setRating] = useState(0)
-  const [hourlyBudget, setHourlyBudget] = useState({values: [10, 1000]})
-  const [dailyBudget, setDailyBudget] = useState({values: [1000, 5000]})
-  const [weeklyBudget, setWeeklyBudget] = useState({values: [5000, 10000]})
-  const [monthlyBudget, setMonthlyBudget] = useState({values: [10000, 100000]})
+  const [hourlyBudget, setHourlyBudget] = useState({values: [0, 1000000]})
+  const [dailyBudget, setDailyBudget] = useState({values: [0, 1000000]})
+  const [weeklyBudget, setWeeklyBudget] = useState({values: [0, 1000000]})
+  const [monthlyBudget, setMonthlyBudget] = useState({values: [0, 1000000]})
   const [carType, setCarType] = useState('')
   const [carBrand, setCarBrand] = useState('')
   const [carModel, setCarModel] = useState('')
-  const [filterFrequency, setFilterFrequency] = useState('day');
-  const { data, loading, error } = useFetch(`/listings?city=${city}&type=${carType}&brand=${carBrand}&model=${carModel}`)
+  const [filterFrequency, setFilterFrequency] = useState('day')
+  const { data, loading, error } = useFetch(`/listings?city=${city}&type=${carType}&brand=${carBrand}&model=${carModel}&hourlyMin=${hourlyBudget.values[0]}&hourlyMax=${hourlyBudget.values[1]}&dailyMin=${dailyBudget.values[0]}&dailyMax=${dailyBudget.values[1]}&weeklyMin=${weeklyBudget.values[0]}&weeklyMax=${weeklyBudget.values[1]}&monthlyMin=${monthlyBudget.values[0]}&monthlyMax=${monthlyBudget.values[1]}`)
+
+  console.log(data)
 
   const cityInputRef = useRef(null);
   const carTypeSelectRef = useRef(null);
@@ -99,8 +101,8 @@ const ExploreCars = () => {
                 ref={carBrandRef}
               >
                 <option value={''}>-Select car brand-</option>
-                {carBrands != null && carBrands.length > 0 && carBrands.map((brand) => (
-                  <option value={brand._id}>{brand.name}</option>
+                {carBrands != null && carBrands.length > 0 && carBrands.map((brand, index) => (
+                  <option key={index} value={brand._id}>{brand.name}</option>
                 ))}
               </select>
             </div>
@@ -137,8 +139,8 @@ const ExploreCars = () => {
                     value={carModel}
                   >
                     <option value={''}>-Select Car Models</option>
-                    {selectedCarBrand != null && selectedCarBrand.length > 0 && selectedCarBrand[0].models.map((model) => (
-                      <option value={model._id}>{model.model_name}</option>
+                    {selectedCarBrand != null && selectedCarBrand.length > 0 && selectedCarBrand[0].models.map((model, index) => (
+                      <option key={index} value={model._id}>{model.model_name}</option>
                     ))}
                   </select>
                 </div>
@@ -150,8 +152,8 @@ const ExploreCars = () => {
                     <Range 
                       key={6666}
                       step={1}
-                      min={10}
-                      max={1000}
+                      min={0}
+                      max={1000000}
                       values={hourlyBudget.values}
                       onChange={(values) => setHourlyBudget({values})}
                       renderTrack={({ props, children }) => (
@@ -182,8 +184,8 @@ const ExploreCars = () => {
                     <Range 
                       key={6667}
                       step={1}
-                      min={1000}
-                      max={5000}
+                      min={0}
+                      max={1000000}
                       values={dailyBudget.values}
                       onChange={(values) => setDailyBudget({values})}
                       renderTrack={({ props, children }) => (
@@ -214,8 +216,8 @@ const ExploreCars = () => {
                     <Range 
                       key={6668}
                       step={1}
-                      min={5000}
-                      max={10000}
+                      min={0}
+                      max={1000000}
                       values={weeklyBudget.values}
                       onChange={(values) => setWeeklyBudget({values})}
                       renderTrack={({ props, children }) => (
@@ -246,8 +248,8 @@ const ExploreCars = () => {
                     <Range 
                       key={6667}
                       step={1}
-                      min={10000}
-                      max={100000}
+                      min={0}
+                      max={1000000}
                       values={monthlyBudget.values}
                       onChange={(values) => setMonthlyBudget({values})}
                       renderTrack={({ props, children }) => (

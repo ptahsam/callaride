@@ -397,7 +397,18 @@ const ListCarForm = () => {
     if(itemType === ''){
         setPricing((prev) => ({ ...prev, [item]: e.target.value }));
     }else{
-        setPricing((prev) => ({ ...prev, [item]: (details) => ({ ...details, [itemType]: e.target.value})}))
+        if(item === 'hourly_booking'){
+            setPricing((prev) => ({ ...prev, [item]: { ...prev.hourly_booking, [itemType]: e.target.value}}))
+        }
+        if(item === 'daily_booking'){
+            setPricing((prev) => ({ ...prev, [item]: { ...prev.daily_booking, [itemType]: e.target.value}}))
+        }
+        if(item === 'weekly_booking'){
+            setPricing((prev) => ({ ...prev, [item]: { ...prev.weekly_booking, [itemType]: e.target.value}}))
+        }
+        if(item === 'monthly_booking'){
+            setPricing((prev) => ({ ...prev, [item]: { ...prev.monthly_booking, [itemType]: e.target.value}}))
+        }
     }
   }
 
@@ -483,8 +494,8 @@ const ListCarForm = () => {
                                     value={basicInfo.carBrand}
                                 >
                                     <option>-Select Brand-</option>
-                                    {!loading && data.map((brand) => (
-                                        <option value={brand._id}>{brand.name}</option>
+                                    {!loading && data.map((brand, index) => (
+                                        <option key={index} value={brand._id}>{brand.name}</option>
                                     ))}
                                 </select>
                             </div>
@@ -495,8 +506,8 @@ const ListCarForm = () => {
                                     value={basicInfo.carModel}
                                 >
                                     <option>-Select Model-</option>
-                                    {selectedCarBrand != null && selectedCarBrand.length > 0 && selectedCarBrand[0].models.map((model) => (
-                                        <option value={model._id}>{model.model_name}</option>
+                                    {selectedCarBrand != null && selectedCarBrand.length > 0 && selectedCarBrand[0].models.map((model, index) => (
+                                        <option key={index} value={model._id}>{model.model_name}</option>
                                     ))}
                                 </select>
                             </div>
@@ -639,7 +650,6 @@ const ListCarForm = () => {
                                         <label>Minimum Hours<sup>*</sup></label>
                                         <select
                                             onChange={(e) => handleCarPricing(e, 'hourly_booking', 'min_hours')}
-                                            value={pricing.hourly_booking.min_hours}
                                         >
                                             <option>-Select Min Hours-</option>
                                             {numbers.map((number, i) => (
@@ -653,7 +663,7 @@ const ListCarForm = () => {
                                             type="number" 
                                             placeholder="Minimum hour price"
                                             onChange={(e) => handleCarPricing(e, 'hourly_booking', 'min_hourly_price')}
-                                            value={pricing.hourly_booking.min_hourly_price}
+                                            
                                         />
                                     </div>
                                     <div className="basicInfoFormItem">
@@ -662,7 +672,7 @@ const ListCarForm = () => {
                                             type="number" 
                                             placeholder="Price per hour"
                                             onChange={(e) => handleCarPricing(e, 'hourly_booking', 'price_per_hour')}
-                                            value={pricing.hourly_booking.price_per_hour}
+                                            
                                         />
                                     </div>
                                 </div>
@@ -674,7 +684,7 @@ const ListCarForm = () => {
                                         <label>Minimum Days<sup>*</sup></label>
                                         <select
                                             onChange={(e) => handleCarPricing(e, 'daily_booking', 'min_days')}
-                                            value={pricing.daily_booking.min_days}
+                                            
                                         >
                                             <option>-Select min days-</option>
                                             {numbers.map((number, i) => (
@@ -688,7 +698,7 @@ const ListCarForm = () => {
                                             type="number" 
                                             placeholder="Minimum day price"
                                             onChange={(e) => handleCarPricing(e, 'daily_booking', 'min_daily_price')}
-                                            value={pricing.daily_booking.min_daily_price}
+                                            
                                         />
                                     </div>
                                     <div className="basicInfoFormItem">
@@ -697,7 +707,7 @@ const ListCarForm = () => {
                                             type="number" 
                                             placeholder="Price per day"
                                             onChange={(e) => handleCarPricing(e, 'daily_booking', 'price_per_day')}
-                                            value={pricing.daily_booking.price_per_day}
+                                            
                                         />
                                     </div>
                                 </div>
@@ -709,7 +719,7 @@ const ListCarForm = () => {
                                         <label>Minimum Weeks<sup>*</sup></label>
                                         <select
                                             onChange={(e) => handleCarPricing(e, 'weekly_booking', 'min_weeks')}
-                                            value={pricing.weekly_booking.min_weeks}
+                                            
                                         >
                                             <option>-Select Min Weeks-</option>
                                             {numbers.map((number, i) => (
@@ -723,7 +733,7 @@ const ListCarForm = () => {
                                             type="number" 
                                             placeholder="Minimum week price"
                                             onChange={(e) => handleCarPricing(e, 'weekly_booking', 'min_weekly_price')}
-                                            value={pricing.weekly_booking.min_weekly_price}
+                                            
                                         />
                                     </div>
                                     <div className="basicInfoFormItem">
@@ -732,7 +742,7 @@ const ListCarForm = () => {
                                             type="number" 
                                             placeholder="Price per week"
                                             onChange={(e) => handleCarPricing(e, 'weekly_booking', 'price_per_week')}
-                                            value={pricing.weekly_booking.price_per_week}
+                                            
                                         />
                                     </div>
                                 </div>
@@ -744,7 +754,7 @@ const ListCarForm = () => {
                                         <label>Minimum Months<sup>*</sup></label>
                                         <select
                                             onChange={(e) => handleCarPricing(e, 'monthly_booking', 'min_months')}
-                                            value={pricing.monthly_booking.min_months}
+                                            
                                         >
                                             <option>-Select Min Months-</option>
                                             {numbers.map((number, i) => (
@@ -758,7 +768,7 @@ const ListCarForm = () => {
                                             type="number" 
                                             placeholder="Minimum month price"
                                             onChange={(e) => handleCarPricing(e, 'monthly_booking', 'min_monthly_price')}
-                                            value={pricing.monthly_booking.min_monthly_price}
+                                            
                                         />
                                     </div>
                                     <div className="basicInfoFormItem">
@@ -767,7 +777,7 @@ const ListCarForm = () => {
                                             type="number" 
                                             placeholder="Price per month"
                                             onChange={(e) => handleCarPricing(e, 'monthly_booking', 'price_per_month')}
-                                            value={pricing.monthly_booking.price_per_month}
+                                            
                                         />
                                     </div>
                                 </div>

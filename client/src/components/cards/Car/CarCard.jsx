@@ -1,3 +1,4 @@
+import { Link } from "react-router-dom"
 import "./carCard.css"
 
 const CarCard = ({ car }) => {
@@ -27,9 +28,11 @@ const CarCard = ({ car }) => {
               <i class='bx bxs-star' ></i>
             </span>
           </div>
-          <div className="rentCarBtn">
-            <span>Rent Now</span>
-          </div>
+          <Link to={`/listings/${car._id}`} className="carLink">
+            <div className="rentCarBtn">
+              <span>Rent Now</span>
+            </div>
+          </Link>
         </div>
     </div>
   )
