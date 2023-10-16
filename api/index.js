@@ -5,6 +5,7 @@ import authRoute from "./routes/auth.js"
 import customerRoute from "./routes/customer.js"
 import vendorRoute from "./routes/vendor.js"
 import listingRoute from "./routes/listing.js"
+import bookingRoute from "./routes/booking.js"
 import brandRoute from "./routes/brand.js"
 import cookieParser from "cookie-parser"
 import cors from "cors"
@@ -31,6 +32,7 @@ app.use("/api/customers", customerRoute);
 app.use("/api/vendors", vendorRoute);
 app.use("/api/brand", brandRoute);
 app.use("/api/listings", listingRoute);
+app.use("/api/bookings", bookingRoute);
 
 app.use((err, req, res, next) => {
     const errorStatus = err.status || 500
