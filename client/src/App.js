@@ -11,6 +11,7 @@ import ListCar from "./pages/list_car/ListCar";
 import Listing from "./pages/listing/Listing";
 import Register from "./pages/register/Register";
 import Dashboard from "./pages/dashboard/Dashboard";
+import ConfirmBooking from "./pages/confirmBooking/ConfirmBooking";
 
 function App() {
   return (
@@ -24,6 +25,7 @@ function App() {
         <Route path="/listcar" element={<ListCar />} />
         <Route path="/listings/:id" element={<Listing />}/>
         <Route path="/dashboard" element={<Dashboard />} />
+        <Route path="/listings/confirm" element={<ConfirmBooking />} />
       </Routes>
     </BrowserRouter>
   );

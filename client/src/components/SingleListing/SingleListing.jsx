@@ -1,4 +1,4 @@
-import { useLocation } from "react-router-dom"
+import { useLocation, useNavigate } from "react-router-dom"
 import "./singleListing.css"
 import { useContext, useEffect, useState } from "react"
 import axios from "axios"
@@ -6,6 +6,8 @@ import { getDatesInRange, getModel } from "../utils/helper"
 import { SearchContext } from "../../contexts/SearchContext"
 
 const SingleListing = () => {
+
+  const navigate = useNavigate()  
 
   const { city, car_type, dates } = useContext(SearchContext)
 
@@ -98,6 +100,10 @@ const SingleListing = () => {
 
   const handleDrop = (e) => {
     setNewDates((prev) => ({ ...prev, ['endDate'] : new Date(e.target.value)}))
+  }
+
+  const handleBooking = () => {
+    navigate("/listings/confirm", { state: { listing, newDates, dateRange }})
   }
 
   useEffect(() => {
@@ -400,7 +406,7 @@ const SingleListing = () => {
                                                     type="datetime-local" 
                                                     onChange={(e) => handlePickup(e)} 
                                                     placeholder="Drop Date" 
-                                                    value={new Date(newDates.startDate).toLocaleDateString()}
+                                                    
                                                 />
                                             </div>
                                         </div>
@@ -453,7 +459,7 @@ const SingleListing = () => {
                                         </div>
                                         <div className="inputPricingButtons">
                                             <span className="instantPay">Instant Pay</span>
-                                            <span className="bookNow">Book Now</span>
+                                            <span className="bookNow" onClick={() => handleBooking()}>Book Now</span>
                                         </div>
                                     </div>
                                 </div>

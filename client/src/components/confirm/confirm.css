@@ -1,0 +1,262 @@
+.confirm
+{
+    display: flex;
+    flex-direction: column;
+}
+
+.confirmContainer
+{
+    width: 100%;
+    min-width: calc(100vw - 120px);
+    max-width: calc(100vw - 120px);
+    position: relative;
+    display: flex;
+    justify-content: center;
+    gap: 20px;   
+    margin-top: 40px;
+    margin-bottom: 70px;
+}
+
+.confirmBookingDetails
+{
+    align-self: flex-start;
+    padding: 20px;
+    box-shadow: rgba(67, 71, 85, 0.27) 0px 0px 0.25em, rgba(90, 125, 188, 0.05) 0px 0.25em 1em;
+    display: flex;
+    flex-direction: column;
+    border-radius: 3px;
+}
+
+.carBookingDetails
+{
+    display: flex;
+    border-bottom: 0.0125em solid var(--light-color);
+    padding-bottom: 15px;
+}
+
+.carDetails
+{
+    display: flex;
+    flex-direction: column;
+    flex-grow: 1;
+}
+
+.carDetailsTitle
+{
+    font-size: 18px;
+    font-weight: 600;
+    color: var(--theme-color2);
+}
+
+.carDetailsLocation
+{
+    font-size: 15px;
+    font-weight: 200;
+    color: var(--lighter-color6);
+}
+
+.carDetailsRating
+{
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.carDetailsRating .rating
+{
+    display: flex;
+    gap: 5px;
+    color: var(--lighter-color6);
+}
+
+.carDetailsRating .rating i
+{
+    font-size: 18px;
+}
+
+.carDetailsRating .ratingCount
+{
+    font-size: 18px;
+    font-weight: 500;
+    color: var(--lighter-color6);
+}
+
+.carImage
+{
+    width: 100px;
+    height: 80px;
+}
+
+.carImage img
+{
+    height: 100%;
+    width: 100%;
+    object-fit: cover;
+}
+
+.carBookingDates
+{
+    display: flex;
+    gap: 20px;
+    align-items: center;
+    padding-top: 10px;
+    padding-bottom: 10px;
+    border-bottom: 0.0125em solid var(--light-color);
+}
+
+.carBookingDates i
+{
+    font-size: 24px;
+    color: var(--lighter-color6);
+}
+
+.carBookingDates span
+{
+    font-size: 15px;
+    color: var(--lighter-color6);
+    font-weight: 200;
+}
+
+.carBookingPricing
+{
+    margin-top: 10px;
+    padding-bottom: 10px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    border-bottom: 0.125em solid var(--light-color);
+}
+
+.carBookingPricingItem
+{
+    display: flex;
+    align-items: center;
+    font-weight: 200;
+    font-size: 15px;
+    color: var(--lighter-color6);
+}
+
+.carBookingPricingItem .itemPrice
+{
+    margin-left: auto;
+}
+
+.carBookingTotal
+{
+    display: flex;
+    align-items: center;
+    font-size: 16px;
+    font-weight: 200;
+    color: var(--lighter-color6);
+    margin-top: 5px;
+}
+
+.carBookingTotal .totalAmount
+{
+    font-weight: 700;
+    margin-left: auto;
+}
+
+.carBookingPolicy
+{
+    margin-top: 20px;
+}
+
+.carBookingPolicy p
+{
+    font-size: 14px;
+    font-weight: 200;
+    color: var(--lighter-color6);
+}
+
+.confirmBookingUser
+{
+    display: flex;
+    flex-direction: column;
+}
+
+.confirmBookingUserContainer
+{
+    padding: 20px;
+    box-shadow: rgba(67, 71, 85, 0.27) 0px 0px 0.25em, rgba(90, 125, 188, 0.05) 0px 0.25em 1em;
+    display: flex;
+    flex-direction: column;
+    border-radius: 3px;
+}
+
+.bookingUserHeader
+{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.bookingUserHeader .title
+{
+    font-size: 16px;
+    color: var(--black-color10);
+    font-weight: 700;
+}
+
+.bookingUserBody
+{
+    display: flex;
+    flex-direction: column;
+    margin-top: 20px;
+    gap: 20px;
+    padding-left: 30px;
+    padding-right: 30px;
+}
+
+.bookingUserItem
+{
+    display: flex;
+    align-items: center;
+    gap: 30px;
+}
+
+.bookingUserItem .userItemTitle
+{
+    font-size: 16px;
+    font-weight: 300;
+    color: var(--lighter-color6);
+}
+
+.bookingUserItem input
+{
+    margin-left: auto;
+    min-width: 300px;
+    padding: 8px 20px;
+    border: 0.0125em solid var(--light-color);
+    box-shadow: none;
+    font-size: 16px;
+    font-weight: 300;
+    color: var(--lighter-color6);
+    border-radius: 7px;
+}
+
+.selectContainer
+{
+    margin-left: auto;
+    display: grid;
+    grid-template-columns: auto auto;
+    grid-column-gap: 20px;
+}
+
+.selectContainer select
+{
+    min-width: 140px;
+    padding: 8px 20px;
+    border: 0.0125em solid var(--light-color);
+    box-shadow: none;
+    font-size: 16px;
+    font-weight: 300;
+    color: var(--lighter-color6);
+    border-radius: 7px;
+}
+
+.bookingUserItem input:focus,
+.selectContainer select:focus
+{
+    outline: none;
+}
