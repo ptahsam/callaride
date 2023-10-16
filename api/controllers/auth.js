@@ -23,7 +23,7 @@ export const registerCustomer = async (req, res, next) => {
         })
 
         await newCustomer.save()
-        res.status(200).send("Customer has been created.")
+        res.status(200).send("Account has been created.")
     } catch (err) {
         next(err)
     }
@@ -49,6 +49,29 @@ export const registerVendor = async (req, res, next) => {
 
         await newVendor.save()
         res.status(200).send("Vendor has been created.")
+    } catch (err) {
+        next(err)
+    }
+}
+
+export const loginCustomer = async (req, res, next) => {
+    try {
+        const customer = await Customer.findOne({email: req.body.email})
+        if(!customer) return next(createError(404, "User not found!"))
+
+        const isPasswordCorrect = await bcrypt.compare(req.body.password, customer.password)
+        if(!isPasswordCorrect) return next(createError(400, "Wrong password or username"))
+
+        const token = jwt.sign({ id: customer._id, isAdmin: false }, process.env.JWT_TOKEN)
+
+        const { password, ...otherDetails } = customer._doc
+
+        res
+          .cookie("access_token", token, {
+            httpOnly: true,
+          })
+          .status(200)
+          .json({ ...otherDetails })
     } catch (err) {
         next(err)
     }

@@ -18,7 +18,7 @@
 
 .headerContainer.p-b-full
 {
-    height: calc(100vh - 100px);
+    height: 100vh;
 }
 
 .headerContainer.p-b-50
@@ -60,15 +60,29 @@
 }
 
 .headerSearchContainer .headerPickUpLocation,
-.headerSearchContainer .headerCarBrand,
-.headerSearchContainer .headerPickUpDate,
-.headerSearchContainer .headerDropDate
+.headerSearchContainer .headerCarBrand
 {
     display: flex;
     align-items: center;
     background-color: var(--lighter-color);
     padding-left: 10px;
     position: relative;
+}
+
+.headerSearchContainer .headerPickUpDate,
+.headerSearchContainer .headerDropDate
+{
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.headerSearchContainer .headerPickUpDate label,
+.headerSearchContainer .headerDropDate label
+{
+    font-size: 14px;
+    font-weight: 600;
+    color: var(--theme-color2);
 }
 
 .headerPickUpLocation i,
@@ -107,18 +121,8 @@
 .headerDates
 {
     display: flex;
-    align-items: center;
-    justify-content: space-evenly;
+    flex-direction: column;
     gap: 10px;
-}
-
-.headerPickUpDateCalendar
-{
-    position: absolute;
-    top: 50px;
-    box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
-    border-radius: 5px;
-    z-index: 999;
 }
 
 .headerButton

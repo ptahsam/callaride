@@ -40,6 +40,7 @@ export const getListing = async (req, res, next) => {
 
 export const getListings = async (req, res, next) => {
     const { 
+        owner,approval,
         city, type, 
         brand, model, 
         hourlyMin, hourlyMax, 
@@ -51,6 +52,8 @@ export const getListings = async (req, res, next) => {
     try {
         const listings = await Listing.find({
             ...others,
+            listingOwner: owner?owner: { $ne: owner },
+            approvalStatus: approval?approval: { $ne: approval },
             "carBasicInfo.city": city?city: { $ne: city },
             "carBasicInfo.carType": type?type: { $ne: type },
             "carBasicInfo.carBrand": brand?brand: { $ne: brand },

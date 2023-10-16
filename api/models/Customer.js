@@ -16,15 +16,13 @@ const CustomerSchema = new mongoose.Schema(
         },
         gender: {
             type: String,
-            required: true,
         },
         birthdate: {
-            type: String,
+            type: Date,
             required: true,
         },
         address: {
             type: String,
-            required: true,
         },
         phonenumber: {
             type: Number,
@@ -33,25 +31,38 @@ const CustomerSchema = new mongoose.Schema(
         altphonenumber: {
             type: Number,
         },
+        password: {
+            type: String,
+            required: true,
+        },
         language: {
             type: String,
         },
         photo: {
             type: String,
         },
-        driving_details: [
-            {
-                insurance_no: {
-                    type: String,
-                },
-                license_no: {
-                    type: String,
-                },
-                age: {
-                    type: Number,
-                },
+        driving_details: {
+            insurance_no: {
+                type: String,
             },
-        ],
+            license_no: {
+                type: String,
+            },
+            age: {
+                type: Number,
+            },
+        },
+        listing_requirements: {
+            id_copy: {
+                type: String,
+            },
+            kra_pin: {
+                type: String,
+            },
+            c_o_reg: {
+                type: String,
+            },
+        },
     },
     { timestamps: true }
 );

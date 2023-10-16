@@ -4,12 +4,31 @@ import 'react-date-range/dist/styles.css'
 import 'react-date-range/dist/theme/default.css'
 import { format } from "date-fns" 
 import "./header.css"
-import { useState } from "react"
+import { useContext, useState } from "react"
+import { useNavigate } from "react-router-dom"
+import { SearchContext } from "../../contexts/SearchContext"
 
 const Header = () => {
 
-  const [openPickUpDate, setPickUpDate] = useState(false); 
-  const [dates, setDates] = useState([{startDate: new Date(), endDate: new Date(), key: "selection"}]);
+  const navigate = useNavigate();
+  const { dispatch }  = useContext(SearchContext);
+
+  const [dates, setDates] = useState({startDate: new Date(), endDate: new Date()})
+  const [location, setLocation] = useState('')
+  const [car_type, setType] = useState('');
+
+  const handlePickup = (e) => {
+    setDates((prev) => ({ ...prev, ['startDate'] : new Date(e.target.value)}))
+  }
+
+  const handleDrop = (e) => {
+    setDates((prev) => ({ ...prev, ['endDate'] : new Date(e.target.value)}))
+  }
+
+  const handleSearch = () => {
+    dispatch({ type: "NEW_SEARCH", payload: { location, car_type, dates } });
+    navigate("/explore", { state: { location, car_type, dates } });
+  };
 
   return (
     <div className="header" style={{  
@@ -27,11 +46,19 @@ const Header = () => {
               </p>
               <div className="headerPickUpLocation">
                 <i class='bx bx-map'></i>
-                <input type="text" placeholder="Pick up location" />
+                <input 
+                  type="text" 
+                  placeholder="Enter location" 
+                  onChange={(e) => setLocation(e.target.value)}
+                  value={location}
+                />
               </div>
               <div className="headerCarBrand">
                 <i class='bx bxs-car' ></i>
-                <select>
+                <select
+                  value={car_type}
+                  onChange={(e) => setType(e.target.value)}
+                >
                   <option value="">Car Type</option>
                   {carTypes.map((item, index) => (
                     <option value={item.type} key={index}>{item.name}</option>
@@ -40,31 +67,19 @@ const Header = () => {
               </div>
               <div className="headerDates">
                 <div className="headerPickUpDate">
-                  <i class='bx bx-calendar-alt'></i>
-                  <input 
-                    type="text" 
-                    placeholder="Pickup Date" 
-                    onFocus={(e) => setPickUpDate(true)} 
-                    onBlur = {(e) => setPickUpDate(false)}
-                  />
-                  <div className="headerPickUpDateCalendar">
-                    {openPickUpDate && <DateRange 
-                        editableDateInputs={false}
-                        onChange={item=>setDates([item.selection])}
-                        moveRangeOnFirstSelection={false}
-                        showDateDisplay={false}
-                        ranges={dates} 
-                        rangeColors={['#f33e5b', '#3ecf8e', '#fed14c']}
-                        className="startDate"
-                    />}
+                  <label>Pick up Date</label>
+                  <div className="inputDate">
+                      <input type="datetime-local" onChange={(e) => handlePickup(e)} placeholder="Drop Date"/>
                   </div>
                 </div>
                 <div className="headerDropDate">
-                  <i class='bx bx-calendar-alt'></i>
-                  <input type="text" placeholder="Drop Date" />
+                  <label>Drop Date</label>
+                  <div className="inputDate">
+                      <input type="datetime-local" onChange={(e) => handleDrop(e)} placeholder="Drop Date"/>
+                  </div>
                 </div>
               </div>
-              <div className="headerButton">
+              <div className="headerButton" onClick={()=>handleSearch()}>
                 <span>Search</span>
               </div>
             </div>

@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from "react";
+import { useContext, useEffect, useRef, useState } from "react";
 import { Range } from "react-range";
 import Car from "../cards/Car/CarCard";
 import RecommendedCar from "../cards/RecommendedCar/RecommendedCar";
@@ -7,8 +7,13 @@ import { carTypes } from "../utils/carTypes";
 import useFetch from "../../hooks/useFetch";
 import axios from "axios";
 import { getModel } from "../utils/helper";
+import { useLocation } from "react-router-dom";
 
 const ExploreCars = () => {
+
+  const location = useLocation();
+
+  const approvalStatus = 'submitted_for_review';
 
   const [city, setCity] = useState('')
   const [carBrands, setCarBrands] = useState('');
@@ -22,9 +27,7 @@ const ExploreCars = () => {
   const [carBrand, setCarBrand] = useState('')
   const [carModel, setCarModel] = useState('')
   const [filterFrequency, setFilterFrequency] = useState('day')
-  const { data, loading, error } = useFetch(`/listings?city=${city}&type=${carType}&brand=${carBrand}&model=${carModel}&hourlyMin=${hourlyBudget.values[0]}&hourlyMax=${hourlyBudget.values[1]}&dailyMin=${dailyBudget.values[0]}&dailyMax=${dailyBudget.values[1]}&weeklyMin=${weeklyBudget.values[0]}&weeklyMax=${weeklyBudget.values[1]}&monthlyMin=${monthlyBudget.values[0]}&monthlyMax=${monthlyBudget.values[1]}`)
-
-  console.log(data)
+  const { data, loading, error } = useFetch(`/listings?approval=${approvalStatus}&city=${city}&type=${carType}&brand=${carBrand}&model=${carModel}&hourlyMin=${hourlyBudget.values[0]}&hourlyMax=${hourlyBudget.values[1]}&dailyMin=${dailyBudget.values[0]}&dailyMax=${dailyBudget.values[1]}&weeklyMin=${weeklyBudget.values[0]}&weeklyMax=${weeklyBudget.values[1]}&monthlyMin=${monthlyBudget.values[0]}&monthlyMax=${monthlyBudget.values[1]}`)
 
   const cityInputRef = useRef(null);
   const carTypeSelectRef = useRef(null);

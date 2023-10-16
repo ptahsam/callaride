@@ -1,0 +1,107 @@
+.dashboard
+{
+    position: relative;
+    background-color: var(--lighter-color);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.dashboardContainer
+{
+    width: 100%;
+    max-width: calc(100vw - 120px);
+    display: flex;
+    justify-content: center;
+    margin-top: 70px;
+    margin-bottom: 70px;
+}
+
+.dashboardContainerCard
+{
+    width: calc(100vw - 120px);
+    width: 100%;
+    box-shadow: rgba(67, 71, 85, 0.27) 0px 0px 0.25em, rgba(90, 125, 188, 0.05) 0px 0.25em 1em;
+    padding: 40px;
+    background-color: var(--white-color);
+    display: flex;
+    flex-direction: column;
+}
+
+.dashboardHeader
+{
+    border-bottom: 0.0125em solid var(--light-color);
+    display: flex;
+    align-items: center;
+    gap: 40px;
+}
+
+.dashboardHeader .dashboardHeaderItem
+{
+    font-size: 18px;
+    font-weight: 700;
+    color: var(--theme-color2);
+    cursor: pointer;
+}
+
+.dashboardHeader .dashboardHeaderItem.active,
+.dashboardHeader .dashboardHeaderItem:hover
+{
+    color: var(--theme-color6);
+}
+
+.dashboardHeader .dashboardHeaderItem.active::after
+{
+    content: '';
+    display: block;
+    height: 2px;
+    width: 100%;
+    background: var(--theme-color6);
+}
+
+.dashboardBody
+{
+    padding-top: 40px;
+    padding-bottom: 40px;
+}
+
+.dashboardBodyListings
+{
+    display: flex;
+    flex-direction: column;
+}
+
+.dashboardBodyListingsHeader
+{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    border-bottom: 0.0125em solid var(--light-color);
+    padding-bottom: 20px;
+}
+
+.dashboardBodyListingsHeader h3
+{
+    font-weight: 900;
+    font-size: 18px;
+}
+
+.dashboardBodyListingsHeader span
+{
+    padding: 7px 15px;
+    font-weight: 500;
+    font-size: 15px;
+    border: 0.0225em solid var(--theme-color6);
+    color: var(--theme-color6);
+    cursor: pointer;
+}
+
+.dashboardBodyListingsHeader span:hover
+{
+    
+}
+
+.no-show
+{
+    display: none;
+}

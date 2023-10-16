@@ -1,0 +1,157 @@
+.dashboardAccount
+{
+    display: flex;
+    flex-direction: column;
+}
+
+.dashboardAccountHeader
+{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding-bottom: 20px;
+}
+
+.dashboardAccountHeader h3
+{
+    font-weight: 900;
+    font-size: 18px;
+}
+
+.dashboardAccountMenu
+{
+    border-bottom: 0.0125em solid var(--light-color);
+    display: flex;
+    align-items: center;
+    gap: 20px;
+}
+
+.dashboardAccountMenu .dashboardAccountItem
+{
+    font-size: 16px;
+    font-weight: 500;
+    color: var(--theme-color2);
+    cursor: pointer;
+}
+
+.dashboardAccountMenu .dashboardAccountItem.active,
+.dashboardAccountMenu .dashboardAccountItem:hover
+{
+    color: var(--theme-color6);
+}
+
+.dashboardAccountMenu .dashboardAccountItem.active::after
+{
+    content: '';
+    display: block;
+    height: 1px;
+    width: 100%;
+    background: var(--theme-color6);
+}
+
+.accountDetailsEdit
+{
+    display: flex;
+    justify-content: flex-end;
+}
+
+.editBtn
+{
+    margin-top: 20px;
+    padding: 7px 25px;
+    border: 1px solid var(--theme-color9);
+    color: var(--theme-color9);
+    cursor: pointer;
+}
+
+.accountDetails
+{
+    display: flex;
+    flex-direction: column;
+}
+
+.accountDetailsPhoto
+{
+    margin-top: 20px;
+    margin-bottom: 20px;
+}
+
+.accountDetailsPhoto .photo
+{
+    height: 100px;
+    width: 100px;
+    border-radius: 50%;
+    position: relative;
+}
+
+.accountDetailsPhoto .photo span
+{
+    height: 30px;
+    width: 30px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: absolute;
+    bottom: 10px;
+    right: 0;
+    border: 2px solid var(--light-color);
+    border-radius: 50%;
+    background-color: var(--lighter-color2);
+    cursor: pointer;
+}
+
+.accountDetailsPhoto .photo span i
+{
+    font-size: 18px;
+    color: var(--theme-color6);
+}
+
+.accountDetailsPhoto .photo span input
+{
+    display: none;
+}
+
+.accountDetailsPhoto .photo img
+{
+    height: 100%;
+    width: 100%;
+    border-radius: 50%;
+    object-fit: cover;
+}
+
+.accountDetailsInfo
+{
+    margin-top: 50px;
+    display: grid;
+    grid-template-columns: auto auto;
+    grid-column-gap: 50px;
+    grid-row-gap: 20px;
+    min-width: 0;
+}
+
+.accountDetailsInfoItem
+{
+    display: flex;
+    flex-direction: column;
+    min-width: 0;
+}
+
+.accountDetailsInfoItem label
+{
+    font-size: 16px;
+    font-weight: 500;
+    color: var(--theme-color2);
+}
+
+.accountDetailsInfoItem span
+{
+    font-size: 14px;
+    font-weight: 500;
+    color: var(--lighter-color6);
+    text-transform: capitalize;
+}
+
+.no-show
+{
+    display: none;
+}

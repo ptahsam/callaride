@@ -1,0 +1,208 @@
+.register
+{
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+    align-items: center;
+}
+
+.registerContainer
+{
+    width: 100%;
+    max-width: calc(100vw - 120px);
+    background-color: #fff;
+    position: relative;
+    color: #071e22;
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 70px;
+}
+
+.registerContainerHeader
+{
+    margin-top: 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.accountRegister
+{
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    cursor: pointer;
+}
+
+.accountSpan
+{
+    cursor: pointer;
+}
+
+.accountSpan:after,
+.loginTextIssue>span:after 
+{
+    content: '';
+    display: block;
+    margin: auto;
+    height: 2px;
+    width: 0px;
+    background: transparent;
+    transition: width .5s ease, background-color .5s ease;
+}
+
+.accountSpan:hover:after,
+.loginTextIssue>span:hover:after 
+{
+    width: 100%;
+    background: #071e22;
+}
+
+.appIcon
+{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.appIcon>img
+{
+    width: 50px;
+    height: 50px;
+    object-fit: cover;
+}
+
+.registerBody
+{
+    display: flex;
+    flex: 1;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.registerBody .app-title
+{
+    text-transform: uppercase;
+    color: var(--theme-color4);
+    text-align: center;
+}
+
+.registerBodyContainer
+{
+    display: flex;
+    flex-direction: column;
+}
+
+.registerFormError
+{
+    color: #f33e5b;
+    font-size: 12px;
+    font-weight: 500;
+    text-align: center;
+}
+
+.registerForm
+{
+    display: grid;
+    grid-template-columns: auto auto;
+    grid-column-gap: 30px;
+    grid-row-gap: 15px;
+}
+
+.registerForm .registerFormItem
+{
+    display: flex;
+    flex-direction: column;
+    gap: 7px;
+}
+
+.registerFormItem>label
+{
+    text-transform: uppercase;
+    font-size: 13px;
+    color: #777;
+    font-weight: 500;
+}
+
+.registerFormItem>label sup
+{
+    color: var(--theme-color4);
+    font-size: 16px;
+}
+
+.registerFormItem>input,
+.registerFormItem>select,
+.registerFormItem .passwordField>input
+{
+    width: 250px;
+    border: none;
+    border-radius: 0;
+    border-bottom: 1px solid #eee;
+    color: #071e22;
+    font-weight: 500;
+    color: #071e22;
+    padding: 10px;
+    background-color: var(--lighter-color2);
+}
+
+.registerFormItem>input:hover,
+.registerFormItem>input:focus,
+.registerFormItem>select:hover,
+.registerFormItem>select:focus,
+.registerFormItem .passwordField>input:hover,
+.registerFormItem .passwordField>input:focus
+{
+    outline: none;
+    box-shadow: none !important;
+    border-radius: 0 !important;
+    border-color: #777;
+}
+
+.registerFormItem .passwordField
+{
+    position: relative;
+    display: flex;
+    align-items: center;
+}
+
+.registerFormItem .passwordField span
+{
+    position: absolute;
+    right: 10px;
+}
+
+.registerFormItem .passwordField span i
+{
+    font-size: 20px;
+}
+
+.registerFormItemBtn
+{
+    align-self: center;
+    padding: 10px 50px;
+    background-color: var(--theme-color4);
+    color: #fff;
+    text-transform: uppercase;
+    margin-top: 30px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    text-decoration: none;
+    -webkit-transition: background 1s; 
+    transition: background 1s;
+}
+
+.registerFormItemBtn:disabled
+{
+    background-color: #eee;
+    color: #071e22;
+}
+
+.registerFormItemBtn:hover
+{
+    background-color: #071e22;
+}
+

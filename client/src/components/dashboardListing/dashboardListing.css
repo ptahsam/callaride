@@ -1,0 +1,53 @@
+.dashboardListing
+{
+    display: flex;
+    flex-direction: column;
+}
+
+.dashboardListingHeader
+{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    border-bottom: 0.0125em solid var(--light-color);
+    padding-bottom: 20px;
+}
+
+.dashboardListingHeader h3
+{
+    font-weight: 900;
+    font-size: 18px;
+}
+
+.dashboardListingHeader span
+{
+    padding: 7px 15px;
+    font-weight: 500;
+    font-size: 15px;
+    border: 0.0225em solid var(--theme-color6);
+    color: var(--theme-color6);
+    cursor: pointer;
+}
+
+.dashboardListingHeader span:hover
+{
+    
+}
+
+.dashboardListingBody
+{
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.dashboardListingBody .horDiv
+{
+    height: 0.0125em;
+    background-color: var(--light-color);
+}
+
+.no-show
+{
+    display: none;
+}

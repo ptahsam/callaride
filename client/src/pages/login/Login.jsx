@@ -1,10 +1,13 @@
 import { useNavigate } from "react-router-dom";
 import "./login.css"
 import { useState, useContext } from "react";
+import { AuthContext } from "../../contexts/AuthContext";
+import axios from "axios";
 
 const Login = () => {
 
     const navigate = useNavigate()
+    const  { loading, error, dispatch } = useContext(AuthContext)
 
     const [passwordType, setPasswordType] = useState("password");
     const [ credentials, setCredentials ] = useState({
@@ -25,6 +28,18 @@ const Login = () => {
       setPasswordType("password")
     }
 
+    const handleLogin = async () => {
+        dispatch({type:"LOGIN_START"})
+        try{
+            const res = await axios.post("/auth/loginCustomer", credentials);
+            dispatch({ type: "LOGIN_SUCCESS", payload: res.data })
+            navigate(-1)
+        }catch(err){
+            dispatch({type:"LOGIN_FAILURE", payload:err.response.data})
+        }
+    }
+
+    console.log(error)
       
   return (
     <div className="login">
@@ -34,7 +49,7 @@ const Login = () => {
                     <i class='bx bx-arrow-back'></i>
                     BACK
                 </span>
-                <span className="accountSpan">CREATE ACCOUNT</span>
+                <span className="accountSpan" onClick={(e) => navigate('/register')}>CREATE ACCOUNT</span>
             </div>
             <div className="loginBody">
                 <div className="appIcon">
@@ -44,7 +59,7 @@ const Login = () => {
                 <div className="loginBodyContainer">
                     <div className="loginBodyForm">
                         <div className="loginFormItem">
-                            <p className="loginFormError"></p>
+                            <p className="loginFormError">{ error? error.message : "" }</p>
                         </div>
                         <div className="loginFormItem">
                             <label>Email Address</label>
@@ -59,8 +74,8 @@ const Login = () => {
                                 </span>
                             </div>
                         </div>
-                        <div className="loginFormItemBtn">
-                            Log In
+                        <div className={loading ? "loginFormItemBtn disabled":"loginFormItemBtn"} onClick={()=>handleLogin()}>
+                            {loading ? "Logging in ..." : "Log In"}
                         </div>
                     </div>
                     <div className="loginBodyDivider">

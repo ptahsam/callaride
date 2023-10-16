@@ -3,7 +3,7 @@ import { DateRange } from 'react-date-range';
 import 'react-date-range/dist/styles.css'
 import 'react-date-range/dist/theme/default.css'
 import axios from "axios"
-import { useState, useRef, useEffect } from "react";
+import { useState, useRef, useEffect, useContext } from "react";
 import { 
     carBasicInfo, 
     carCalendarSchedule, 
@@ -18,8 +18,11 @@ import { fileToDataURL, getDatesInRange, getModel, hasValues } from "../utils/he
 import { carTypes } from "../utils/carTypes";
 import { numbers } from "../utils/numbers";
 import useFetch from "../../hooks/useFetch";
+import { AuthContext } from "../../contexts/AuthContext";
 
 const ListCarForm = () => {
+
+  const  { user } = useContext(AuthContext)
 
   const [submitting, setSubmitting] = useState(false);
   const [selectedCarBrand, setSelectedCarBrand] = useState(null); 
@@ -230,7 +233,7 @@ const ListCarForm = () => {
                   ...listingInfo,
                   carPhotos: list,
                   carCancellationPolicy: cancellationPolicy,
-                  listingOwner: 'Peter',
+                  listingOwner: user._id,
                   approvalStatus: 'submitted_for_review'
                 };
           
@@ -416,7 +419,7 @@ const ListCarForm = () => {
     <div className="listCarForm">
         <div className="listCarFormContainer">
             <div className={activeTabs.mainTab == 4?"listCarFormIntro no-show":"listCarFormIntro"}>
-                <span>Trade your car</span>
+                <span>List your car</span>
                 <h1>List your <br />vehycle</h1>
                 <p>
                     Interested in trading in your current vehicle? <br />

@@ -1,0 +1,204 @@
+.listingCard
+{
+    margin-top: 20px;
+    display: flex;
+    gap: 20px;
+}
+
+.listingImage
+{
+    width: 180px;
+    height: 150px;
+    position: relative;
+}
+
+.listingImage img
+{
+    height: 100%;
+    width: 100%;
+    object-fit: cover;
+}
+
+.listingImage .status
+{
+    position: absolute;
+    bottom: 10px;
+    left: 10px;
+    padding: 3px 10px;
+    display: flex;
+    gap: 10px;
+    align-items: center;
+    background: var(--white-color);
+    border-radius: 25px;
+}
+
+.listingImage .status.review i
+{
+    color: var(--theme-color7);
+}
+
+.listingImage .status.approved i
+{
+    color: var(--theme-color6);
+}
+
+.listingImage .status.rejected i
+{
+    color: var(--red-color);
+}
+
+.listingImage .status small
+{
+    font-size: 12px;
+    font-weight: 600;
+    color: var(--theme-color2);
+}
+
+.listingDetails
+{
+    flex-grow: 1;
+    display: flex;
+    justify-content: space-between;
+}
+
+.listingInfo
+{
+    display: flex;
+    flex-direction: column;
+}
+
+.listingInfo .listingInfoHeader
+{
+    display: flex;
+    flex-direction: column;
+}
+
+.listingInfo .listingInfoHeader .carTitle
+{
+    font-size: 15px;
+    font-weight: 900;
+    color: var(--theme-color2);
+}
+
+.listingInfoHeaderAction
+{
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.listingInfoHeaderAction span
+{
+    font-size: 15px;
+    font-weight: 300;
+}
+
+.listingInfoHeaderAction span.available
+{
+    color: var(--theme-color6);
+    text-transform: capitalize;
+}
+
+.listingInfoHeaderAction span.booked
+{
+    color: var(--theme-color7);
+    text-transform: capitalize;
+}
+
+.listingInfoHeaderAction span.unavailable
+{
+    color: var(--red-color1);
+    text-transform: capitalize;
+}
+
+.listingInfoHeaderAction .viewListing
+{
+    color: var(--theme-color4);
+    cursor: pointer;
+}
+
+.listingInfoHeaderAction .viewListing:hover
+{
+    text-decoration: underline;
+}
+
+.listingInfoHeaderAction .vDiv
+{
+    border: 1px solid var(--lighter-color6);
+    height: 12px;
+}
+
+.listingActions
+{
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.listingActions span
+{
+    padding: 7px 30px;
+    border: 1px solid var(--theme-color9);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 14px;
+    font-weight: 700;
+    cursor: pointer;
+}
+
+.listingActions span.boost
+{
+    background-color: var(--theme-color9);
+    color: var(--white-color);
+}
+
+.listingActions span.manage
+{
+    color: var(--theme-color9);
+}
+
+.listingActions span.price_per_hour
+{
+    margin-top: auto;
+    border: none;
+    color: var(--theme-color4);
+}
+
+.listingInfoBody
+{
+    margin-top: auto;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.listingInfoBodyItem
+{
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    font-size: 14px;
+    font-weight: 400;
+    color: var(--lighter-color6);
+} 
+
+.listingInfoBodyItem i
+{
+    font-size: 18px;
+}
+
+.listingInfoBodyItem.rating i
+{
+    color: var(--theme-color4);
+}
+
+.listingInfoBodyItem.booking i
+{
+    color: var(--theme-color6);
+}
+
+.listingInfoBodyItem.view i
+{
+    color: var(--theme-color7);
+}

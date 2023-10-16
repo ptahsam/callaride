@@ -99,7 +99,7 @@
 .navbarMenu .navbarMenuItems
 {
     position: absolute;
-    top: 40px;
+    top: 60px;
     right: 0;
     box-shadow: rgba(0, 0, 0, 0.16) 0px 1px 4px;
     border-radius: 10px;
@@ -116,4 +116,26 @@
     font-size: 14px;
     font-weight: 400;
     text-transform: capitalize;
+}
+
+.userProfile
+{
+    border-radius: 25px;
+    padding: 0 10px;
+    border: 0.0125em solid var(--light-color);
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+}
+
+.userProfile img
+{
+    height: 25px;
+    width: 25px;
+    border-radius: 50%;
+}
+
+.userProfile i
+{
+    font-size: 24px;
 }

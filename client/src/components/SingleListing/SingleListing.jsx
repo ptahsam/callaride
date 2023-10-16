@@ -1,10 +1,15 @@
 import { useLocation } from "react-router-dom"
 import "./singleListing.css"
-import { useEffect, useState } from "react"
+import { useContext, useEffect, useState } from "react"
 import axios from "axios"
 import { getDatesInRange, getModel } from "../utils/helper"
+import { SearchContext } from "../../contexts/SearchContext"
 
 const SingleListing = () => {
+
+  const { city, car_type, dates } = useContext(SearchContext)
+
+  console.log(dates)
 
   const location = useLocation()
   const id = location.pathname.split("/")[2]
@@ -17,7 +22,7 @@ const SingleListing = () => {
   const [activeSpec, setActiveSpec] = useState(0)
   const [activePricing, setActivePricing] = useState('hourly_booking')
   const [pricing, setPricing] = useState('');
-  const [dates, setDates] = useState({ startDate : new Date(), endDate : new Date() })
+  const [newDates, setNewDates] = useState({ startDate : new Date(), endDate : new Date() })
   const [dateRange, setDateRange] = useState('');
 
   useEffect(() => {
@@ -88,16 +93,16 @@ const SingleListing = () => {
   }  
 
   const handlePickup = (e) => {
-    setDates((prev) => ({ ...prev, ['startDate'] : new Date(e.target.value)}))
+    setNewDates((prev) => ({ ...prev, ['startDate'] : new Date(e.target.value)}))
   }
 
   const handleDrop = (e) => {
-    setDates((prev) => ({ ...prev, ['endDate'] : new Date(e.target.value)}))
+    setNewDates((prev) => ({ ...prev, ['endDate'] : new Date(e.target.value)}))
   }
 
   useEffect(() => {
-    setDateRange(getDatesInRange(dates.startDate, dates.endDate))
-  }, [dates]);
+    setDateRange(getDatesInRange(newDates.startDate, newDates.endDate))
+  }, [newDates]);
 
   return (
     <div className="singleListing">
@@ -391,7 +396,12 @@ const SingleListing = () => {
                                         <div className="inputDateContainer">
                                             <label>Pick up Date</label>
                                             <div className="inputDate">
-                                                <input type="datetime-local" onChange={(e) => handlePickup(e)} placeholder="Drop Date"/>
+                                                <input 
+                                                    type="datetime-local" 
+                                                    onChange={(e) => handlePickup(e)} 
+                                                    placeholder="Drop Date" 
+                                                    value={new Date(newDates.startDate).toLocaleDateString()}
+                                                />
                                             </div>
                                         </div>
                                         <div className="inputDateContainer">
