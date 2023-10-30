@@ -34,8 +34,8 @@ const Navbar = ({ type }) => {
                 <div className="navbarMenu">
                     {user? 
                     <div className="userProfile" onClick={(e) => toggleNavbarMenuItems((prev) => (!prev))}>
-                        <img src={user.photo != ''?user.phto:'../../images/profile/profile.jpg'} alt={user.firstname}/>
-                        <span>{user.firstname}</span>
+                        <img src={user?.photo != ''?user?.phto:'../../images/profile/profile.jpg'} alt={user?.firstname}/>
+                        <span>{user?.firstname}</span>
                         {navbarMenuItems?<i class='bx bx-chevron-up'></i>:<i class='bx bx-chevron-down'></i>}
                     </div>
                     :<a href="/login"><span className="loginBtn">Login</span></a>

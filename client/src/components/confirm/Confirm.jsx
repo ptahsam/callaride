@@ -4,6 +4,7 @@ import { AuthContext } from "../../contexts/AuthContext"
 import { months } from "../utils/numbers"
 import { useLocation } from "react-router-dom"
 import { format, parseISO } from "date-fns"
+import axios from "axios"
 
 const Confirm = () => {
 
@@ -13,8 +14,46 @@ const Confirm = () => {
   const [car, setCarInfo] = useState(location.state?.listing || null)
   const [dates, setDates] = useState(location.state?.newDates || null)
   const [range, setRange] = useState(location.state?.dateRange || null)
+  const [saving, setIsSubmitting] = useState(false);
 
-  console.log(dates)
+  const handleBookingBtn = async () => {
+    setIsSubmitting(true)
+    const booking = {
+        user_id: user._id,
+        listing_owner_id: car.listingOwner,
+        listing_id: car?._id,
+        dates: range,
+        start_date: dates?.startDate,
+        end_date: dates?.endDate,
+        payment: {
+            security_deposit: {
+                amount: car.carPricing.securityDeposit,
+                status: "unpaid",
+            },
+            service_fee: {
+                amount: (car.carPricing.daily_booking.price_per_day * range.length) * 0.1,
+                status: "unpaid",
+            },
+            charge: {
+                amount: car.carPricing.daily_booking.price_per_day * range.length,
+                status: "unpaid",
+            },
+        },
+        status: "unpaid",
+        approval_status: "awaiting_confirmation"
+    }
+
+    try{
+        const resp = await axios.post("/bookings", booking);
+        if(resp){
+            setIsSubmitting(false)
+            console.log(resp.data)
+        }
+    }catch(err){
+        setIsSubmitting(false)
+        console.log(err)
+    }
+  }
 
   return (
     <div className="confirm">
@@ -113,6 +152,11 @@ const Confirm = () => {
                             </div>
                         </div>
                     </div>
+                </div>
+                <div className="confirmBookingActions">
+                    <span className="btnSubmitBooking" onClick={(e) => handleBookingBtn()}>
+                        {saving?"Booking":"Book"}
+                    </span>
                 </div>
             </div>
         </div>

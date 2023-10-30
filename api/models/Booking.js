@@ -5,6 +5,10 @@ const BookingSchema = new mongoose.Schema(
             type: String,
             required: true,
         },
+        listing_owner_id: {
+            type: String,
+            required: true,
+        },
         listing_id: {
             type: String,
             required: true,
@@ -43,7 +47,7 @@ const BookingSchema = new mongoose.Schema(
                    type: Number,
                 },
                 status: {
-                 type: String,
+                   type: String,
                 }, 
             },
         },

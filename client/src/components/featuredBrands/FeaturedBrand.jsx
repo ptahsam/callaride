@@ -3,8 +3,9 @@ import useFetch from "../../hooks/useFetch"
 import FeaturedBrandCard from "../cards/Brand/FeaturedBrandCard/FeaturedBrandCard"
 import "./featuredBrand.css"
 import { max } from "date-fns"
+import { useNavigate } from "react-router-dom"
 
-const FeaturedBrand = () => {
+const FeaturedBrand = () => {  
 
   const [featuredBrandIndex, setFeaturedBrandIndex] = useState({min: 0, max: 4});  
 

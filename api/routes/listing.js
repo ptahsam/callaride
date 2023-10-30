@@ -4,7 +4,11 @@ import {
     deleteListing, 
     getListing, 
     getListings, 
-    updateListing 
+    getPaginatedListings, 
+    getRecommendedListings, 
+    updateListing, 
+    updateListingNewField,
+    updateListingViewCount
 } from "../controllers/listings.js";
 
 const router = express.Router();
@@ -12,8 +16,14 @@ const router = express.Router();
 //CREATE
 router.post("/", /*verifyUser,*/ createListing);
 
+//UPDATE NEW FIELD
+router.put("/update", /*verifyUser,*/ updateListingNewField);
+
+//UPDATE VIEW COUNT
+router.put("/update/viewcount/:id", updateListingViewCount)
+
 //UPDATE
-router.put("/:id", /*verifyUser,*/ updateListing);
+router.put("/update/:id", updateListing)
 
 //DELETE
 router.delete("/:id", /*verifyUser,*/ deleteListing);
@@ -23,5 +33,11 @@ router.get("/find/:id", getListing);
 
 //GET ALL
 router.get("/", getListings);
+
+//GET PAGINATED
+router.get("/paginated", getPaginatedListings)
+
+//GET RECOMMENDED LISTINGS
+router.get("/recommended", getRecommendedListings)
 
 export default router;

@@ -5,6 +5,9 @@ const ListingSchema = new mongoose.Schema(
             type: String,
             required: true
         },
+        viewCount: {
+            type: Number,
+        },
         carBasicInfo: {
             city: {
                 type: String,

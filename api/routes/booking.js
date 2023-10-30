@@ -4,6 +4,7 @@ import {
     deleteBooking, 
     getBooking, 
     getBookings, 
+    getPaginatedBookings, 
     updateBooking 
 } from "../controllers/bookings.js";
 
@@ -23,5 +24,8 @@ router.get("/find/:id", getBooking);
 
 //GET ALL
 router.get("/", getBookings);
+
+//GET PAGINATED
+router.get("/paginated", getPaginatedBookings);
 
 export default router;

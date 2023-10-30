@@ -1,0 +1,68 @@
+.dashboardBooking
+{
+    display: flex;
+    flex-direction: column;
+}
+
+.dashboardBookingHeader
+{
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    padding-bottom: 20px;
+    border-bottom: 0.0125em solid var(--light-color);
+}
+
+.dashboardBookingTitle
+{
+    font-weight: 900;
+    font-size: 18px;
+}
+
+.dashboardBookingHeaderBody
+{
+    display: flex;
+    align-items: center;
+    gap: 15px;
+}
+
+.dashboardBookingItem
+{
+    padding: 10px;
+    background-color: var(--lighter-color2);
+}
+
+.dashboardBookingItem select,
+.dashboardBookingItem input
+{
+    border: none;
+    background-color: transparent;
+    font-size: 15px;
+    font-weight: 500;
+    color: var(--lighter-color6);
+}
+
+.dashboardBookingItem select:focus,
+.dashboardBookingItem input:focus
+{
+    outline: none;
+}
+
+.dashboardBookingItem.input
+{
+    display: flex;
+    align-items: center;
+    gap: 15px;
+}
+
+.dashboardBookingItem.input .vDiv
+{
+    height: 20px;
+    width: 1px;
+    background-color: var(--lighter-color6);
+}
+
+.no-show
+{
+    display: none;
+}

@@ -1,0 +1,325 @@
+.bookingCard
+{
+    display: flex;
+    margin-top: 20px;
+    box-shadow: rgba(9, 30, 66, 0.25) 0px 4px 8px -2px, rgba(9, 30, 66, 0.08) 0px 0px 0px 1px;
+    border-radius: 3px;
+    justify-content: space-between;
+}
+
+.bookingCardPeople
+{
+    display: flex;
+    flex-direction: column;
+}
+
+.bookingCardListing
+{
+    display: flex;
+    gap: 10px;
+    align-items: center;
+    padding: 20px;
+    border-bottom: 1px dashed var(--light-color);
+    border-right: 1px dashed var(--light-color);
+}
+
+.bookingCardListingImage
+{
+    height: 60px;
+    width: 60px;
+}
+
+.bookingCardListingImage img
+{
+    height: 100%;
+    width: 100%;
+    object-fit: cover;
+}
+
+.bookingCardListingDetails
+{
+    display: flex;
+    flex-direction: column;
+}
+
+.bookingCardListingDetails .listingName
+{
+    font-size: 16px;
+    font-weight: 600;
+    color: var(--theme-color9);
+}
+
+.bookingCardListingDetails .listingRating
+{
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.bookingCardListingDetails .listingRating .rating
+{
+    display: flex;
+    align-items: center;
+    font-size: 16px;
+    color: var(--lighter-color6);
+}
+
+.bookingCardListingDetails .listingRating .rating i
+{
+    font-size: 18px;
+}
+
+.bookingCardPerson
+{
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    padding: 20px;
+    border-right: 1px dashed var(--light-color);
+}
+
+.bookingCardPersonHeader
+{
+    display: flex;
+    gap: 10px;
+}
+
+.bookingCardPersonImg
+{
+    height: 50px;
+    width: 50px;
+}
+
+.bookingCardPersonImg img
+{
+    height: 100%;
+    width: 100%;
+    border-radius: 50%;
+}
+
+.bookingCardPersonTitle
+{
+    display: flex;
+    flex-direction: column;
+}
+
+.bookingCardPersonTitle .name
+{
+    font-size: 15px;
+    font-weight: 600;
+    color: var(--text-color);
+}
+
+.bookingCardPersonTitle .verification
+{
+    display: flex;
+    align-items: center;
+    font-size: 12px;
+    color: var(--lighter-color6);
+    gap: 5px;
+}
+
+.bookingCardPersonTitle .verification i
+{
+    font-size: 18px;
+    color: var(--theme-color9);
+}
+
+.bookingCardPersonBody
+{
+ display: flex;
+ flex-direction: column;
+ gap: 3px;
+}
+
+.bookingCardPersonBodyItem
+{
+    display: flex;
+    align-items: center;
+    font-size: 14px;
+    color: var(--lighter-color6);
+}
+
+.bookingCardPersonBodyItem .itemTitle
+{
+    min-width: 100px;
+    font-weight: 700;
+}
+
+.bookingCardPersonBodyItem .itemValue
+{
+    font-weight: 300;
+    align-self: flex-start;
+    align-content: flex-start;
+}
+
+.bookingCardDetails
+{
+    display: flex;
+    flex-direction: column;
+    padding: 20px;
+    justify-content: space-between;
+}
+
+.bookingCardDuration
+{
+    display: flex;
+    flex-direction: column;
+}
+
+.bookingCardDurationTitle
+{
+    font-size: 18px;
+    font-weight: 700;
+    color: var(--text-color);
+    text-transform: uppercase;
+}
+
+.bookingCardDurationBody
+{
+    display: flex;
+    align-items: center;
+    gap:  20px;
+}
+
+.bookingCardDurationDays
+{
+    font-size: 30px;
+    font-weight: 900;
+    color: var(--theme-color7);
+}
+
+.bookingCardDurationRight
+{
+    display: flex;
+    flex-direction: column;
+}
+
+.bookingCardDurationBodyItems
+{
+    display: flex;
+    flex-direction: column;
+}
+
+.bookingDurationItem
+{
+    font-size: 14px;
+    color: var(--lighter-color6);
+}
+
+.bookingDurationItem .itemTitle
+{
+    font-weight: 700;
+}
+
+.bookingDurationItem .itemValue
+{
+    font-weight: 200;
+}
+
+.bookingCardPayments
+{
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.bookingCardPaymentTitle
+{
+    font-size: 16px;
+    font-weight: 600;
+}
+
+.bookingCardPaymentBody
+{
+    display: flex;
+    border-top: 1px solid var(--light-color);
+}
+
+.bookingCardPaymentItem
+{
+    display: flex;
+    flex-direction: column;
+    padding-top: 10px;
+}
+
+.bookingCardPaymentItem.hasBorder
+{
+    border-right: 1px solid var(--light-color);
+    padding-right: 10px;
+}
+
+.bookingCardPaymentItem.lPadding
+{
+    padding-left: 10px;
+}
+
+.bookingCardPaymentItemName
+{
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    font-size: 16px;
+}
+
+.bookingCardPaymentItemName i
+{
+    font-size: 20px;
+    color: var(--theme-color8);
+}
+
+.bookingCardPaymentAmount
+{
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-size: 15px;
+    color: var(--lighter-color6);
+    text-transform: uppercase;
+    font-weight: 600;
+}
+
+.bookingCardPaymentAmount p
+{
+    font-style: normal;
+    font-weight: lighter;
+    text-transform: capitalize;
+}
+
+.bookingCardActions
+{
+    display: flex;
+    flex-direction: column;
+    padding: 20px;
+    gap: 15px;
+}
+
+.bookingCardActionItem
+{
+    padding: 7px 30px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 14px;
+    font-weight: 700;
+    cursor: pointer;
+}
+
+.bookingCardActionItem.confirm
+{
+    background-color: var(--theme-color9);
+    color: var(--white-color);
+}
+
+.bookingCardActionItem.reject
+{
+    background-color: var(--theme-color4);
+    color: var(--white-color);
+}
+
+.bookingCardActionItem.view
+{
+    margin-top: auto;
+    border: 1px solid var(--theme-color9);
+    color: var(--theme-color9);
+}

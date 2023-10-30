@@ -260,3 +260,22 @@
 {
     outline: none;
 }
+
+.confirmBookingActions
+{
+    margin-top: 15px;
+    display: flex;
+    justify-content: flex-end;
+}
+
+.confirmBookingActions .btnSubmitBooking
+{
+    padding: 5px 30px;
+    display: flex;
+    justify-content: space-between;
+    background-color: var(--theme-color1);
+    color: var(--white-color);
+    cursor: pointer;
+    font-size: 16px;
+    font-weight: 600;
+}

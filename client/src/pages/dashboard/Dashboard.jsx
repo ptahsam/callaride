@@ -1,18 +1,28 @@
-import { useState } from "react"
+import { useContext, useEffect, useState } from "react"
 import Footer from "../../components/footer/Footer"
 import Navbar from "../../components/navbar/Navbar"
 import "./dashboard.css"
-import { useLocation } from "react-router-dom"
+import { useLocation, useNavigate } from "react-router-dom"
 import DashboardListing from "../../components/dashboardListing/DashboardListing"
 import DashboardProfile from "../../components/dashboardProfile/DashboardAccount"
+import DashboardBooking from "../../components/dashboardBooking/DashboardBooking"
+import { AuthContext } from "../../contexts/AuthContext"
 
 const Dashboard = () => {
   const location = useLocation();
+  const navigate = useNavigate();
+  const  { user } = useContext(AuthContext)
   const [activeItem, setActiveItem] = useState(location.state?.item || { mainTab : 1, subTab: 1 });
 
   const handleTabs = (main, sub) => {
     setActiveItem((prev) => ({...prev, ['mainTab']: main, ['subTab']: sub}))
   }
+
+  useEffect(() => {
+    if(!user){
+      navigate("/")
+    }
+  }, [user]);
 
   return (
     <div className="dashboard">
@@ -59,6 +69,7 @@ const Dashboard = () => {
           </div>
           <div className="dashboardBody">
             <DashboardProfile activeItem={activeItem} />
+            <DashboardBooking activeItem={activeItem} />
             <DashboardListing activeItem={activeItem} />
           </div>
         </div>

@@ -1,8 +1,20 @@
 import { useNavigate } from "react-router-dom"
 import "./listingCard.css"
+import { useEffect, useState } from "react"
+import axios from "axios"
 
 const Listing = ({ listing }) => {
   const navigate = useNavigate()
+  const [bookings, setBookings] = useState([])
+
+
+  useEffect(() => {
+    const fetchBookings = async () => {
+      const allBookings =  await axios.get(`/bookings?listingid=${listing._id}`)
+      setBookings(allBookings.data)
+    }
+    fetchBookings();
+  }, [listing])
 
   return (
     <div className="listingCard">
@@ -34,11 +46,11 @@ const Listing = ({ listing }) => {
               </span>
               <span className="listingInfoBodyItem booking">
                 <i class='bx bxs-calendar-check'></i>
-                <span>0 Bookings</span>
+                <span>{`${bookings?.length} Bookings`}</span>
               </span>
               <span className="listingInfoBodyItem view">
                 <i class='bx bxs-show'></i>
-                <span>0 Views</span>
+                <span>{`${listing.viewCount} Views`}</span>
               </span>
             </div>
           </div>

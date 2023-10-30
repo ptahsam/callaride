@@ -44,6 +44,7 @@ const ListCarForm = () => {
   const [activeTabs, setActiveTabs] = useState(JSON.parse(localStorage.getItem("activeTabs")) || {'mainTab': 1, 'subTab': 1});
   const [listingInfo, setListingInfo] = useState(JSON.parse(localStorage.getItem("listingInfo")) || {
     'listingOwner': '',
+    'viewCount': 0,
     'carBasicInfo': {},
     'carCalendarSchedule': {},
     'carPricing': {},

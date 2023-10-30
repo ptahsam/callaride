@@ -51,7 +51,7 @@ const DashboardAccount = ({ activeItem }) => {
             </div>
             <div className="accountDetailsPhoto">
               <div className="photo">
-                <img src={user.photo !== ""?user.photo:"../../images/profile/profile.jpg"} />
+                <img src={user?.photo !== ""?user?.photo:"../../images/profile/profile.jpg"} />
                 <span 
                   onClick={()=>handleClickPhotoUpload()}
                 >
@@ -71,35 +71,35 @@ const DashboardAccount = ({ activeItem }) => {
             <div className="accountDetailsInfo">
               <div className="accountDetailsInfoItem">
                 <label>Firstname</label>
-                <span>{user.firstname}</span>
+                <span>{user?.firstname}</span>
               </div>
               <div className="accountDetailsInfoItem">
                 <label>Lastname</label>
-                <span>{user.lastname}</span>
+                <span>{user?.lastname}</span>
               </div>
               <div className="accountDetailsInfoItem">
                 <label>Email</label>
-                <span>{user.email}</span>
+                <span>{user?.email}</span>
               </div>
               <div className="accountDetailsInfoItem">
                 <label>Lastname</label>
-                <span>{user.gender}</span>
+                <span>{user?.gender}</span>
               </div>
               <div className="accountDetailsInfoItem">
                 <label>Phonenumber</label>
-                <span>{user.phonenumber}</span>
+                <span>{user?.phonenumber}</span>
               </div>
               <div className="accountDetailsInfoItem">
                 <label>Alt Number</label>
-                <span>{user.altphonenumber}</span>
+                <span>{user?.altphonenumber}</span>
               </div>
               <div className="accountDetailsInfoItem">
                 <label>Address</label>
-                <span>{user.address}</span>
+                <span>{user?.address}</span>
               </div>
               <div className="accountDetailsInfoItem">
                 <label>Birth Date</label>
-                <span>{format(new Date(`${user.birthdate}`), 'yyyy-MM-dd')}</span>
+                <span>{user?format(new Date(`${user?.birthdate}`), 'yyyy-MM-dd'):""}</span>
               </div>
             </div>
           </div>

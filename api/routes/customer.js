@@ -31,7 +31,7 @@ router.put("/:id", /*verifyUser,*/ updateCustomer);
 router.delete("/:id", /*verifyUser,*/ deleteCustomer);
 
 //GET
-router.get("/:id", /*verifyUser,*/ getCustomer);
+router.get("/find/:id", /*verifyUser,*/ getCustomer);
 
 //GET ALL
 router.get("/", /*verifyAdmin,*/ getCustomers);

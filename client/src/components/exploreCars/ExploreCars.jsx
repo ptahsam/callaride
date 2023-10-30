@@ -8,6 +8,8 @@ import useFetch from "../../hooks/useFetch";
 import axios from "axios";
 import { getModel } from "../utils/helper";
 import { useLocation } from "react-router-dom";
+import Paginate from "../paginate/Paginate";
+import ExploreRecommendedCars from "../exploreRecommendedCars/ExploreRecommendedCars";
 
 const ExploreCars = () => {
 
@@ -15,23 +17,29 @@ const ExploreCars = () => {
 
   const approvalStatus = 'submitted_for_review';
 
+  const [page, setPage] = useState(1)
+  const [limit, setLimit] = useState(6)
   const [city, setCity] = useState('')
   const [carBrands, setCarBrands] = useState('');
   const [selectedCarBrand, setSelectedCarBrand] = useState(null); 
   const [rating, setRating] = useState(0)
-  const [hourlyBudget, setHourlyBudget] = useState({values: [0, 1000000]})
+  const [hourlyBudget, setHourlyBudget] = useState({values: [0, 10000]})
   const [dailyBudget, setDailyBudget] = useState({values: [0, 1000000]})
   const [weeklyBudget, setWeeklyBudget] = useState({values: [0, 1000000]})
   const [monthlyBudget, setMonthlyBudget] = useState({values: [0, 1000000]})
   const [carType, setCarType] = useState('')
-  const [carBrand, setCarBrand] = useState('')
+  const [carBrand, setCarBrand] = useState(location.state?.brandid || '')
   const [carModel, setCarModel] = useState('')
   const [filterFrequency, setFilterFrequency] = useState('day')
-  const { data, loading, error } = useFetch(`/listings?approval=${approvalStatus}&city=${city}&type=${carType}&brand=${carBrand}&model=${carModel}&hourlyMin=${hourlyBudget.values[0]}&hourlyMax=${hourlyBudget.values[1]}&dailyMin=${dailyBudget.values[0]}&dailyMax=${dailyBudget.values[1]}&weeklyMin=${weeklyBudget.values[0]}&weeklyMax=${weeklyBudget.values[1]}&monthlyMin=${monthlyBudget.values[0]}&monthlyMax=${monthlyBudget.values[1]}`)
+  const { data, loading, error } = useFetch(`/listings/paginated?approval=${approvalStatus}&city=${city}&type=${carType}&brand=${carBrand}&model=${carModel}&hourlyMin=${hourlyBudget.values[0]}&hourlyMax=${hourlyBudget.values[1]}&dailyMin=${dailyBudget.values[0]}&dailyMax=${dailyBudget.values[1]}&weeklyMin=${weeklyBudget.values[0]}&weeklyMax=${weeklyBudget.values[1]}&monthlyMin=${monthlyBudget.values[0]}&monthlyMax=${monthlyBudget.values[1]}&page=${page}&limit=${limit}`)
 
   const cityInputRef = useRef(null);
   const carTypeSelectRef = useRef(null);
   const carBrandRef = useRef(null);
+
+  const handlePageClick = (e) => {
+    setPage(e.selected + 1)
+  }
 
   const handleCity = (el) => {
       setCity(el)
@@ -156,7 +164,7 @@ const ExploreCars = () => {
                       key={6666}
                       step={1}
                       min={0}
-                      max={1000000}
+                      max={10000}
                       values={hourlyBudget.values}
                       onChange={(values) => setHourlyBudget({values})}
                       renderTrack={({ props, children }) => (
@@ -343,24 +351,13 @@ const ExploreCars = () => {
             <div className="exploreCarsBodyResults">
               {loading ? <>
                 <p>Loading</p>
-              </> : data.map((listing, index) => (
+              </> : data?.result?.map((listing, index) => (
                 <Car car={listing} key={index} />
               ))}
             </div>
         </div>
-        <div className="exploreRecommendedCars">
-           <div className="exploreRecommendedHeader">
-             <span>Maybe You Like</span>
-             <h1>Our <b>Recommended</b> Cars</h1>
-           </div> 
-           <div className="exploreRecommendedBody">
-                {loading ? <>
-                <p>Loading</p>
-                </>:data.slice(0, 3).map((car, index) => (
-                    <RecommendedCar className="carItem" car={car} key={index}/>
-                ))}
-            </div>    
-        </div>
+        <Paginate handlePageClick={handlePageClick} pageCount={data?.pageCount}/>
+        <ExploreRecommendedCars />
       </div>
     </div>
   )

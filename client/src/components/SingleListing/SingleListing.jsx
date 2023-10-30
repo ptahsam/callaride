@@ -4,14 +4,15 @@ import { useContext, useEffect, useState } from "react"
 import axios from "axios"
 import { getDatesInRange, getModel } from "../utils/helper"
 import { SearchContext } from "../../contexts/SearchContext"
+import { AuthContext } from "../../contexts/AuthContext"
 
 const SingleListing = () => {
 
   const navigate = useNavigate()  
 
-  const { city, car_type, dates } = useContext(SearchContext)
+  const  { user } = useContext(AuthContext)
 
-  console.log(dates)
+  const { city, car_type, dates } = useContext(SearchContext)
 
   const location = useLocation()
   const id = location.pathname.split("/")[2]
@@ -109,6 +110,16 @@ const SingleListing = () => {
   useEffect(() => {
     setDateRange(getDatesInRange(newDates.startDate, newDates.endDate))
   }, [newDates]);
+
+  useEffect(() => {
+    const updateViewCount = async () => {
+        if(id !== undefined && id !== "" && user){
+            await axios.put(`/listings/update/viewcount/${id}`)
+        }
+    }
+
+    updateViewCount();
+  }, [])
 
   return (
     <div className="singleListing">
