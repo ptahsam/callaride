@@ -2,10 +2,12 @@ import { useNavigate } from "react-router-dom"
 import "./listingCard.css"
 import { useEffect, useState } from "react"
 import axios from "axios"
+import { getAverageRating } from "../../utils/helper"
 
-const Listing = ({ listing }) => {
+const Listing = ({ listing, setActiveItem }) => {
   const navigate = useNavigate()
   const [bookings, setBookings] = useState([])
+  const [reviews, setReviews] = useState([])
 
 
   useEffect(() => {
@@ -13,8 +15,19 @@ const Listing = ({ listing }) => {
       const allBookings =  await axios.get(`/bookings?listingid=${listing._id}`)
       setBookings(allBookings.data)
     }
+
+    const fetchReviews = async () => {
+      const allReviews =  await axios.get(`/reviews?listing=${listing._id}`)
+      setReviews(allReviews.data)
+    }
+
+    fetchReviews();
     fetchBookings();
   }, [listing])
+
+  const handleNavigate = (item) => {
+    setActiveItem(item)
+  };
 
   return (
     <div className="listingCard">
@@ -42,11 +55,11 @@ const Listing = ({ listing }) => {
             <div className="listingInfoBody">
               <span className="listingInfoBodyItem rating">
                 <i class='bx bxs-star'></i>
-                <span>3.5(45 Reviews)</span>
+                <span>{`${getAverageRating(reviews)}(${reviews?.length} Reviews)`}</span>
               </span>
               <span className="listingInfoBodyItem booking">
                 <i class='bx bxs-calendar-check'></i>
-                <span>{`${bookings?.length} Bookings`}</span>
+                <span onClick={() => handleNavigate({ mainTab : 2, subTab: 1, listingid:listing._id })}>{`${bookings?.length} Bookings`}</span>
               </span>
               <span className="listingInfoBodyItem view">
                 <i class='bx bxs-show'></i>
@@ -56,7 +69,7 @@ const Listing = ({ listing }) => {
           </div>
           <div className="listingActions">
             <span className="boost">Boost</span>
-            <span className="manage">Manage</span>
+            <span className="manage" onClick={() => handleNavigate({ mainTab : 3, subTab : 2, listingid : listing._id, type: 'manage' })}>Manage</span>
             <span className="price_per_hour">{`KES ${listing.carPricing.hourly_booking.price_per_hour}/Hour`}</span>
           </div>
         </div>

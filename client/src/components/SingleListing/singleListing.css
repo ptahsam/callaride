@@ -41,13 +41,18 @@
 .singleListingTitle .listingRating
 {
     display: flex;
-    align-items: center;
+    align-items: center;;
 }
 
 .singleListingTitle .listingRating i
 {
     font-size: 22px;
-    color: var(--lighter-color4);
+    color: var(--theme-color7);
+}
+
+.ratingCountListingHeader
+{
+    margin-left: 10px;
 }
 
 .singleListingBody
@@ -123,6 +128,18 @@
     display: grid;
     grid-template-columns: auto auto auto auto;
     grid-column-gap: 10px;
+    position: relative;
+}
+
+.listingPhotosCourosel .listingPhotosCouroselCount
+{
+    position: absolute;
+    right: 60px;
+    top: 50%;
+    transform: translateY(-50%);
+    font-size: 32px;
+    color: var(--white-color);
+    font-weight: 700;
 }
 
 .listingPhotosCourosel img
@@ -336,6 +353,88 @@
 .cancellationContainer p b
 {
     margin-right: 5px;
+}
+
+.reviews
+{
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.reviewsContainer
+{
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.addReview
+{
+    display: flex;
+    flex-direction: column;
+}
+
+.addReview .title
+{
+    font-size: 16px;
+    font-weight: 700;
+    cursor: pointer;
+}
+
+.addReview .title:hover
+{
+    text-decoration: underline;
+}
+
+.addReview .small
+{
+    font-size: 12px;
+    font-weight: 100;
+    color: var(--lighter-color);
+}
+
+.reviewForm
+{
+    display: flex;
+    flex-direction: column;
+    margin-top: 10px;
+    gap: 10px;
+    align-items: flex-start;
+}
+
+.reviewFormItem
+{
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 5px;
+}
+
+.reviewFormItem .rating i
+{
+    font-size: 24px;
+    color: var(--theme-color1);
+}
+
+.reviewFormItem textarea
+{
+    width: 250px;
+    padding: 10px;
+}
+
+.reviewFormItem textarea:focus
+{
+    outline: none;
+}
+
+.reviewBtn
+{
+    border-radius: 5px;
+    background-color: var(--theme-color);
+    color: var(--white-color);
+    padding: 4px 10px;
+    cursor: pointer;
 }
 
 .singleListingBooking

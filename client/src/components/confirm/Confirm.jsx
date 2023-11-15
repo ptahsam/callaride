@@ -5,6 +5,7 @@ import { months } from "../utils/numbers"
 import { useLocation } from "react-router-dom"
 import { format, parseISO } from "date-fns"
 import axios from "axios"
+import { createRatingStars, getAverageRating } from "../utils/helper"
 
 const Confirm = () => {
 
@@ -14,6 +15,7 @@ const Confirm = () => {
   const [car, setCarInfo] = useState(location.state?.listing || null)
   const [dates, setDates] = useState(location.state?.newDates || null)
   const [range, setRange] = useState(location.state?.dateRange || null)
+  const [reviews, setReviews] = useState(location.state?.reviews || [])
   const [saving, setIsSubmitting] = useState(false);
 
   const handleBookingBtn = async () => {
@@ -69,13 +71,13 @@ const Confirm = () => {
                         </span>
                         <div className="carDetailsRating">
                             <span className="rating">
-                                <i class='bx bxs-star' ></i>
-                                <i class='bx bxs-star' ></i>
-                                <i class='bx bxs-star' ></i>
-                                <i class='bx bxs-star' ></i>
-                                <i class='bx bxs-star' ></i>
+                            {createRatingStars(getAverageRating(reviews)).map((rating, index) => (
+                                <i className={rating} key={index}></i>
+                            ))}
                             </span>
-                            <span className="ratingCount">0 Reviews</span>
+                            <span className="ratingCount">
+                                {`${getAverageRating(reviews)} (${reviews?.length} ${reviews?.length > 1?"Reviews":"Review"})`}
+                            </span>
                         </div>
                     </div>
                     <div className="carImage">
@@ -123,11 +125,11 @@ const Confirm = () => {
                         </div>
                         <div className="bookingUserItem">
                             <span className="userItemTitle">Age</span>
-                            <input type="text" value={`${user.firstname} ${user.lastname}`}/>
+                            <input type="text" value={`${user.birthdate}`}/>
                         </div>
                         <div className="bookingUserItem">
                             <span className="userItemTitle">Phone number</span>
-                            <input type="text" value={`${user.phonenumber}`}/>
+                            <input type="text" value={`+254${user.phonenumber}`}/>
                         </div>
                         <div className="bookingUserItem">
                             <span className="userItemTitle">Email</span>

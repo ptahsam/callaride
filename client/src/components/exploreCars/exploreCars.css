@@ -284,7 +284,7 @@
 
 .exploreCarsBodyResults
 {
-    flex: 2;
+    flex: 3;
     margin-top: 30px;
     display: grid;
     grid-template-columns: auto auto auto;

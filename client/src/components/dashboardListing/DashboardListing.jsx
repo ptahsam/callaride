@@ -7,7 +7,7 @@ import { useNavigate } from "react-router-dom"
 import Paginate from "../paginate/Paginate"
 import DashboardListingManage from "../dashboardListingManage/DashboardListingManage"
 
-const DashboardListing = ({ activeItem }) => {
+const DashboardListing = ({ activeItem, setActiveItem }) => {
 
   const  { user } = useContext(AuthContext)
   const navigate = useNavigate()
@@ -34,7 +34,7 @@ const DashboardListing = ({ activeItem }) => {
             </>:data?.result?.length > 0?
               data?.result?.map((listing, index) => (
                 <>
-                  <Listing listing={listing} key={index}/>
+                  <Listing listing={listing} setActiveItem={setActiveItem} key={index}/>
                   <div className="horDiv" key={index + 1}></div>
                 </>
               )):<></>
@@ -42,7 +42,7 @@ const DashboardListing = ({ activeItem }) => {
           </div>
           <Paginate handlePageClick={handlePageClick} pageCount={data?.pageCount} />
       </div>
-      <DashboardListingManage />
+      {activeItem.listingid !== null && activeItem.type === 'manage'? <DashboardListingManage activeItem={activeItem} setActiveItem={setActiveItem} listingid={activeItem.listingid}/>:<></>}
     </>
   )
 }

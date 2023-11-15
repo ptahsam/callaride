@@ -69,8 +69,8 @@ const Dashboard = () => {
           </div>
           <div className="dashboardBody">
             <DashboardProfile activeItem={activeItem} />
-            <DashboardBooking activeItem={activeItem} />
-            <DashboardListing activeItem={activeItem} />
+            <DashboardBooking activeItem={activeItem} listingid={activeItem.listingid?activeItem.listingid:''} />
+            <DashboardListing activeItem={activeItem} setActiveItem={setActiveItem} />
           </div>
         </div>
       </div>

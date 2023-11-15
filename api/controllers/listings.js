@@ -98,22 +98,66 @@ export const getPaginatedListings = async (req, res, next) => {
         dailyMin, dailyMax,
         weeklyMin, weeklyMax,
         monthlyMin, monthlyMax, 
+        rating,
         ...others
     } = req.query
     try {
-        const listings = await Listing.find({
-            ...others,
-            listingOwner: owner?owner: { $ne: owner },
-            approvalStatus: approval?approval: { $ne: approval },
-            "carBasicInfo.city": city?city: { $ne: city },
-            "carBasicInfo.carType": type?type: { $ne: type },
-            "carBasicInfo.carBrand": brand?brand: { $ne: brand },
-            "carBasicInfo.carModel": model?model: { $ne: model },
-            "carPricing.hourly_booking.price_per_hour": hourlyMin? { $gt: hourlyMin, $lt: hourlyMax } : {$gte: 0},
-            "carPricing.daily_booking.price_per_day": dailyMin? { $gt: dailyMin, $lt: dailyMax } : {$gte: 0},
-            "carPricing.weekly_booking.price_per_week": weeklyMin? { $gt: weeklyMin, $lt: weeklyMax } : {$gte: 0},
-            "carPricing.monthly_booking.price_per_month": monthlyMin? { $gt: monthlyMin, $lt: monthlyMax } : {$gte: 0},
-        });
+        const listings = await Listing.aggregate(rating && parseInt(rating) > 0?[
+            {
+                $addFields: {
+                    'listingObjId': { "$toString": "$_id" }, 
+                    
+                }
+            },
+            {
+                $lookup: {
+                    from: "reviews",
+                    localField: "listingObjId",
+                    foreignField: "listingId",
+                    as: "reviews"
+                },
+            },
+            {
+                $unwind: '$reviews'
+            },
+            {
+                $addFields: {
+                    "ratingavg": { "$avg": "$reviews.rating" }
+                }
+            },
+            { 
+                $match: {
+                    ...others,
+                    listingOwner: owner?owner: { $ne: owner },
+                    approvalStatus: approval?approval: { $ne: approval },
+                    "carBasicInfo.city": city?city: { $ne: city },
+                    "carBasicInfo.carType": type?type: { $ne: type },
+                    "carBasicInfo.carBrand": brand?brand: { $ne: brand },
+                    "carBasicInfo.carModel": model?model: { $ne: model },
+                    "carPricing.hourly_booking.price_per_hour": hourlyMin? { $gt: parseInt(hourlyMin), $lt: parseInt(hourlyMax) } : {$gte: 0},
+                    "carPricing.daily_booking.price_per_day": dailyMin? { $gt: parseInt(dailyMin), $lt: parseInt(dailyMax) } : {$gte: 0},
+                    "carPricing.weekly_booking.price_per_week": weeklyMin? { $gt: parseInt(weeklyMin), $lt: parseInt(weeklyMax) } : {$gte: 0},
+                    "carPricing.monthly_booking.price_per_month": monthlyMin? { $gt: parseInt(monthlyMin), $lt: parseInt(monthlyMax) } : {$gte: 0},
+                    ratingavg: rating? { $gte: parseInt(rating) } : { $ne: rating }
+                }
+            },
+        ]:[
+            { 
+                $match: {
+                    ...others,
+                    listingOwner: owner?owner: { $ne: owner },
+                    approvalStatus: approval?approval: { $ne: approval },
+                    "carBasicInfo.city": city?city: { $ne: city },
+                    "carBasicInfo.carType": type?type: { $ne: type },
+                    "carBasicInfo.carBrand": brand?brand: { $ne: brand },
+                    "carBasicInfo.carModel": model?model: { $ne: model },
+                    "carPricing.hourly_booking.price_per_hour": hourlyMin? { $gt: parseInt(hourlyMin), $lt: parseInt(hourlyMax) } : {$gte: 0},
+                    "carPricing.daily_booking.price_per_day": dailyMin? { $gt: parseInt(dailyMin), $lt: parseInt(dailyMax) } : {$gte: 0},
+                    "carPricing.weekly_booking.price_per_week": weeklyMin? { $gt: parseInt(weeklyMin), $lt: parseInt(weeklyMax) } : {$gte: 0},
+                    "carPricing.monthly_booking.price_per_month": monthlyMin? { $gt: parseInt(monthlyMin), $lt: parseInt(monthlyMax) } : {$gte: 0},
+                }
+            },
+        ]);
 
         const results = {}
         const pageNo = parseInt(page)
@@ -146,12 +190,50 @@ export const getPaginatedListings = async (req, res, next) => {
 
 export const getRecommendedListings = async (req, res, next) => {
     const {
-        limit
+        limit,owner,
+        city, type, 
+        brand, model,
     } = req.query
 
     try {
         const listings = await Listing.aggregate([
-            {$sort : {viewCount : -1}}
+            {
+                $addFields: {
+                    'listingObjId': { "$toString": "$_id" }, 
+                    
+                }
+            },
+            {
+                $lookup: {
+                    from: "reviews",
+                    localField: "listingObjId",
+                    foreignField: "listingId",
+                    as: "reviews"
+                },
+            },
+            {
+                $unwind: '$reviews'
+            },
+            {
+                $addFields: {
+                    "ratingavg": { "$avg": "$reviews.rating" }
+                }
+            },
+            {
+                $match: {
+                    listingOwner: owner?owner: { $ne: owner },
+                    "carBasicInfo.city": city?city: { $ne: city },
+                    "carBasicInfo.carType": type?type: { $ne: type },
+                    "carBasicInfo.carBrand": brand?brand: { $ne: brand },
+                    "carBasicInfo.carModel": model?model: { $ne: model },
+                }
+            },   
+            {
+                $sort:{
+                    viewCount: -1,
+                    ratingavg: -1,
+                }
+            },    
         ]).limit(parseInt(limit));
         res.status(200).json(listings)
     } catch (err) {

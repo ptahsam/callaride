@@ -66,16 +66,22 @@ export const getPaginatedBookings = async (req, res, next) => {
         owner, 
         listingid,
         approvalstatus,
+        start,end,
         ...others
     } = req.query
     try {
-        const bookings = await Booking.find({
-            ...others,
-            user_id: userid?userid: { $ne: userid },
-            listing_owner_id: owner?owner: { $ne: owner },
-            listing_id: listingid?listingid: { $ne: listingid },
-            approval_status: approvalstatus?approvalstatus: { $ne: approvalstatus }
-        });
+        const bookings = await Booking.aggregate([
+            {
+                $match: {
+                    ...others,
+                    "createdAt": { "$gte": new Date(start), "$lt": new Date(end)},
+                    user_id: userid?userid: { $ne: userid },
+                    listing_owner_id: owner?owner: { $ne: owner },
+                    listing_id: listingid?listingid: { $ne: listingid },
+                    approval_status: approvalstatus?approvalstatus: { $ne: approvalstatus }
+                }
+            }
+        ]);
 
         const results = {}
         const pageNo = parseInt(page)

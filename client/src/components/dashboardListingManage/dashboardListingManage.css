@@ -1,0 +1,265 @@
+.dashboardListingManage
+{
+    display: flex;
+    flex-direction: column;
+}
+
+.dashboardListingManageHeader
+{
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+.listingHeaderBack
+{
+    display: flex;
+    align-items: center;
+    font-size: 16px;
+    font-weight: 100;
+    color: var(--theme-color9);
+    cursor: pointer;
+}
+
+.listingManageHeaderTitle .title
+{
+    font-size: 32px;
+    font-weight: 900;
+}
+
+.listingManageHeaderOptions
+{
+    display: flex;
+    align-items: center;
+    gap: 15px;
+}
+
+.listingManageHeaderOptions .sepV
+{
+    height: 15px;
+    width: 2px;
+    background-color: var(--lighter-color6);
+}
+
+.listingManageHeaderOptions select
+{
+    padding: 7px 15px;
+    border-radius: 3px;
+    border: 0.0125em solid var(--light-color);
+    font-size: 15px;
+    font-weight: 500;
+}
+
+.listingManageHeaderOptions select.active
+{
+    color: var(--theme-color9);
+}
+
+.listingManageHeaderOptions select.inactive
+{
+    color: var(--red-color1);
+}
+
+.listingManageHeaderOptions select option.active
+{
+    color: var(--theme-color9);
+}
+
+.listingManageHeaderOptions select option.inactive
+{
+    color: var(--red-color1);
+}
+
+.listingManageHeaderOptions select:hover,
+.listingManageHeaderOptions select:focus
+{
+    outline: none;
+}
+
+.optionItem
+{
+    font-size: 15px;
+    font-weight: 200;
+}
+
+.optionItem.inreview
+{
+    color: var(--theme-color7);
+}
+
+.optionItem.approved
+{
+    color: var(--theme-color9);
+}
+
+.optionItem.rejected
+{
+    color: var(--red-color1);
+}
+
+.optionItem.view
+{
+    color: var(--theme-color4);
+}
+
+.optionItem.view:hover
+{
+    text-decoration: underline;
+    cursor: pointer;
+}
+
+.dashboardListingManageBody
+{
+    display: flex;
+    flex-direction: column;
+    margin-top: 20px;
+}
+
+.dashbaordListingManageBodyHeader
+{
+    border-bottom: 0.0125em solid var(--light-color);
+    display: flex;
+    align-items: center;
+    gap: 40px;
+}
+
+.dashbaordListingManageBodyHeader .dashbaordListingManageBodyHeaderItem
+{
+    font-size: 16px;
+    font-weight: 200;
+    color: var(--lighter-color6);
+    cursor: pointer;
+}
+
+.dashbaordListingManageBodyHeader .dashbaordListingManageBodyHeaderItem.active,
+.dashbaordListingManageBodyHeader .dashbaordListingManageBodyHeaderItem:hover
+{
+    color: var(--theme-color6);
+}
+
+.dashbaordListingManageBodyHeader .dashbaordListingManageBodyHeaderItem.active::after
+{
+    content: '';
+    display: block;
+    height: 2px;
+    width: 100%;
+    background: var(--theme-color6);
+}
+
+.manageListingContent
+{
+    margin-top: 20px;
+    display: flex;
+    gap: 15px;
+}
+
+.listingContentItem
+{
+    flex: 2;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.listingContentItemHeader
+{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.listingContentItemHeader .title
+{
+    font-size: 18px;
+    font-weight: 700;
+}
+
+.listingContentItemHeader .editBtn
+{
+    padding: 3px 15px;
+    border: 0.0125em solid var(--theme-color9);
+    color: var(--theme-color9);
+    cursor: pointer;
+}
+
+.listingContentItemDetails.hasBorder
+{
+    border-bottom: 1px solid var(--light-color);
+    padding-bottom: 30px;
+}
+
+.listingContentItemHeader .editBtn:hover
+{
+    background-color: var(--theme-color9);
+    color: var(--white-color);
+}
+
+.listingContentItemDetails.photos .listingContentItemBody
+{
+    position: relative;
+    margin-top: 10px;
+    margin-right: 50px;
+    display: grid;
+    grid-template-columns: auto auto auto;
+    grid-row-gap: 20px;
+}
+
+.listingContentItemDetails.photos .listingContentItemBody .cardPhoto
+{
+    width: 200px;
+    height: 150px;
+}
+
+.listingContentItemDetails.photos .listingContentItemBody .cardPhoto img
+{
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.listingContentItemDetails.photos .listingContentItemBody .countExtra
+{
+    position: absolute;
+    bottom: 55px;
+    right: 100px;
+    font-size: 32px;
+    font-weight: 700;
+    color: var(--white-color);
+}
+
+.listingContentItemDetails.basicDetails .listingContentItemBody
+{
+    display: flex;
+    gap: 100px;
+}
+
+.basicInfoDetails,
+.basicInfoDetailsValues
+{
+    display: flex;
+    flex-direction: column;
+    gap: 3px;
+}
+
+.basicInfoDetails span,
+.basicInfoDetailsValues span
+{
+    font-size: 16px;
+    font-weight: 400;
+}
+
+.basicInfoDetailsValues span
+{
+    font-weight: 200;
+    color: var(--lighter-color6);
+}
+
+.listingContentItemInfo
+{
+    flex: 1;
+}
+
+.no-show
+{
+    display: none;
+}

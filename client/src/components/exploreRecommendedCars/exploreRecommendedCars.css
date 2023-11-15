@@ -12,6 +12,7 @@
     display: flex;
     flex-direction: column;
     gap: 5px;
+    width: 100%;
 }
 
 .exploreRecommendedHeader span
@@ -21,10 +22,39 @@
     color: var(--black-color8);
 }
 
+.exploreRecommendedHeaderDiv
+{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+}
+
 .exploreRecommendedHeader h1
 {
     font-size: 40px;
     font-weight: 300;
+}
+
+.exploreRecommendedItemsNavs
+{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 20px;
+}
+
+.exploreRecommendedItemsNavs .NavItem
+{
+    height: 35px;
+    width: 35px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: var(--theme-color);
+    cursor: pointer;
+    color: var(--white-color);
 }
 
 .exploreRecommendedBody

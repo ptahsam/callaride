@@ -2,11 +2,14 @@ import { useEffect, useState } from "react";
 import "./bookingCard.css"
 import axios from "axios";
 import { format, parseISO } from "date-fns"
+import useFetch from "../../../hooks/useFetch";
+import { createRatingStars, getAverageRating } from "../../utils/helper";
 
 const BookingCard = ({ booking }) => {
 
   const [listing, setListing] = useState() 
   const [person, setPerson] = useState() 
+  const { data, loading, error } = useFetch(`/reviews?listing=${booking.listing_id}`) 
 
   useEffect(() => {
     const fetchListing = async () => {
@@ -39,13 +42,11 @@ const BookingCard = ({ booking }) => {
                     </span>
                     <div className="listingRating">
                         <span className="rating">
-                            <i class='bx bxs-star'></i>
-                            <i class='bx bxs-star'></i>
-                            <i class='bx bxs-star'></i>
-                            <i class='bx bxs-star'></i>
-                            <i class='bx bxs-star'></i>
+                        {createRatingStars(getAverageRating(data)).map((rating, index) => (
+                            <i className={rating} key={index}></i>
+                        ))}
                         </span>
-                        <span className="count">5.0(3 Reviews)</span>
+                        <span className="count">{getAverageRating(data)} {`(${data?.length} Reviews)`}</span>
                     </div>
                 </div>
             </div>
@@ -87,11 +88,11 @@ const BookingCard = ({ booking }) => {
                     <div className="bookingCardDurationBodyItems">
                         <span className="bookingDurationItem">
                             <span className="itemTitle">Starting at : </span>
-                            <span className="itemValue">{format(parseISO(new Date(Date.parse(booking.start_date)).toISOString()), "MMMM dd, yyyy")}</span>
+                            <span className="itemValue">{format(parseISO(new Date(Date.parse(booking.start_date)).toISOString()), "MMMM dd, yyyy H:is a")}</span>
                         </span>
                         <span className="bookingDurationItem">
                             <span className="itemTitle">Ending at : </span>
-                            <span className="itemValue">{format(parseISO(new Date(Date.parse(booking.end_date)).toISOString()), "MMMM dd, yyyy")}</span>
+                            <span className="itemValue">{format(parseISO(new Date(Date.parse(booking.end_date)).toISOString()), "MMMM dd, yyyy H:is a")}</span>
                         </span>
                     </div>
                 </div>

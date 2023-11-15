@@ -53,7 +53,8 @@ const ListCarForm = () => {
     'carSpecs': {},
     'carPickUpAddress': {},
     'carCancellationPolicy': {},
-    'approvalStatus': ''
+    'approvalStatus': '',
+    'status': 'active'
   });
 
   const { data, loading, error } = useFetch(`/brand`) 

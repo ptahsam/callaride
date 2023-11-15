@@ -23,7 +23,7 @@
 {
     display: flex;
     align-items: center;
-    gap: 15px;
+    gap: 10px;
 }
 
 .dashboardBookingItem
@@ -55,11 +55,44 @@
     gap: 15px;
 }
 
+.dashboardBookingItem.number
+{
+    width: 70px;
+    display: flex;
+    justify-content: center;
+}
+
+.dashboardBookingItem.number input
+{
+    width: 40px;
+}
+
 .dashboardBookingItem.input .vDiv
 {
     height: 20px;
     width: 1px;
     background-color: var(--lighter-color6);
+}
+
+.dashboardBookingBody
+{
+    text-align: center;
+}
+
+.dashboardBookingBody p
+{
+    margin-top: 20px;
+    margin-bottom: 20px;
+}
+
+.dashboardBookingBody p.loading
+{
+    color: var(--theme-color6);
+}
+
+.dashboardBookingBody p.no-data
+{
+    color: var(--red-color1);
 }
 
 .no-show

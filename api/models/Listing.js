@@ -194,6 +194,9 @@ const ListingSchema = new mongoose.Schema(
         approvalStatus: {
             type: String,
         },
+        status: {
+            type: String,
+        }
     },
     { timestamps: true }
 );

@@ -78,3 +78,34 @@
 {
     background-color: var(--theme-color1);
 }
+
+@media (max-width: 480px) 
+{
+
+    .sectionContainer
+    {
+        padding-top: 0;
+        width: 100%;
+        max-width: calc(100vw - 40px);
+        display: flex;
+        justify-content: center;
+        margin-left: auto;
+        margin-right: auto;
+        flex-direction: column;
+    }
+
+}
+
+@media (max-width : 768px) 
+{
+
+    .sectionContainer
+    {
+        display: flex;
+        justify-content: center;
+        margin: 40px;
+        padding-top: 0;
+        width: 100%;
+        max-width: calc(100vw - 40px);
+    }
+}

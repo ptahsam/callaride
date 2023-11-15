@@ -1,7 +1,13 @@
-import { Link } from "react-router-dom"
+import { Link, useNavigate } from "react-router-dom"
 import "./carCard.css"
+import { createRatingStars, getAverageRating } from "../../utils/helper"
+import useFetch from "../../../hooks/useFetch"
 
 const CarCard = ({ car }) => {
+
+  const { data, loading, error } = useFetch(`/reviews?listing=${car._id}`) 
+  const navigate = useNavigate();
+
   return (
     <div className='carCard'>
         <div className="carCardHeader">
@@ -14,19 +20,18 @@ const CarCard = ({ car }) => {
             </div>
         </div>
         <div className="carCardBody">
-          <span className="carTitle">{car.carBasicInfo.carName}</span>
+          <span className="carTitle" onClick={() => navigate(`/listings/${car._id}`)}>{car.carBasicInfo.carName}</span>
           <div className="carRentalRates">
-            <span className="daily">$ {car.carPricing.daily_booking.price_per_day} / <em>Day</em></span>
-            <span className="hourly">$ {car.carPricing.hourly_booking.price_per_hour} / <em>Hr</em></span>
+            <span className="daily">KES {car.carPricing.daily_booking.price_per_day} / <em>Day</em></span>
+            <span className="hourly">KES {car.carPricing.hourly_booking.price_per_hour} / <em>Hr</em></span>
           </div>
           <div className="carRating">
             <span className="ratedStars">
-              <i class='bx bxs-star' ></i>
-              <i class='bx bxs-star' ></i>
-              <i class='bx bxs-star' ></i>
-              <i class='bx bxs-star' ></i>
-              <i class='bx bxs-star' ></i>
+              {createRatingStars(getAverageRating(data)).map((rating, index) => (
+                  <i className={rating} key={index}></i>
+              ))}
             </span>
+            <span className="reviewCarCount">{`${getAverageRating(data)} (${data.length})`}</span>
           </div>
           <Link to={`/listings/${car._id}`} className="carLink">
             <div className="rentCarBtn">

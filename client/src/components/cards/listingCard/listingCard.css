@@ -198,6 +198,12 @@
     color: var(--theme-color6);
 }
 
+.listingInfoBodyItem.booking span:hover
+{
+    cursor: pointer;
+    text-decoration: underline;
+}
+
 .listingInfoBodyItem.view i
 {
     color: var(--theme-color7);

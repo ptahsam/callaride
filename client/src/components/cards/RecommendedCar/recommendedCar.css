@@ -43,28 +43,27 @@
 .recommendedCarRating 
 {
     display: flex;
-    flex-direction: row;
-    justify-content: flex-start;
-    gap: 10px;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 5px;
 }
 
 .recommendedCarRating .recommendedRatedStars
 {
     display: flex;
     align-items: center;
-    gap: 7px;
 }
 
 .recommendedCarRating .recommendedRatedStars i
 {
-    font-size: larger;
-    color: var(--light-color);
+    font-size: 18px;
+    color: var(--theme-color7);
 }
 
 .recommendedRatedStarsCount
 {
-    font-weight: 300;
-    font-size: 18px;
+    font-weight: 100;
+    font-size: 13px;
     color: var(--black-color1);
 }
 
@@ -73,17 +72,18 @@
     display: flex;
     align-items: flex-end;
     gap: 5px;
+    justify-content: flex-start;
 }
 
 .recommendedCarPricing span
 {
-    font-size: 16px;
+    font-size: 14px;
     font-weight: 300;
 }
 
 .recommendedCarPricing h2
 {
-    font-size: 18px;
+    font-size: 16px;
     font-weight: 600;
 }
 

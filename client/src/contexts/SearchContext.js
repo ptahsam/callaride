@@ -1,8 +1,9 @@
 import { createContext, useEffect, useReducer } from "react";
 
 const INITIAL_STATE = {
-  city: JSON.parse(localStorage.getItem("search"))?.city || undefined,
+  place: JSON.parse(localStorage.getItem("search"))?.place || undefined,
   car_type: JSON.parse(localStorage.getItem('search'))?.car_type || undefined,
+  car_brand: JSON.parse(localStorage.getItem('search'))?.car_brand || undefined,
   dates: JSON.parse(localStorage.getItem("search"))?.dates || {},
 };
 
@@ -23,14 +24,15 @@ export const SearchContextProvider = ({ children }) => {
   const [state, dispatch] = useReducer(SearchReducer, INITIAL_STATE);
 
   useEffect(() => {
-    localStorage.setItem("search", JSON.stringify({city: state.location, car_type: state.car_type, dates: state.dates}));
+    localStorage.setItem("search", JSON.stringify({place: state.location, car_type: state.car_type, car_brand: state.car_brand, dates: state.dates}));
   }, [state]);
 
   return (
     <SearchContext.Provider
       value={{
-        city: state.location,
+        place: state.location,
         car_type: state.car_type,
+        car_brand: state.car_brand,
         dates: state.dates,
         dispatch,
       }}

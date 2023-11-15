@@ -27,10 +27,11 @@ const Navbar = ({ type }) => {
                 </div>
             </NavLink>
             <div className="navLinks">
-                <a href="/"><span className={type === "home"?"active":""}>Home</span></a>
-                <a href="/popular"><span className={type === "popular"?"active":""}>Popular</span></a>
-                <a href="/explore"><span className={type === "explore"?"active":""}>Explore</span></a>
-                <a href="/listcar"><span className={type === "listcar"?"active":""}>List your car</span></a>
+                <a className="navLink" href="/"><span className={type === "home"?"active":""}>Home</span></a>
+                <a className="navLink" href="/explore"><span className={type === "explore"?"active":""}>Explore</span></a>
+                <a className="navLink" href="/listcar"><span className={type === "listcar"?"active":""}>List your car</span></a>
+                <a className="navLink" href="/contact"><span className={type === "contact"?"active":""}>Contact Us</span></a>
+                <a className="navLink" href="/about"><span className={type === "about"?"active":""}>About Us</span></a>
                 <div className="navbarMenu">
                     {user? 
                     <div className="userProfile" onClick={(e) => toggleNavbarMenuItems((prev) => (!prev))}>

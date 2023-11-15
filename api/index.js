@@ -7,6 +7,7 @@ import vendorRoute from "./routes/vendor.js"
 import listingRoute from "./routes/listing.js"
 import bookingRoute from "./routes/booking.js"
 import brandRoute from "./routes/brand.js"
+import reviewRoute from "./routes/review.js"
 import cookieParser from "cookie-parser"
 import cors from "cors"
 
@@ -33,6 +34,7 @@ app.use("/api/vendors", vendorRoute);
 app.use("/api/brand", brandRoute);
 app.use("/api/listings", listingRoute);
 app.use("/api/bookings", bookingRoute);
+app.use("/api/reviews", reviewRoute);
 
 app.use((err, req, res, next) => {
     const errorStatus = err.status || 500

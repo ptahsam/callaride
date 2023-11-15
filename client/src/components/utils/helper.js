@@ -27,5 +27,79 @@ export const getDatesInRange = (startDate, endDate) => {
   return dates;
 }
 
+export const getAverageRating = (reviews) => {
+  if(reviews.length > 0){
+      let total = 0;
+      for(let review of reviews){
+          total = parseInt(total) + parseInt(review.rating)
+      }
+      return parseInt(total) / parseInt(reviews.length)
+  }else{
+      return 0
+  }
+}
+
+export const createRatingStars = (count) => {
+  if (Math.floor(count) == 0){
+     return [
+          'bx bx-star',
+          'bx bx-star',
+          'bx bx-star',
+          'bx bx-star',
+          'bx bx-star'
+      ];
+  }
+
+  if (Math.floor(count) == 1){
+      return [
+          'bx bxs-star',
+          'bx bx-star',
+          'bx bx-star',
+          'bx bx-star',
+          'bx bx-star'
+      ];
+  }
+
+  if (Math.floor(count) == 2){
+      return [
+          'bx bxs-star',
+          'bx bxs-star',
+          'bx bx-star',
+          'bx bx-star',
+          'bx bx-star'
+      ];
+  }
+  
+  if (Math.floor(count) == 3){
+      return [
+          'bx bxs-star',
+          'bx bxs-star',
+          'bx bxs-star',
+          'bx bx-star',
+          'bx bx-star'
+      ];
+  }
+
+  if (Math.floor(count) == 4){
+      return [
+          'bx bxs-star',
+          'bx bxs-star',
+          'bx bxs-star',
+          'bx bxs-star',
+          'bx bx-star'
+      ];
+  }
+
+  if (Math.floor(count) == 5){
+      return [
+          'bx bxs-star',
+          'bx bxs-star',
+          'bx bxs-star',
+          'bx bxs-star',
+          'bx bxs-star'
+      ];
+  }
+}
+
 export const hasValues = (obj) => Object.values(obj).every(v => v !== null && typeof v !== "undefined" && v !== '' && v != 0);
 export const getModel = (brands, val) => brands.filter((el) => el._id === val); 

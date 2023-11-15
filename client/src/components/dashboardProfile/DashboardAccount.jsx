@@ -99,7 +99,7 @@ const DashboardAccount = ({ activeItem }) => {
               </div>
               <div className="accountDetailsInfoItem">
                 <label>Birth Date</label>
-                <span>{user?format(new Date(`${user?.birthdate}`), 'yyyy-MM-dd'):""}</span>
+                <span></span>
               </div>
             </div>
           </div>

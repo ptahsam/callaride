@@ -1,13 +1,12 @@
-import { useState } from "react"
+import { useContext, useEffect, useState } from "react"
+import { useMediaQuery } from 'react-responsive'
 import useFetch from "../../hooks/useFetch"
 import FeaturedBrandCard from "../cards/Brand/FeaturedBrandCard/FeaturedBrandCard"
 import "./featuredBrand.css"
-import { max } from "date-fns"
-import { useNavigate } from "react-router-dom"
 
 const FeaturedBrand = () => {  
-
-  const [featuredBrandIndex, setFeaturedBrandIndex] = useState({min: 0, max: 4});  
+  const [isMobile, setIsMobile] = useState(useMediaQuery({ query: '(max-width: 480px)' }))
+  const [featuredBrandIndex, setFeaturedBrandIndex] = useState({min: 0, max: isMobile?1:4});  
 
   const { data, loading, error } = useFetch(`/brand`) 
 
@@ -18,10 +17,22 @@ const FeaturedBrand = () => {
   }
 
   const handleNext = () => {
-    if(featuredBrandIndex.max >= 4 && featuredBrandIndex.max < data.length){
+    if(featuredBrandIndex.max >= isMobile?1:4 && featuredBrandIndex.max < data.length){
         setFeaturedBrandIndex((prev) => ({min: (prev.min + 1), max: (prev.max + 1)}))
     }
   }
+
+  const handleResize = () => {
+    if (window.innerWidth <= 480) {
+        setIsMobile(true)
+    } else {
+        setIsMobile(false)
+    }
+  }
+  
+  useEffect(() => {
+    window.addEventListener("resize", handleResize)
+  }, [])
   
   return (
     <div className="featuredBrand">
@@ -35,7 +46,7 @@ const FeaturedBrand = () => {
                     {loading?<>
                         <>Loading</>
                     </>:data.slice(featuredBrandIndex.min, featuredBrandIndex.max).map((brand, index)=>(
-                        <FeaturedBrandCard key={brand._id} brand={brand} />
+                        <FeaturedBrandCard key={index} brand={brand}/>
                     ))} 
                 </div>
                 <div className="featuredBrandItemsNavs">

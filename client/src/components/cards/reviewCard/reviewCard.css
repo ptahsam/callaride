@@ -1,0 +1,64 @@
+.reviewCard
+{
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.reviewCardContainer
+{
+    display: flex;
+    gap: 10px;
+}
+
+.reviewCardImg
+{
+    height: 40px;
+    width: 40px;
+}
+
+.reviewCardImg img
+{
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    border-radius: 50%;
+}
+
+.reviewCardDetails
+{
+    display: flex;
+    flex-direction: column;
+}
+
+.reviewCardDetails .name
+{
+    font-size: 16px;
+    font-weight: 700;
+}
+
+.reviewCardDetails .rating
+{
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.reviewCardDetails .rating .ratingStars i
+{
+    font-size: 16px;
+    color: var(--theme-color7);
+}
+
+.reviewCardDetails .rating .ratingCount
+{
+    font-weight: 900;
+}
+
+.reviewCard .desc p
+{
+    font-size: 13px;
+    font-weight: 100;
+    color: var(--lighter-color6);
+    font-style: italic;
+}

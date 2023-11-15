@@ -1,7 +1,6 @@
 import { useContext, useEffect, useRef, useState } from "react";
 import { Range } from "react-range";
 import Car from "../cards/Car/CarCard";
-import RecommendedCar from "../cards/RecommendedCar/RecommendedCar";
 import "./exploreCars.css"
 import { carTypes } from "../utils/carTypes";
 import useFetch from "../../hooks/useFetch";
@@ -10,16 +9,18 @@ import { getModel } from "../utils/helper";
 import { useLocation } from "react-router-dom";
 import Paginate from "../paginate/Paginate";
 import ExploreRecommendedCars from "../exploreRecommendedCars/ExploreRecommendedCars";
+import { SearchContext } from "../../contexts/SearchContext";
 
 const ExploreCars = () => {
 
   const location = useLocation();
+  const { place, car_type, car_brand } = useContext(SearchContext)
 
   const approvalStatus = 'submitted_for_review';
 
   const [page, setPage] = useState(1)
   const [limit, setLimit] = useState(6)
-  const [city, setCity] = useState('')
+  const [city, setCity] = useState(place?place: '')
   const [carBrands, setCarBrands] = useState('');
   const [selectedCarBrand, setSelectedCarBrand] = useState(null); 
   const [rating, setRating] = useState(0)
@@ -27,15 +28,27 @@ const ExploreCars = () => {
   const [dailyBudget, setDailyBudget] = useState({values: [0, 1000000]})
   const [weeklyBudget, setWeeklyBudget] = useState({values: [0, 1000000]})
   const [monthlyBudget, setMonthlyBudget] = useState({values: [0, 1000000]})
-  const [carType, setCarType] = useState('')
-  const [carBrand, setCarBrand] = useState(location.state?.brandid || '')
+  const [carType, setCarType] = useState(car_type?car_type: '')
+  const [carBrand, setCarBrand] = useState(car_brand?car_brand: '')
   const [carModel, setCarModel] = useState('')
   const [filterFrequency, setFilterFrequency] = useState('day')
-  const { data, loading, error } = useFetch(`/listings/paginated?approval=${approvalStatus}&city=${city}&type=${carType}&brand=${carBrand}&model=${carModel}&hourlyMin=${hourlyBudget.values[0]}&hourlyMax=${hourlyBudget.values[1]}&dailyMin=${dailyBudget.values[0]}&dailyMax=${dailyBudget.values[1]}&weeklyMin=${weeklyBudget.values[0]}&weeklyMax=${weeklyBudget.values[1]}&monthlyMin=${monthlyBudget.values[0]}&monthlyMax=${monthlyBudget.values[1]}&page=${page}&limit=${limit}`)
+  const { data, loading, error } = useFetch(`/listings/paginated?approval=${approvalStatus}&city=${city}&type=${carType}&brand=${carBrand}&model=${carModel}&hourlyMin=${hourlyBudget.values[0]}&hourlyMax=${hourlyBudget.values[1]}&dailyMin=${dailyBudget.values[0]}&dailyMax=${dailyBudget.values[1]}&weeklyMin=${weeklyBudget.values[0]}&weeklyMax=${weeklyBudget.values[1]}&monthlyMin=${monthlyBudget.values[0]}&monthlyMax=${monthlyBudget.values[1]}&rating=${rating}&page=${page}&limit=${limit}`)
 
   const cityInputRef = useRef(null);
   const carTypeSelectRef = useRef(null);
   const carBrandRef = useRef(null);
+
+  useEffect(() => {
+    cityInputRef.current.value = city
+  },[place])
+  
+  useEffect(() => {
+    carTypeSelectRef.current.value = carType
+  },[car_type])
+
+  useEffect(() => {
+    carBrandRef.current.value = carBrand
+  },[carBrand])
 
   const handlePageClick = (e) => {
     setPage(e.selected + 1)
@@ -49,7 +62,7 @@ const ExploreCars = () => {
     setCarType(el)
   }
 
-  const handleCarBrand = (el) => {
+  const handleCarBrand = (el) => {  
     setCarBrand(el)
   }
 
@@ -80,6 +93,8 @@ const ExploreCars = () => {
       setSelectedCarBrand(getModel(carBrands, carBrand))
     }
   },[carBrand]);
+
+  console.log(carBrand)
 
   return (
     <div className="exploreCars">
@@ -351,13 +366,13 @@ const ExploreCars = () => {
             <div className="exploreCarsBodyResults">
               {loading ? <>
                 <p>Loading</p>
-              </> : data?.result?.map((listing, index) => (
+              </>: data?.result?.length > 0? data?.result?.map((listing, index) => (
                 <Car car={listing} key={index} />
-              ))}
+              )): <p>No data found for your search</p>}
             </div>
         </div>
         <Paginate handlePageClick={handlePageClick} pageCount={data?.pageCount}/>
-        <ExploreRecommendedCars />
+        <ExploreRecommendedCars owner={null} city={null} type={null} brand={null} model={null} />
       </div>
     </div>
   )
